@@ -55,6 +55,9 @@
         Write-Host "$($key.name) = $($key.value)"
     }
 
+## See Current Session Variables ##
+    Get-Variable 
+    Get-Variable | Out-String
 
 ## Manage Certificates ##
 ### Complete CSR Request ###
@@ -67,3 +70,37 @@
     Copy c:\temp\cert.pfx \\remotesrv\c$\temp\cert.pfx
     etsn remotesrv
     Import-PfxCertificate -FilePath c:\temp\cert.pfx -CertStoreLocation Cert:\LocalMachine\My -Password (Read-Host "enter pw" -AsSecureString)
+
+## General Admin ##
+
+### DNS ###
+see how long a dns name has before ttl expires
+    
+    Resolve-Dns <name>
+
+## Tail a File ##
+
+*Get the tail of a file*
+
+    Get-Content -tail 100
+    # continues to wait for new input
+    Get-Content -tail 100 -wait 
+
+## Remote Session Stuff ##
+
+    $session = new-pssession <computer>
+    copy-item <source> <dest_on_remote> -tosession $session
+    invoke-command $session {command}
+    icm $session {command}
+
+## Get available Aliases ##
+
+`get-alias`
+
+## Verify script is run as admin ##
+
+    # Requires-RunAsAdministrator
+
+## Record Everything ##
+
+`start-transcript`
