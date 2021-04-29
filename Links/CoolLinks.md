@@ -5,6 +5,8 @@
 * [Distributed Computing for Young Bloods](https://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/)
 * [Ops School Cirriculum](https://www.opsschool.org/)
 
+### PowerShell ###
+* [Kevin Marquette PowerShell 'Explained' Blog](https://powershellexplained.com/)
 ### Cool Computer People ###
 * [Netmeister ze cool architect](https://www.netmeister.org/)
 

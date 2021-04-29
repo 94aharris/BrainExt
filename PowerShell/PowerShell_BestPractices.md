@@ -38,3 +38,9 @@ Version meanings
   * Prohibit out of bounds or unresolvable array indexes.
 * Latest
   * Selects the latest version available. The latest version is the most strict. Use this value to make sure that scripts use the strictest available version, even when new versions are added to PowerShell.
+
+
+## Links ##
+* [PowerShell Functions Best Practices](http://ramblingcookiemonster.github.io/Building-PowerShell-Functions-Best-Practices/)
+* [MS DevBlog Functions Best Practices](https://devblogs.microsoft.com/scripting/powershell-best-practices-advanced-functions/)
+* [Add What-If and Confirm Support to PS Scripts](https://bcthomas.com/2019/01/adding-whatif-and-confirm-parameters-to-your-powershell/)

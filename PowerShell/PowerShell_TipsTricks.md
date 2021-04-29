@@ -104,3 +104,72 @@ see how long a dns name has before ttl expires
 ## Record Everything ##
 
 `start-transcript`
+
+## Param Stuff ##
+
+* *Inherit all the -debug, -verbose, param goodness*
+  * `[CmdletBinding()]`
+* *Make a param Mandatory*
+  * `[Parameter(Mandatory=$true)]`
+* *Param must match a defined set of values*
+  * `[ValidateSet('value','value2')]`
+* *Make sure param not null*
+  * `[ValidateNotNullOrEmpty()]`
+
+
+## Lets make an object ## 
+
+*Make a dictionary of properties and values and use to create a powershell object*
+
+    $props = @{
+        location = 'USA'
+        color = 'blue'
+    }
+
+    $obj = New-Object -type psobject -Property $props
+    $obj.color
+    > blue
+
+    # Same Same but different
+    $myobj = [pscustomobject]@{
+        location = 'USA'
+        color = 'blue'
+    }
+
+## Save an Object for later then get it back
+
+*Save an object into json, then get it back*
+
+    # make the object
+    $myobj = [pscustomobject]@{
+        location = 'usa'
+        color = 'blue'
+        favorites = @{
+            food = 'pizza'
+            drink = 'tea'
+        }
+    }
+
+    # Drop into a json file
+    $myobj | convertto-json -depth 5 | out-file 'obj.json'
+
+    # Get it back, -raw is critical
+    $newObj = get-content 'obj.json' -raw | convertfrom-json 
+
+    $newObj.favorites.food
+    > pizza
+
+## Object Properties and Converting to Hashtable ##
+*Look at detailed object properties*
+
+`$myObject.psobject.psobject.properties`
+
+*convert to hashtable*
+
+    # Create a PSCustomObject (ironically using a hashtable)
+    $ht1 = @{ A = 'a'; B = 'b'; DateTime = Get-Date }
+    $theObject = new-object psobject -Property $ht1
+
+    # Convert the PSCustomObject back to a hashtable
+    $ht2 = @{}
+    $theObject.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
