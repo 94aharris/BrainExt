@@ -13,3 +13,13 @@
  
  # Random Quotes #
  * "Complex systems fail in complex ways" (Bellovin)
+
+# Random How To..#
+## Avoid 'Second System Syndrome'
+* Software is living and you can't forsee all futures
+* relentlessly cut design features you don't need
+* write enough to solve the problem, make it easy to test, then test the fsck out of it!
+* Chase the MVP, create the basics and iterate
+* Wherever possible, Refactor instead of rewrite
+* Don't try to make everything better at the same time, define an area to be improved in the next version and do that
+* It is much better to underpromise and over DELIVER
