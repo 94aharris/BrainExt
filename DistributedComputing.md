@@ -17,3 +17,7 @@
   * Every request receives a (non-error) response, without the guarantee that it contains the most recent write
 * Partition Tolerance
   * The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes
+
+## Resources ##
+* [Distributed Systems Lecture](https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB)
+* [System Design Primer](https://github.com/donnemartin/system-design-primer)
