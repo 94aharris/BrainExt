@@ -39,9 +39,3 @@ Version meanings
 * Latest
   * Selects the latest version available. The latest version is the most strict. Use this value to make sure that scripts use the strictest available version, even when new versions are added to PowerShell.
 
-
-## Links ##
-* [PowerShell Functions Best Practices](http://ramblingcookiemonster.github.io/Building-PowerShell-Functions-Best-Practices/)
-* [MS DevBlog Functions Best Practices](https://devblogs.microsoft.com/scripting/powershell-best-practices-advanced-functions/)
-* [Add What-If and Confirm Support to PS Scripts](https://bcthomas.com/2019/01/adding-whatif-and-confirm-parameters-to-your-powershell/)
-* [PowerShell Gallery Publishing Guidelines and Best Practices](https://docs.microsoft.com/en-us/powershell/scripting/gallery/concepts/publishing-guidelines?view=powershell-7.1)
