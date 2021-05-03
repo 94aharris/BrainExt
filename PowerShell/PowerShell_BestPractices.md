@@ -39,3 +39,39 @@ Version meanings
 * Latest
   * Selects the latest version available. The latest version is the most strict. Use this value to make sure that scripts use the strictest available version, even when new versions are added to PowerShell.
 
+## Performance ##
+* PowerShell is quirky If you're aware of multiple techniques to accomplish something, and you're writing a production script that will be dealing with large data sets (meaning performance will become a cumulative factor), then test the performance using Measure-Command or some other tool.
+
+## Function Begin,Process,End ##
+
+Functions can accept multiple values down a pipeline, begin, process, and end are used to perform function tasks.
+Begin - done once before any processing on objects down the pipeline
+Process - done for each of the objects pushed down the pipeline
+End - done for cleanup at the end
+
+`get-childitem | write-logstuff`
+
+
+    function write-logstuff {
+      param {
+        # parameters here
+      }
+      begin {
+        # do setup like making sure the output file for the log exists
+      }
+      process {
+        # write each of the items into the log we confirmed exists
+      }
+      end {
+        # close out the file or do final processing
+      }
+    }
+
+
+## Use CIM not WMI ##
+
+* WMI is being depreciated :/  
+* [WMI Depreciation](https://blog.ipswitch.com/get-ciminstance-vs-get-wmiobject-whats-the-difference)
+
+    $vols = Get-CimInstance -ClassName Win32_Volume
+    $vols[0].CimInstanceProperties | Select-Object Name,Value

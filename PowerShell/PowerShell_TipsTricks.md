@@ -136,6 +136,10 @@ see how long a dns name has before ttl expires
         color = 'blue'
     }
 
+## See all Object Properties ##
+* See all properties on an object
+* `\<theobject\>.psobject.Properties`
+  
 ## Save an Object for later then get it back
 
 *Save an object into json, then get it back*
@@ -173,3 +177,25 @@ see how long a dns name has before ttl expires
     # Convert the PSCustomObject back to a hashtable
     $ht2 = @{}
     $theObject.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
+
+
+## Get Drives ##
+* use `Get-PSDrive` to get all drives and virtual drives
+* use `Get-PSDrive -PSProvider 'FileSystem' to only get file drives` 
+
+## Measure command time ##
+* When you know multiple implementations of something, check the performance using `Measure-Command`
+
+        Measure-Command { Get-PSDrive -PSProvider 'FileSystem'}
+        #output here
+        Measure-Command { Get-Drive }
+        # output here
+    
+
+## Get CIM Values ##
+* You have to get into the CIM Properties and specifically extract the name and value
+  
+        $vols = Get-CimInstance -ClassName Win32_Volume
+        $vols[0].CimInstanceProperties | Select-Object Name,Value
+
+* Get specifics on all CIM Properties at [PowerShell one](https://powershell.one/wmi/root/cimv2)
