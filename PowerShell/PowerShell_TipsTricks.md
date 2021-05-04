@@ -115,18 +115,44 @@ see how long a dns name has before ttl expires
   * `[ValidateSet('value','value2')]`
 * *Make sure param not null*
   * `[ValidateNotNullOrEmpty()]`
+* *Create Parameter Sets*
+  * Use a 'DefaultParameterSetName' that doesn't exist to allow an empty set
+        
+        [CmdletBinding(DefaultParameterSetName="ScriptBlock")]
+        param (
+            # Script block to test the performance of
+            [Parameter(Mandatory=$true,ParameterSetName="ScriptBlock")]
+            [ScriptBlock]
+            $Command,
+
+            [Parameter(ParameterSetName="ScriptBlock")]
+            [ValidateRange(1,10000)]
+            [Int32]
+            $Iterations = 100
+        )
+* *Allow Param to be passed in the pipeline*
+  * `[Parameter(ValueFromPipeline=$true)]`
+* *Add Alias for additional support*
+
+            [Parameter(Mandatory=$true,ParameterSetName='ComputerSpecified',ValueFromPipeline=$True)]
+            [Alias("Computer")]
+            [String[]]$ComputerName
+* Use Splatting for passing param sets
+
+        $cimParams = @{
+            ClassName = Win32_Volume
+            ComputerName = $Computer
+        }
+
+        Get-CimInstance @cimParams
 
 
 ## Lets make an object ## 
 
+**Note Do NOT USE New-Object, considered depreciated**
+
 *Make a dictionary of properties and values and use to create a powershell object*
 
-    $props = @{
-        location = 'USA'
-        color = 'blue'
-    }
-
-    $obj = New-Object -type psobject -Property $props
     $obj.color
     > blue
 
@@ -135,6 +161,21 @@ see how long a dns name has before ttl expires
         location = 'USA'
         color = 'blue'
     }
+
+*You can also set a custom object type, helpful when validating in custom modules by passing around*
+
+    $obj.color
+    > blue
+
+    # Same Same but different
+    $myobj = [pscustomobject]@{
+        TypeName = 'My.Object'
+        location = 'USA'
+        color = 'blue'
+    }
+
+*If you need to add additional properties you can*
+
 
 ## See all Object Properties ##
 * See all properties on an object
@@ -199,3 +240,7 @@ see how long a dns name has before ttl expires
         $vols[0].CimInstanceProperties | Select-Object Name,Value
 
 * Get specifics on all CIM Properties at [PowerShell one](https://powershell.one/wmi/root/cimv2)
+
+
+## Debugging ##
+* From VSCode Launch the Debugger targeting the terminal

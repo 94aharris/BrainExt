@@ -23,6 +23,8 @@ Pester is for testing Powershell scripts
           }
       }
 
+**If you are testing a module then use Import-Module .. -Force to make sure all dependencies are captured**
+
 * Use `Context` blocks to segment different tests
   * A `BeforeAll` Block can be used within a `Context`
 * Pester has it's own special foreach syntax
@@ -31,6 +33,7 @@ Pester is for testing Powershell scripts
 
 * Run with `Invoke-Pester` while in the directory of the tests (will find all *.tests.ps1 files) or explicitly specify a tests file
 * See all test details with `Invoke-Pester -Output Detailed`
+* See Code Coverage with `Invoke-Pester .\get-stuff.Tests.ps1 -CodeCoverage .\get-stuff.ps1`
 
 ## Mock ##
 
@@ -57,3 +60,7 @@ Pester is for testing Powershell scripts
 ## PSDrive / Registry ##
 * Pester sets up a temp drive on run, store anything here as it is cleaned up
 * Pester sets up a temp registry, make any changes there
+
+
+## Testing Production ##
+* Pester could also be used to perform Acceptance and post deployment work in Production
