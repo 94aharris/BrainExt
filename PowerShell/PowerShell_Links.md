@@ -15,6 +15,7 @@
 ## Module Building ##
 * [Module Basics](https://powershellexplained.com/2017-05-27-Powershell-module-building-basics/)
 * [Building PS Module Manifest](http://ramblingcookiemonster.github.io/Building-A-PowerShell-Module/)
+* [Json Config Files](https://mattbobke.com/2018/11/12/building-a-powershell-module-part-3-json-config-files-are-awesome/)
 
 ## Flow Functions ##
 * [Add What-If and Confirm Support to PS Scripts](https://bcthomas.com/2019/01/adding-whatif-and-confirm-parameters-to-your-powershell/)

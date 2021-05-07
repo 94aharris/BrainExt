@@ -244,3 +244,22 @@ see how long a dns name has before ttl expires
 
 ## Debugging ##
 * From VSCode Launch the Debugger targeting the terminal
+
+
+## Switch Statments ##
+
+* Use for control flow of multiple conditions
+
+        switch ($value) {
+            1 { write-host "value is 1"}
+            2 { write-host "value is 2"}
+            Default { write-host "value is not 1 or 2"}
+        }
+
+* Can compare for multiple values
+
+        switch ($value) {
+            {1 -or "one"} {write-host "value is one"}
+            {2 -or "two"} {write-host "value is two"}
+            Default {write-host "value is not one or two"}
+        }

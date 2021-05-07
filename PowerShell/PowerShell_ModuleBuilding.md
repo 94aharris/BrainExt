@@ -12,6 +12,7 @@
     ---Set-Stuff.ps1
     --DoStuffPro.psd1
     --DoStuffPro.psm1
+    --config.json *optional
     -Tests
     --Get-Stuff.Tests.ps1
     --Set-Stuff.Tests.ps1
@@ -26,6 +27,7 @@
    *  Private - For the functions to use internally
    *  projectname.psd1 - Manifest file to use for import
    *  projectname.psm1 - Defines how to handle imports
+   *  config.json - hold default project config
 
 
 ## Simple .psm1 Example ##
@@ -66,3 +68,8 @@
 
 * For a simple module like this just Import the .psd1
 * `Import-Module .\projectname.psd1`
+
+## Using Config Files ##
+
+* Use config files under the directory of the imported module to hold configs
+* Have a public Get / Set
