@@ -259,7 +259,14 @@ see how long a dns name has before ttl expires
 * Can compare for multiple values
 
         switch ($value) {
-            {1 -or "one"} {write-host "value is one"}
-            {2 -or "two"} {write-host "value is two"}
+            {1,"one" -contains $_} {write-host "value is one"}
+            {2,"two" -contains $_} {write-host "value is two"}
             Default {write-host "value is not one or two"}
         }
+
+## HTML Oddness ##
+* Chrome Requires that HTML and CSS matches the file encodings exactly
+* When outputting HTML default to UTF8 using the following 
+* Otherwise you will bang your head on the wall with CSS not applying correctly
+
+        $HtmltoOutput | Out-File "page.html" -encoding utf8
