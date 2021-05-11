@@ -39,3 +39,6 @@
 
 ## PSObjects ##
 * [Everything you Wanted to Know About PSObjects](https://docs.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-pscustomobject?view=powershell-7.1)
+
+## Credentials with PowerShell ##
+* [Supporting Credentials with PowerShell](https://duffney.io/addcredentialstopowershellfunctions/)
