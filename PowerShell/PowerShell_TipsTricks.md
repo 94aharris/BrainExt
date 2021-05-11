@@ -129,7 +129,14 @@ see how long a dns name has before ttl expires
             [ValidateRange(1,10000)]
             [Int32]
             $Iterations = 100
-        )
+        ) 
+
+        swtich ($PsCmdlet.ParameterSetName) {
+                "ScriptBlock" {
+                    # Do This Stuff
+                }
+        }
+
 * *Allow Param to be passed in the pipeline*
   * `[Parameter(ValueFromPipeline=$true)]`
 * *Add Alias for additional support*
@@ -239,7 +246,20 @@ see how long a dns name has before ttl expires
         $vols = Get-CimInstance -ClassName Win32_Volume
         $vols[0].CimInstanceProperties | Select-Object Name,Value
 
+        # Passing Creds / Multiple computers
+        $comps = @('comp1.contoso.com','comp2.contoso.com')
+        $cred = get-credential
+        $cimSessions = New-CimSession -Credential $cred -ComputerName $comps
+        $volumes = Get-CimInstance -CimSession $cimSessions -ClassName Win32_Volume
+
 * Get specifics on all CIM Properties at [PowerShell one](https://powershell.one/wmi/root/cimv2)
+* You can also add filter queries on using WSQL, helps to reduce data returned for post-processing
+
+        # Query by process name without specifying class outside query
+        Get-CimInstance -Query "SELECT * from Win32_Process WHERE name LIKE 'P%'"
+
+        # Query to filter out optical drives while specifying classname
+        Get-CimInstance -ClassName Win32_Volume -Filter "DriveType != 5"
 
 
 ## Debugging ##
