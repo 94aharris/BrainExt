@@ -290,3 +290,14 @@ see how long a dns name has before ttl expires
 * Otherwise you will bang your head on the wall with CSS not applying correctly
 
         $HtmltoOutput | Out-File "page.html" -encoding utf8
+
+
+## Pop location ##
+
+* Quickly set and go back to a location
+~
+
+        PS c:\temp> push-location
+        PS c:\temp> cd ..
+        PS c:\> pop-location
+        PS c:\temp> 
