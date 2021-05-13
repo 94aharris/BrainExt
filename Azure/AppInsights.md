@@ -20,7 +20,12 @@
 * Add the application insights npm dependency
 * Create a folder *app\shared* if it does not already exist
 * Create `logger.service.ts` and use as a typescript wrapper around teh application insights javascript api
-* By default, application insights will not track state based routing changes
+  * Make sure you import what's needed from ngCore
+* Add the MonitoringService to the app constructor
+* Add the MonitoringService Provider to the module .ts
+* By default, application insights will not track state based routing changes must enable for angular in object creation (i.e. near the instrumentation key)
+  * `enableAutoRouteTracking: true // option to log all route changes`
+* Possibly best placed to start in the app-start.service.ts
 
 * Track and trace (in any place you want to track such at app.componant.ts ngoninit())
 * SeverityLevel can be imported or just omit that line
@@ -36,3 +41,6 @@
         traces | limit 50
 
 ![App Insights Trace Query](../Images/AppInsights_Trace_query.png)
+
+
+* [SDK Reference with valid configs](https://github.com/microsoft/ApplicationInsights-JS)
