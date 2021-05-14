@@ -42,5 +42,6 @@
 
 ![App Insights Trace Query](../Images/AppInsights_Trace_query.png)
 
+* Custom Error Handler must be implemented to catch exceptions (so they aren't swallowed by Angular)
 
 * [SDK Reference with valid configs](https://github.com/microsoft/ApplicationInsights-JS)
