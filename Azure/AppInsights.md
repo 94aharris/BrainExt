@@ -45,3 +45,8 @@
 * Custom Error Handler must be implemented to catch exceptions (so they aren't swallowed by Angular)
 
 * [SDK Reference with valid configs](https://github.com/microsoft/ApplicationInsights-JS)
+
+
+## Extracting Business Value ##
+
+* [Continuous Export from App Insights to SQL DB](https://docs.microsoft.com/en-us/azure/azure-monitor/app/code-sample-export-sql-stream-analytics)
