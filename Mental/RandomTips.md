@@ -10,6 +10,7 @@
  * Murder your darlings
  * Don't be a jerk. People *generally* mean well
  * Software Maintenance is 75% TCO, Ops is the remaining 75%
+ * **First and foremost define your goal**
  
  # Random Quotes #
  * "Complex systems fail in complex ways" (Bellovin)
