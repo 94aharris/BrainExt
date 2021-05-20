@@ -301,3 +301,33 @@ see how long a dns name has before ttl expires
         PS c:\temp> cd ..
         PS c:\> pop-location
         PS c:\temp> 
+
+
+## Serialize a PowerShell Object to XML for Later Use ##
+
+[Export-CliXml](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-clixml?view=powershell-5.1)
+
+    # Serialize the result of 'Get-Adapter' to xml
+    Get-Adapter | Export-Clixml -Path 'C:\tmp\adatperxml.xml'
+    ...
+    # inside the test copy the contents from the xml as a string
+    $getAdapterMockObject = @"
+    <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+      <Obj RefId="0">
+        <TN RefId="0">
+          <T>Microsoft.Management.Infrastructure.CimInstance#ROOT/StandardCimv2/MSFT_NetAdapter</T>
+          ... #etc etc
+          <S N="ifDesc">Hyper-V Virtual Ethernet Adapter</S>
+          <S N="ifName">ethernet_32771</S>
+          <S N="DriverVersion">10.0.14393.0</S>
+          <S N="LinkLayerAddress">00-15-5D-02-0F-00</S>
+        </MS>
+      </Obj>
+    </Objs>
+    "@
+
+    # Deserialize it back into an object
+    $myobj = [System.Management.Automation.PSSerializer]::Deserialize($getAdapterMockObject)
+
+    # Mock the cmdlet with the object
+    Mock Get-NetAdapter { return $myobj }
