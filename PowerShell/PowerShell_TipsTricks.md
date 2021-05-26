@@ -331,3 +331,13 @@ see how long a dns name has before ttl expires
 
     # Mock the cmdlet with the object
     Mock Get-NetAdapter { return $myobj }
+
+
+## Register Scheduled Task ##
+
+* Create a scheduled task then export the XML
+* Copy over the xml to another computer (d:\temp\task.xml)
+* import the task on the other computer
+
+        enter-pssession computer2
+        [computer2]: PS c:\user> Register-ScheduledTask -Xml (get-content d:\temp\task.xml -Raw) -TaskName 'Task 1' -User 'NT Authority\System'
