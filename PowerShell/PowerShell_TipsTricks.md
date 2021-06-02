@@ -341,3 +341,48 @@ see how long a dns name has before ttl expires
 
         enter-pssession computer2
         [computer2]: PS c:\user> Register-ScheduledTask -Xml (get-content d:\temp\task.xml -Raw) -TaskName 'Task 1' -User 'NT Authority\System'
+
+## Setting and Getting Variables ##
+
+### Basics ###
+* $ is the PowerShell indicator for 'what follows is variable"
+* $temp is the variable named temp
+
+### Multi-Setting ###
+* `$tempOne = $tempTwo = "Hello"`
+* both $tempOne and $tempTwo directly equal "Hello", $tempOne is not a reference to the other variable
+
+### Hash Variables ###
+* `$hashOne = @{}`
+* `$hashTwo = $hashOne`
+* the variable $hashTwo is NOT a copy of $hashOne, both reference the same object
+* use $hashOne.Copy() to copy the hash
+
+### Getters / Setters ###
+* You can get and set variables with cmdlets rather than using the $ ref, this can be handy
+
+        $temp = "Hello"
+        write-host $temp
+
+        > "Hello"
+
+        $ref = Get-Variable -Name temp
+        $ref
+
+        > Name  Value
+          ---   -----
+          temp  hello
+        
+        Set-Variable -Name temp -Value "goodbye"
+        $ref
+
+        > Name  Value
+          ---   ------
+          temp  goodbye
+
+
+
+## Funkiness ##
+
+### .where vs Where-Object ###
+* Where-Object can be up to 10x slower than .where since it evaluates cmdlet binding
