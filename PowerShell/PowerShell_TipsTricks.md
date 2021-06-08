@@ -382,7 +382,22 @@ see how long a dns name has before ttl expires
 
 
 
+
 ## Funkiness ##
 
 ### .where vs Where-Object ###
 * Where-Object can be up to 10x slower than .where since it evaluates cmdlet binding
+
+
+## Get Functions ##
+
+### Function Virtual Drive ###
+* Functions are stored in a virtual drive
+  * `Get-ChildItem -Path function:\ # See alll `
+  * `Get-ChildItem -Path function:\Format-Hex | select -property * # see specific`
+  * `(Get-ChildItem -Path function:\Format-Hex).Definition # See code`
+
+### Get-Command ###
+* Get-Command returns information about available commands
+  * `Get-Command Format-Hex -syntax` will return valid param sets
+  * `Get-Command Format-Hex -ShowCommandInfo` will return all information about the command (definition, name, module, etc.)

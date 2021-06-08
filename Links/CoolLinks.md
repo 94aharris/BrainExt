@@ -9,9 +9,12 @@
 ### Cool Computer People ###
 * [Netmeister ze cool architect](https://www.netmeister.org/)
 
-
 ## Individuals ##
 ### Paul Graham ###
 * [Makers Schedule, Managers Schedule](http://www.paulgraham.com/makersschedule.html)
 * [Fierce Nerds](http://paulgraham.com/fn.html)
 * [Think for Yourself](http://paulgraham.com/think.html)
+
+## Work ##
+
+* [Embrace the Grind](https://jacobian.org/2021/apr/7/embrace-the-grind/)

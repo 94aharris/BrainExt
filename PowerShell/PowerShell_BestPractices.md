@@ -9,6 +9,10 @@
  * `Measure-command`
  * Allow Empty Collection
 * Test with Pester
+* Make use of metadata to validate (e.g. Parameter Sets)
+  * Done create code to perform actions you can get the metadata to perform. Use your time to develop code that benefits your organization
+  * CmdletBinding specifies function level metadata and explicitly creates an advanced function
+  * \[Paarameter\] specifies param level metadata and implicitly creates an advanced function
 
 ## Get Error Info ##
 

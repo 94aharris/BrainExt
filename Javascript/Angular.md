@@ -10,3 +10,10 @@
 * Serve the app up
   * `ng serve --configuration=xxxx`
 
+
+
+## Testing Framework Using Jest ##
+* navigate to root of project
+* Create jest.config.js
+* run `ng test --coverage`
+* Check the coverage output
