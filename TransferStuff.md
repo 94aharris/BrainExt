@@ -47,3 +47,17 @@ if you cannot run as admin then run something like the following
     install.packages(c(print(as.character(pkgs), collapse="\",\"")), repos = NULL, type = "win.binary", lib=c:\\users\\harrisal\\mypackages)
 
 then copy all folders in *mypackages* to the rstudio folder (e.g. \R\win-library\4.0)
+
+
+## Spacy ##
+
+* Use pip download
+
+        pip download https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
+
+        pip download https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.0.0/en_core_web_md-3.0.0-py3-none-any.whl
+
+
+        https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.0.0/en_core_web_lg-3.0.0-py3-none-any.whl
+
+        https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.0.0/en_core_web_trf-3.0.0-py3-none-any.whl

@@ -19,3 +19,6 @@
   * 2-min rule
 
 
+## Links ##
+* [7 things to make life efforless](https://zenhabits.net/glide/)
+* [Lazy Manifesto](https://zenhabits.net/the-lazy-manifesto-do-less-then-do-even-less/)

@@ -17,4 +17,3 @@
   * Every request receives a (non-error) response, without the guarantee that it contains the most recent write
 * Partition Tolerance
   * The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes
-

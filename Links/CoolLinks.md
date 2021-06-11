@@ -18,3 +18,10 @@
 ## Work ##
 
 * [Embrace the Grind](https://jacobian.org/2021/apr/7/embrace-the-grind/)
+* [Career Planning](https://80000hours.org/career-planning/)
+* [Planning a High Impact Career](https://80000hours.org/career-planning/summary/)
+* [Career Planning In Depth](https://80000hours.org/career-planning/process/)
+
+## Zen / Mental ##
+* [Zen Habits](https://zenhabits.net/)
+* [Mnmist](https://mnmlist.com/)
