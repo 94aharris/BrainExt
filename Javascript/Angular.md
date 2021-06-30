@@ -7,6 +7,8 @@
   * `npm install --no-audits --prefer-offline`
 * Next run 
   * `npm build`
+* Next
+  * `ng build`
 * Serve the app up
   * `ng serve --configuration=xxxx`
 

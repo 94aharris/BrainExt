@@ -28,6 +28,7 @@ Links that still need to be read, digested, and sorted
 
 ## Linux ##
 * [Linux Interview Prep](https://github.com/chassing/linux-sysadmin-interview-questions)
+* [30 Things to Do After Centos Installation](https://www.tecmint.com/things-to-do-after-minimal-rhel-centos-7-installation/)
 
 
 ## Programming / General Interview Prep ##
@@ -55,3 +56,12 @@ Links that still need to be read, digested, and sorted
   
 **Read the SRE Book READ THE SRE BOOK**
 **Practice Non-Abstract Large System Design**
+
+## SQL ##
+
+* [SQL DBA Training Plan](https://www.brentozar.com/archive/2019/07/welcome-to-the-dba-training-plan/)
+
+
+## Hardware ##
+
+* SSD vs HDD

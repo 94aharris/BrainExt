@@ -1,0 +1,26 @@
+# Python Basics #
+
+## Logic Parsing ##
+
+    def isMyName(name):
+        if (name.lower() == "Anthony") : return True
+        else : return False
+
+## Error Raising ##
+
+    raise Exception('This is a Generic Exception Which is bad')
+    raise ValueError('This is a specific Exception which is better')
+
+## Incrent Operators ##
+
+* Python does not use ++ or --
+* Use `var += 1` and `var -= 1` instead
+
+## Comparison Operators ##
+
+* Assignment `=`
+* Equality `==`
+* Less Than `<`
+* Greater Than `>`
+* And `and`
+* or `or`

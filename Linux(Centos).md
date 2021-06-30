@@ -1,5 +1,6 @@
 # Centos Linux #
 
+[How do I learn to be a Linux sysAdmin (iConrads)](https://www.reddit.com/r/redhat/comments/4y1qpe/red_hat_update_to_iconrads_how_do_i_learn_to_be_a/)
 ## Networking ##
 
 See Networking Interfaces and connected / disconnected state
@@ -18,3 +19,6 @@ Edit Network interface settings
 
 Using a Centos Computer with a network connection to ethernet bridge one that does not have a network connection - [Bridging with Centos](https://access.redhat.com/solutions/3017441)
 
+## Virtual Machines ##
+[Install KVM on CentOS 8 Headless Server](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-8-headless-server/)
+[Install KVM on CentOS 7 Headless Server](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/)
