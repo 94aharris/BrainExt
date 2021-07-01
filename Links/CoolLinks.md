@@ -21,6 +21,7 @@
 * [Career Planning](https://80000hours.org/career-planning/)
 * [Planning a High Impact Career](https://80000hours.org/career-planning/summary/)
 * [Career Planning In Depth](https://80000hours.org/career-planning/process/)
+* [Always be Quitting](https://jmmv.dev/2021/04/always-be-quitting.html)
 
 ## Zen / Mental ##
 * [Zen Habits](https://zenhabits.net/)

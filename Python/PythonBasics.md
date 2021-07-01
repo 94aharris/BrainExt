@@ -24,3 +24,18 @@
 * Greater Than `>`
 * And `and`
 * or `or`
+
+## Strings ##
+
+* length
+  * `len(stringvar)`
+* lower / uppercase
+  * `string.lower()` 
+  * `string.upper()`
+
+## Math ##
+
+* Basic Rounding
+  * general rounding `Math.round(numvar)`
+  * round down to whole `Math.floor(numvar)`
+  * round up to whole `Math.ceil(numvar)`

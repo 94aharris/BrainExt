@@ -1,5 +1,9 @@
 # DevOps Interview #
 
+## Reading ##
+
+* [Highly Effective Environments and Case Studies](https://martinfowler.com/articles/developer-effectiveness.html#DayInTheLifeInAHighlyEffectiveEnvironment)
+ 
 ## Monitoring ##
 
 ### Signals ###
