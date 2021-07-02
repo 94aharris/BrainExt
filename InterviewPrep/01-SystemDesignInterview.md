@@ -1,6 +1,17 @@
 # System Design #
 
-## **Resource** ## 
+> Remember Everything is a Tradeoff
+
+## Contents ##
+- Resources
+- Interview Question Steps
+- Back of the Envelope Calculations
+- Scalability for Dummies
+- High Level Tradeoffs to Remember
+- Non-Abstract Large System Design
+- Important Tools to Know
+
+## **Resources** ## 
 
 - [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
 - [ ] [Google Pro Back of Envelope Calculations](http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html)
@@ -16,6 +27,7 @@
 - [ ] [Google Book - Non Abstract Large System Design](https://sre.google/workbook/non-abstract-design/)
 - [ ] [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
 - [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
+- [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
 
 ## **Interview Question Steps** ##
 
@@ -194,7 +206,33 @@ Keys about the numbers
 
 ### Async ###
 
-[Asynchronism](https://www.lecloud.net/post/9699762917/scalability-for-dummies-part-4-asynchronism)
+Asynchronism allows work to be done bit by bit rather than waiting for the whole completed product to be dropped at once
 
+#### Async Paradigms ####
 
-## Non-Abstract Large System Design ##
+1. Turn dynamic content into static content
+
+- Pages are pre-rendered and stored as static HTML
+- Static pages can be stored to CDN to handle scale very well
+
+2. Special requests can not be pre-rendered
+   1.  user hits page and a request is sent to a job queue for work. User is shown loading signal. 
+   2.  The frontend constantly checks for completed job and pulls content when ready
+
+#### Async Tips ####
+
+- Look at RabbitMQ
+- Look at Redis List
+- Look at ActiveMQ
+- Basic idea is to have a queue of tasks or jobs that a worker can process
+- If you do something time-consuming try to do it asynchronously
+
+## **High Level Tradeoffs to Remember** ##
+
+### Performance vs Scalability ###
+
+### Latency vs Throughput ###
+
+### Availability vs Consistency ###
+
+## **Non-Abstract Large System Design** ##
