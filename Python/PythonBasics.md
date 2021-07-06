@@ -43,6 +43,27 @@
 - lower / uppercase
   - `string.lower()` 
   - `string.upper()`
+- Convert an integer to a string
+  - use `str()`
+  
+
+         a = [1,2,3,4]
+         strvar = ""
+         for i in a
+            strvar += str(a[i])
+            strvar += " "
+            i += 1
+        print(strvar)
+
+- String interpolation with fstrings
+  - `stringvar = f"My Name Is {namevar}"`
+- String Trimming
+  - remove leading and trailing whitespace 
+    - `stringvar.strip()`
+  - remove leading (left) whitespace
+    - `stringvar.lstrip()`
+  - remove trailing (right) whitespace
+    - `stringvar.rstrip()`
 
 ## Math ##
 
@@ -64,3 +85,17 @@
       print(x)
     else:
       print("Finally finished!")
+
+## Arrays ##
+
+- Array Splicing
+
+         a = [1,2,3,4,5] 
+         shift = 4
+         a[shift:]
+         >>[5]
+         a[:shift]
+         >>[1, 2, 3, 4]
+         a[shift:] + a[:shift]
+         >>[5, 1, 2, 3, 4]
+
