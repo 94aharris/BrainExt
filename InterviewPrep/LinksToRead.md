@@ -55,6 +55,7 @@ Links that still need to be read, digested, and sorted
 - [SRE Interview Questions](https://www.novelvista.com/blogs/devops/top-22-sre-interview-question-answer-2020)
 - [Follow up to my google SRE Interview](https://www.reddit.com/r/devops/comments/bphb8h/follow_up_to_my_google_sre_interview/)
 - [SRE Flash Cards](https://danrl.com/sre-flash-cards/SRE%20Flash%20Cards.pdf)
+- [OpsSchool](https://www.opsschool.org/)
   
 **Read the SRE Book READ THE SRE BOOK**
 **Practice Non-Abstract Large System Design**
@@ -70,3 +71,11 @@ Links that still need to be read, digested, and sorted
 ## Roadmaps ##
 
 - [Developer Roadmap](https://github.com/kamranahmedse/developer-roadmap)
+
+## Labs ##
+
+- [KataCoda (Different Linux and K8s labs)](https://katacoda.com/)
+
+## Kubernetes ##
+
+- [Certified Kubernetes Application Developer (CKAD)](https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/)

@@ -13,8 +13,6 @@
 * Networking Refresher - 1 week
 * Review / Practice Qs - 2 Weeks
   
-
-
 ## How to Study ##
 
 Derived from [Retaining Computer Science Knowledge](https://startupnextdoor.com/retaining-computer-science-knowledge/)

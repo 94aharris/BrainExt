@@ -28,10 +28,11 @@
 - [ ] [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
 - [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
 - [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
+- [ ] [Scalability, availability, stability patterns (slideshare)](http://www.slideshare.net/jboner/scalability-availability-stability-patterns/)
 
 ## **Interview Question Steps** ##
 
-1. Outline Use Cases, Constraints and Assumptions [5-mins]
+**1. Outline Use Cases, Constraints and Assumptions [5-mins]**
 
 - who are the users?
 - how will they use?
@@ -43,7 +44,7 @@
 - read to write ratio
 - Usage Patterns
 
-2. Estimations [5-mins]
+**2. Estimations [5-mins]**
 
 - Throughput (QPS for read and write queries)
 - Latency expected from the system (for read and write queries)
@@ -56,15 +57,15 @@
   - if using a cache, what is the kind of data we want to store in cache
   - How much RAM and how many machines do we need
   - Amount of data you want to store in disk / ssd
-  
-3. Design Goals [5-mins]
+
+**3. Design Goals [5-mins]**
 
 - Latency and Throughput requirments
 - Consistency vs Availability 
   - Weak / Strong / eventual -> Consistency 
   - Failover / Replication -> Availability
 
-4. High level design [5-10 mins]
+**4. High level design [5-10 mins]**
 
 - APIs for Read / Write scenarios for crucial components
   - Public APIs
@@ -74,13 +75,14 @@
 - High level design for Read/Write Scenario
 
 
-5. Deep Dive [15 - 20 mins]
+**5. Deep Dive [15 - 20 mins]**
    
 - Scaling the algorithm
 - Scaling individual components
   - Availabiity, Consistency and Scale story for each component
   - Consistency and availabilty patterns
-- Think about following and how they would fit
+  
+- **Think about following and how they would fit**
   - DNS
   - CDN [Push Pull]
   - Load Balancers [Active-Passive, Active-Active, Layer 4, Layer 7]
@@ -112,7 +114,7 @@
     - REST
     - RPC
 
-6. Justify [5-minutes]
+**6. Justify [5-minutes]**
 
 - Throughput of each layer
 - Latency cacuse between each layer
@@ -204,7 +206,7 @@ Keys about the numbers
   - better if just need a cache
   - easy to setup and easy to scale
 
-### Async ###
+### 4. Async ###
 
 Asynchronism allows work to be done bit by bit rather than waiting for the whole completed product to be dropped at once
 
@@ -231,8 +233,20 @@ Asynchronism allows work to be done bit by bit rather than waiting for the whole
 
 ### Performance vs Scalability ###
 
+- **Scalable** = performance increases proportional to resources added
+  - Can refer to serving more work or handling larger units of work (e.g. data)
+
+- If you have a performance problem, sthe system is slow for one user
+- If you have a scalability problem it is slow under load
+
 ### Latency vs Throughput ###
 
+- **Latency** = time to performa an action
+- **Throughput** = number of actions per unit of time
+- Aim for max througput with acceptable latency
+
 ### Availability vs Consistency ###
+
+
 
 ## **Non-Abstract Large System Design** ##

@@ -22,6 +22,8 @@
 * [Planning a High Impact Career](https://80000hours.org/career-planning/summary/)
 * [Career Planning In Depth](https://80000hours.org/career-planning/process/)
 * [Always be Quitting](https://jmmv.dev/2021/04/always-be-quitting.html)
+* [Efficiency is the Enemy](https://fs.blog/2021/05/slack/)
+* [Are Beliefs Like Clothes?](http://mason.gmu.edu/~rhanson/belieflikeclothes.html)
 
 ## Zen / Mental ##
 * [Zen Habits](https://zenhabits.net/)
