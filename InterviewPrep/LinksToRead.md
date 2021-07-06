@@ -41,6 +41,8 @@ Links that still need to be read, digested, and sorted
 - [Microsoft Interview Tips](https://careers.microsoft.com/u/us/en/interviewtips)
 - [Tech Interview Handbook](https://github.com/yangshun/tech-interview-handbook)
 - [Coding Interview University](https://github.com/jwasham/coding-interview-university)
+- [Teach Yourself CS](https://teachyourselfcs.com/)
+- 
 
 ## SRE ##
 
@@ -63,6 +65,8 @@ Links that still need to be read, digested, and sorted
 ## SQL ##
 
 - [SQL DBA Training Plan](https://www.brentozar.com/archive/2019/07/welcome-to-the-dba-training-plan/)
+- [How Microsoft Scaled SQL Server in Cloud (PDF)](https://www.microsoft.com/en-us/research/uploads/prod/2019/05/socrates.pdf)
+- [Troubleshooting SQL Server: Guide for Accidental DBA (PDF)](https://assets.red-gate.com/community/books/troubleshooting-sql-server-accidental-dba.pdf)
 
 ## Hardware ##
 
