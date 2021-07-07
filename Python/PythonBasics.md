@@ -71,6 +71,8 @@
   - general rounding `Math.round(numvar)`
   - round down to whole `Math.floor(numvar)`
   - round up to whole `Math.ceil(numvar)`
+- Sum of Array containing integers
+  - `sum(arrvar)`
 
 ## Loops ##
 
@@ -88,7 +90,7 @@
 
 ## Arrays ##
 
-- Array Splicing
+- Array Slicing
 
          a = [1,2,3,4,5] 
          shift = 4
@@ -98,4 +100,10 @@
          >>[1, 2, 3, 4]
          a[shift:] + a[:shift]
          >>[5, 1, 2, 3, 4]
+
+          +---+---+---+---+---+---+
+          | P | y | t | h | o | n |
+          +---+---+---+---+---+---+
+          0   1   2   3   4   5   6
+          -6  -5  -4  -3  -2  -1
 

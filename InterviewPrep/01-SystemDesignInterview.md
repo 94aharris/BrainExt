@@ -14,6 +14,9 @@
 ## **Resources** ## 
 
 - [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
+- [x] [Please stop calling databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
+- [x] [Transactions Across Datacenters](https://snarfed.org/transactions_across_datacenters_io.html)
+- [ ] [How Google Serves Data From Multiple Datacenters](http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html)
 - [ ] [Google Pro Back of Envelope Calculations](http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html)
 - [ ] [Palantir - How to rock a systems design interview](https://www.palantir.com/2011/10/how-to-rock-a-systems-design-interview/)
 - [ ] [Numbers every programmer should know](https://github.com/donnemartin/system-design-primer#latency-numbers-every-programmer-should-know)
@@ -247,6 +250,47 @@ Asynchronism allows work to be done bit by bit rather than waiting for the whole
 
 ### Availability vs Consistency ###
 
+**CAP Theorem**
+You can pick 2 of the 3
+- **Consistency** - Every read receives the most recent write or an err
+- **Availability** - Every request receives a response, without guarantee it contains most recent information
+- **Partition Tolerance** - System continues to operate despite arbitrary partitioning due to network failures
+
+*[You can't chose CA](https://codahale.com/you-cant-sacrifice-partition-tolerance/), Networks are unreliable*
+
+*[Some Systems are not CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)*
+
+- **CP** - consistent and partition tolerance
+  - waiting for a response might result in timeout. CP is good for atomic reads / writes
+  - example: MSSQL(sometimes), MariaDB, MySql(sometimes)
+- **AP** - Availability and Partition tolerance
+  - Responses return most readily available version. Eventually consistent.
+  - example Cassandra
+
+## Consistency Patterns ##
+
+### Weak Consistency ##
+
+*After a write, reads may or may not see it*
+
+- uses
+  - VoIP
+  - Realtime Multiplayer
 
 
+### Eventual Consistency ###
+
+*After a write, reads will eventually see it. Asynchronous Replication*
+
+- Uses
+  - DNS, Email, Highly Available Systems
+
+### Strong Consistency ###
+
+*After a write, reads will see it. Data replicated synchronously. Across datacenters, multi-write is a better option but costs in latency*
+
+- Uses
+  - RDBMSes
+  - Transactional DBs
+  
 ## **Non-Abstract Large System Design** ##
