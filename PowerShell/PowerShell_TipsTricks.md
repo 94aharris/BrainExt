@@ -401,3 +401,22 @@ see how long a dns name has before ttl expires
 * Get-Command returns information about available commands
   * `Get-Command Format-Hex -syntax` will return valid param sets
   * `Get-Command Format-Hex -ShowCommandInfo` will return all information about the command (definition, name, module, etc.)
+
+* Get-Member retuns information about a variable
+  * `Get-Member -InputObject $var` returns information
+
+
+
+## Path Object From Get-ChildItem ##
+
+        	[CmdletBinding()]	
+        Param (
+            [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
+            [Alias('FullName')]
+            [string]
+            $InputObject
+        )
+
+## Start new PowerShell as Admin from existing non-admin PowerShell
+
+` > Start-Process Powershell -verb runas `

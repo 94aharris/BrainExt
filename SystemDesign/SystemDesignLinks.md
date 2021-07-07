@@ -17,6 +17,7 @@
 * [What is DevOps? (Agile Admins)](https://theagileadmin.com/what-is-devops/)
 * [Implement SRE in your organization in one year](https://medium.com/site-reliability-engineering-leadership/how-to-implement-sre-in-your-organization-f103b30b1747) 
 * [Cross Functional DevOps Teams](https://caylent.com/devops-handbook-part-2-defining-devops-teams)
+* [Generate System Documentation Using Python](https://github.com/mingrammer/diagrams)
   
 ## Microsoft ##
 
@@ -35,4 +36,5 @@
 ## Microservices ##
 
 * [Microservices Criticisms and Concerns](https://en.wikipedia.org/wiki/Microservices#Criticism_and_concerns)
+* [Raspberry-pi-dramble](https://github.com/geerlingguy/raspberry-pi-dramble)
 
