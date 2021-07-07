@@ -19,6 +19,16 @@ Edit Network interface settings
 
 Using a Centos Computer with a network connection to ethernet bridge one that does not have a network connection - [Bridging with Centos](https://access.redhat.com/solutions/3017441)
 
+
+# Updates / Installs #
+
+Check for updates
+
+`yum check update`
+
+Update all
+
+`yum update`
 ## Virtual Machines ##
 [Install KVM on CentOS 8 Headless Server](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-8-headless-server/)
 [Install KVM on CentOS 7 Headless Server](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/)
