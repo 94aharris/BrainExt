@@ -18,3 +18,13 @@ Edit Network interface settings
 
 Using a Centos Computer with a network connection to ethernet bridge one that does not have a network connection - [Bridging with Centos](https://access.redhat.com/solutions/3017441)
 
+
+# Updates / Installs #
+
+Check for updates
+
+`yum check update`
+
+Update all
+
+`yum update`
