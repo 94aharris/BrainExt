@@ -250,3 +250,33 @@ Asynchronism allows work to be done bit by bit rather than waiting for the whole
 
 
 ## **Non-Abstract Large System Design** ##
+
+## **Distributed System Patterns** ##
+
+[Derived from Azure Designing Distributed Systems](https://azure.microsoft.com/mediahandler/files/resourcefiles/designing-distributed-systems/Designing_Distributed_Systems.pdf)
+
+### Single Node Patterns ###
+
+![SidecarPattern](../Images/sidecar_pattern.png)
+
+- **SideCar Pattern**
+  - Sits on the side of an existing application
+  - Extends functionality, sometimes transparently to the application
+  - Creeping legacy app or extension app (e.g. add https)
+
+![AmbassadorPatternServiceBroker](../Images/ambassador_pattern.png)
+
+- **Ambassador Pattern**
+  - Helps to adapt existing application to sharded backend
+  - The application code only knows it needs to talk to storage which it finds (ambassador) the ambassador then performs the necessary sharding
+  - *Service Brokering* is the act of having the ambassador introspect the environment and find appropriate service to connect 
+  - *Experimentation / Request Splitting* can be handled by the ambassador (e.g. a/b testing)
+
+  ![AdapterPattern](../Images/adapter_pattern.png)
+  
+- **Adapters**
+  - adapter is used to modify the interface of the application container so it conforms to a predefined interface expected of all applications
+  - Can ensure application implements a consistent monitoring interface
+  - To effectively monitor and operate you need common interfaces
+  - Applows deployment of a single tool that uses this interface
+  - Useful for monitoring applications

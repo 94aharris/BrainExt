@@ -71,6 +71,9 @@
   - general rounding `Math.round(numvar)`
   - round down to whole `Math.floor(numvar)`
   - round up to whole `Math.ceil(numvar)`
+- Min/Max
+  - Return the max or min of passed values (good for preventing array overrun)
+  - `max(i-2,0)` - prevent an iterator from going below 0 on an array (out of bounds)
 
 ## Loops ##
 
