@@ -2,7 +2,8 @@
 
 > Remember Everything is a Tradeoff
 
-## Contents ##
+## **Contents** ##
+
 - Resources
 - Interview Question Steps
 - Back of the Envelope Calculations
@@ -11,7 +12,7 @@
 - Non-Abstract Large System Design
 - Important Tools to Know
 
-## **Resources** ## 
+## **Resources** ##
 
 - [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
 - [x] [Please stop calling databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
@@ -32,6 +33,8 @@
 - [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
 - [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
 - [ ] [Scalability, availability, stability patterns (slideshare)](http://www.slideshare.net/jboner/scalability-availability-stability-patterns/)
+
+* * * * * * *
 
 ## **Interview Question Steps** ##
 
@@ -125,6 +128,8 @@
 
 Bonus: Show back of the envelope calculations
 
+* * * * * * *
+
 ## **Back of the Envelope Calculations** ##
 
 **Numbers Everyone Should Know**
@@ -151,6 +156,7 @@ Keys about the numbers
 - Optimize for low contention
 - Optimize wide. Make writes as parallel as you can
 
+* * * * * * *
 
 ## **Scalability for Dummies** ##
 
@@ -232,6 +238,8 @@ Asynchronism allows work to be done bit by bit rather than waiting for the whole
 - Basic idea is to have a queue of tasks or jobs that a worker can process
 - If you do something time-consuming try to do it asynchronously
 
+* * * * * * *
+
 ## **High Level Tradeoffs to Remember** ##
 
 ### Performance vs Scalability ###
@@ -267,7 +275,9 @@ You can pick 2 of the 3
   - Responses return most readily available version. Eventually consistent.
   - example Cassandra
 
-## Consistency Patterns ##
+* * * * * * *
+
+## **Consistency Patterns** ##
 
 ### Weak Consistency ##
 
@@ -292,7 +302,66 @@ You can pick 2 of the 3
 - Uses
   - RDBMSes
   - Transactional DBs
+
+* * * * * * *
+
+## **Availability Patterns** ##
+
+Fail-over and Replication are complimentary 
+
+### Failover ###
+
+- **Active Passive**
+  - one primary and one in hot standby (SQL AG)
+  - Changes are typically replicated as part of the replication log / change stream
+  - when the heartbeat goes away the standby takes over
+  - length of downtime determined by failover time
+  - You can see data loss depending on the replication pattern
+- **Active-Active**
+  - both servers managing traffic with load balancera
+  - Could potentially lead to inconsistent state
+  - Also referred to as multi-master
+
+### Replication ###
+
+- **Single-Leader**
+  - Single writable reader with follower(s)
+  - Asynchronous = leader does not wait for followers to catch up before considering actions a success
+    - More risk of data loss if leader crashes
+    - Crashing / latent follower won't block writes
+  - Synchronous = action must be successful on follower before leader considers change successful
+    - Less risk of data loss if leader crashes
+    - A lagging or unresponsive follower can block writes
+  - You can have multiple followers some synchronous and others async
+- **Multi-Leader**
+  - more than one node can accept writes
+  - Does not make sense for single data center
+  - Does make sense with multi-data center
+  - Pros
+    - better write performance for users closer to far data center
+    - Tolerant of data center outages
+    - tolerant of network problems
+  - Uses
+    - Clients with offline communication (every device has local db)
+    - Collaborative editing (google docs)
+  - Biggest con, have to handle for write confllicts
+    - conflict avoidance (e.g. user assigned a datacenter)
+    - Convergence (e.g. last write wins)
+    - Resolve on read or resolve on write
+- **Leaderless**
+  - All Nodes are Writeable
+    - Cassandra
+    - Voldemort
+  - Writes sent to multiple nodes
+  - Reads are sent to multiple nodes
+    - used to detect and correct nodes with stale data
+  - Multi-Datacenter
+    - Writes sent to all nodes but client only waits for concensus from local datacenter
+* * * * * * *
+
 ## **Non-Abstract Large System Design** ##
+
+* * * * * * *
 
 ## **Distributed System Patterns** ##
 
@@ -323,3 +392,7 @@ You can pick 2 of the 3
   - To effectively monitor and operate you need common interfaces
   - Applows deployment of a single tool that uses this interface
   - Useful for monitoring applications
+
+
+
+

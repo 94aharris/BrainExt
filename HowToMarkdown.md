@@ -2,8 +2,9 @@
 
 ## Useful Markdown Links ##
 
-* [MarkdownCheatSheet](https://www.markdownguide.org/cheat-sheet/)
-* [Full Markdown Guide](https://markdown-guide.readthedocs.io/en/latest/basics.html)
+* [MarkdownCheatSheet](1)
+* [Full Markdown Guide](2)
+* [Markdown Fireball][3]
 
 - [x] This is done
 - [ ] This is Not Done :(
@@ -40,3 +41,25 @@ From time to time I have encountered a unique header which is converted into an 
     <h3 id="1-this-is-my-header">1. This is my Header</h3>
 
 Then just use the contents of the id attribute with a hash to link to that header: #1-this-is-my-header.
+
+## Line Breaks ##
+
+` * * * `
+
+`********`
+
+`=====`
+
+`-----`
+
+***
+
+## Link Appendix ##
+
+Use reference links to almost create an appendix of links. See up at the top of the page to see these in action
+
+[1]: https://www.markdownguide.org/cheat-sheet/ "Markdown Cheat Sheet"
+
+[2]: https://daringfireball.net/projects/markdown/syntax#p "Full Markdown Guide"
+
+[3]: https://daringfireball.net/projects/markdown/syntax#p "Markdown Firball"
