@@ -4,6 +4,7 @@
 
 - [ ] [HackerRanker Interview Prep Kit](https://www.hackerrank.com/interview/interview-preparation-kit)
   * Every Day!
+* [ ] [Two Pointer Technique](https://algodaily.com/lessons/using-the-two-pointer-technique)
 
 ## Overview ##
 
