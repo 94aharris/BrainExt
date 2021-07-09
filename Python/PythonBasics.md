@@ -11,11 +11,21 @@
 - [ ] Objects and Polymorphism
 - [ ] Network Interfaces
 
+## Python 'Gotchas' ##
+
+- Indentation...
+- remember the :
+- Case Sensitive Methods and Functions
+  
 ## Logic Parsing ##
 
     def isMyName(name):
         if (name.lower() == "Anthony") : return True
         else : return False
+
+- if statements are evaluated left first then (if false) the right is evaluated. thats why something like the below will **not** work (you will get an exception)
+
+      if not person or person.name == 'bob'
 
 ## Error Raising ##
 
@@ -89,8 +99,15 @@
     else:
       print("Finally finished!")
 
-## Arrays ##
+## List (Arrays) ##
 
+- Add to an array
+  - at end
+    - `arrvar.append("value")`
+  - at given index (i)
+    - `arrvar.insert(i,"value")`
+  - add list to list
+    - `arrvar.extend([1,2,3])`
 - Array Splicing
 
          a = [1,2,3,4,5] 
@@ -102,3 +119,11 @@
          a[shift:] + a[:shift]
          >>[5, 1, 2, 3, 4]
 
+## Dictionary (Hashtable) ##
+ 
+*leet code tip* - Dictionaries are case sensitive, if a question mentions case sensitive lookups specifically, may be wanting a dictionary
+
+- Key Value Pairs
+  - `dict = {'key1': 'Valuex'}`
+
+## If ##
