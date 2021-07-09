@@ -1,5 +1,19 @@
 # Workout Basics #
 
-## The 'Big 3' ##
+## Strength ##
 
-## The 'Super 6' ###
+### Strength Curve Basics ###
+
+### Hypertrophy (Big vs Strong) ###
+
+### The 'Big 3' ###
+
+### The 'Super 6' ####
+
+## Cardio ##
+
+### Aerobic - I Can Breath ###
+
+- Maximum Aerobic Heart Rate
+
+### Anaerobic - I Can't Breath ###
