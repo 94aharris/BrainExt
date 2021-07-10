@@ -13,6 +13,13 @@
     * Memory is not optimally configured, future state would be to get it in a good configuration
     * Windows Server 2012 is installed on a disconnected HDD
     * Need to install NTFS reader to read the other drives (onto Centos 7)
+    * Need to bring up the ethernet interface by default as part of startup
+  * Starting Up
+    * Plug her in
+    * Boot her up
+    * F1 past the memory warning
+    * `nmcli d` - get the ethernet interface
+    * `sudo ifup <ethdevice>` - Bring up the ethernet
 
 ## Laptop ##
   
@@ -24,6 +31,7 @@
   * Notes
     * Disk is starting to fail...
     * Battery is starting to fail...
+    * Possible drive failure on 1.4 TB drive (/dev/sdb2) failure to mount and several async I/O errors
 
 ## Networking ##
 
