@@ -10,12 +10,21 @@
 - [ ] Simple Logic, Function setup, Error Handling, Flow Control
 - [ ] Objects and Polymorphism
 - [ ] Network Interfaces
+- [ ] All the methods of the 4 data types
 
 ## Python 'Gotchas' ##
 
 - Indentation...
 - remember the :
 - Case Sensitive Methods and Functions
+
+## Some Info ##
+
+- 4 DataTypes
+  - Set 
+  - List (array)
+  - Dictionary (hashtable)
+  - Tuple
   
 ## Logic Parsing ##
 
@@ -127,6 +136,48 @@
           +---+---+---+---+---+---+
           0   1   2   3   4   5   6
           -6  -5  -4  -3  -2  -1
+- Compare Arrays for Intersections
+  - Convert to a 'Set' then compare
+      
+      arrvar1 = [1,2,3,4,5]
+      arrvar2 = [5,6,7,8,9]
+
+      set(arrvar1) & set(arrvar2)
+      >> {5}
+
+      s1 = "anthony"
+      s2 = "hello"
+      set(s1) & set(s2)
+      >> {'h','o'}
+
+## Sets ##
+
+- Used to store multiple items in single varible
+- Unordered
+- Unindexed
+- Do NOT allow duplicates
+- Unchangable
+  - `thisset = {"apple","banana","cherry"}`
+- Methods
+  - add()
+  - clear()
+  - copy()
+  - difference()
+  - difference_update()
+  - discard()
+  - intersection()
+  - intersection_update()
+  - isdisjoint()
+  - issubset()
+  - issuperset()
+  - pop()
+  - remove()
+  - symmetric_difference()
+  - symmectric_difference_update()
+  - union()
+  - update()
+
+## Tuple ##
 
 ## Dictionary (Hashtable) ##
  
