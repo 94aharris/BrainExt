@@ -9,6 +9,19 @@
 - [x] This is done
 - [ ] This is Not Done :(
 
+## Code ##
+
+Use for bits of code 
+
+` bit of code `
+
+Use for lots of code
+
+```
+Lot of code
+Oh it's a lot
+```
+
 ## Images ##
 
 ![demo screenshot](Images/SCS.png)

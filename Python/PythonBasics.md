@@ -28,9 +28,11 @@
   
 ## Logic Parsing ##
 
-    def isMyName(name):
-        if (name.lower() == "Anthony") : return True
-        else : return False
+```
+def isMyName(name):
+    if (name.lower() == "Anthony") : return True
+    else : return False
+```
 
 - if statements are evaluated left first then (if false) the right is evaluated. thats why something like the below will **not** work (you will get an exception)
 
@@ -38,8 +40,10 @@
 
 ## Error Raising ##
 
-    raise Exception('This is a Generic Exception Which is bad')
-    raise ValueError('This is a specific Exception which is better')
+```
+raise Exception('This is a Generic Exception Which is bad')
+raise ValueError('This is a specific Exception which is better')
+```
 
 ## Incrent Operators ##
 
@@ -65,14 +69,15 @@
 - Convert an integer to a string
   - use `str()`
   
-
-         a = [1,2,3,4]
-         strvar = ""
-         for i in a
-            strvar += str(a[i])
-            strvar += " "
-            i += 1
-        print(strvar)
+```
+a = [1,2,3,4]
+strvar = ""
+for i in a
+  strvar += str(a[i])
+  strvar += " "
+  i += 1
+print(strvar)
+```
 
 - String interpolation with fstrings
   - `stringvar = f"My Name Is {namevar}"`
@@ -99,17 +104,19 @@
 ## Loops ##
 
   While
+```
+while (i < len(arrvar)) :
+  print(i)
+```  
 
-    while (i < len(arrvar)) :
-      print(i)
-  
   For
 
-    for x in range(6):
-      print(x)
-    else:
-      print("Finally finished!")
-
+```
+for x in range(6):
+  print(x)
+else:
+  print("Finally finished!")
+```
 ## List (Arrays) ##
 
 - Array Slicing
@@ -121,21 +128,24 @@
   - add list to list
     - `arrvar.extend([1,2,3])`
 - Array Splicing
+  
+```
+a = [1,2,3,4,5] 
+shift = 4
+a[shift:]
+>>[5]
+a[:shift]
+>>[1, 2, 3, 4]
+a[shift:] + a[:shift]
+>>[5, 1, 2, 3, 4]
 
-         a = [1,2,3,4,5] 
-         shift = 4
-         a[shift:]
-         >>[5]
-         a[:shift]
-         >>[1, 2, 3, 4]
-         a[shift:] + a[:shift]
-         >>[5, 1, 2, 3, 4]
++---+---+---+---+---+---+
+| P | y | t | h | o | n |
++---+---+---+---+---+---+
+0   1   2   3   4   5   6
+-6  -5  -4  -3  -2  -1
+```
 
-          +---+---+---+---+---+---+
-          | P | y | t | h | o | n |
-          +---+---+---+---+---+---+
-          0   1   2   3   4   5   6
-          -6  -5  -4  -3  -2  -1
 - Compare Arrays for Intersections
   - Convert to a 'Set' then compare
       
