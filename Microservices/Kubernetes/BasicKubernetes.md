@@ -9,6 +9,9 @@
 - [ ] [Kubernetes Learning Path](https://azure.microsoft.com/mediahandler/files/resourcefiles/kubernetes-learning-path/Kubernetes%20Learning%20Path_Version%202.0.pdf)
 - [ ] [Kubernetes Tutorials(Interactive)](https://kubernetes.io/docs/tutorials/)
 - [ ] [Kubernetes Lab with KVM](https://medium.com/@nicholas.w.talbot/kubernetes-lab-with-kvm-8ab958cd3c5f)
+- [ ] [K8S on Centos 7](https://www.mvps.net/docs/building-a-kubernetes-cluster-k8s-on-centos-7-in-a-kvm/)
+- [ ] [Getting Started with KVM and K8s](https://blog.alexellis.io/kvm-kubernetes-primer/)
+- [ ] [Learn Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/)
 
 * * * * *
 
