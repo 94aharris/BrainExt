@@ -10,6 +10,16 @@
 - grep
 - yum
 
+## Modifying Folders and Files ##
+- mkdir
+  - create directory
+- rm
+  - removes item
+  - `rm <filename>`
+  - remove recursively
+  - `rm <foldername> -r`
+  - remove everything, no prompt
+  - `rm <foldername> -r -d -f`
 ## Mounting Disk ##
 
 - [Mount Disk](https://codingbee.net/rhcsa/rhcsa-mounting-a-partition)
@@ -30,6 +40,19 @@ Unmount
 or
 `unmount /dev/sdb1`
 
+## Loading Kernel Modules ##
+
+Use `modprobe` to load in kernel modules
+
+- Load
+  - `modprobe <name>`
+- Remove
+  - `modprobe -r <name>`
+
+Use `modinfo` to check details of module
+
+- `modinfo <name>`
+
 ## Reading NTFS ##
 
 install the extra packages for enterprise linux
@@ -46,6 +69,10 @@ See Networking Interfaces and connected / disconnected state
 
 `nmcli d`
 
+Get detailed information about interface (IP, DNS, Gateway, etc.)
+
+`nmcli dev show <devname>`
+
 Restart an interface
 * Disable 
   * `sudo ifdown <interfacename>`
@@ -55,6 +82,12 @@ Restart an interface
 Edit Network interface settings
 
 `nano vi/etc/sysconfig/network-scripts/ifcfg-\<interfaceName\>`
+
+Restart Network
+
+`systemctl restart network`
+
+### Laptop -> Server Bridge ###
 
 Using a Centos Computer with a network connection to ethernet bridge one that does not have a network connection - [Bridging with Centos](https://fedoramagazine.org/internet-connection-sharing-networkmanager/)
 

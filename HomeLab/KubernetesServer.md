@@ -9,6 +9,8 @@ I would like everything to be repeatable as much as possible (e.g. Ansible confi
 - [Kubernetes Lab with KVM](https://medium.com/@nicholas.w.talbot/kubernetes-lab-with-kvm-8ab958cd3c5f)
 - [Github Repo for Above](https://github.com/talbotfoundry/k8s-kvm)
 - [Install KVM on CentOS/RHEL 7](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/)
+- [Vagrant on Centos](https://www.vagrantup.com/downloads)
+- [Setup Bridge on Centos](https://www.itzgeek.com/how-tos/mini-howtos/create-a-network-bridge-on-centos-7-rhel-7.html)
 
 Everything is derived from the above gitrepo... but we're revising it for Centos as we go
 
@@ -63,7 +65,14 @@ Kubernetes is IP address hungry, so make sure you have some on your network.
 
 One is needed for the master and must end in 0.  Then one for each worker node starting with 1.  In the example I used 192.168.11.120 through 192.168.11.123 for a total of four addresses.
 
+* * *
+
 ## Install dependencies for KVM ##
+
+Add Additional Releases Channel
+```
+sudo yum install epel-release
+```
 
 Install Python3
 
@@ -73,9 +82,50 @@ sudo yum install python3
 
 Install dependencies for headless KVM on CentOS 7
 ```
-yum install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install virt-manager
+yum install qemu-kvm libvirt libvirt-python libguestfs-tools virt-install virt-manager bridge-utils
 ```
 
+Install  Vagrant and libvirt plugin 
+
+**Note : if [this vagrant bug](https://github.com/hashicorp/vagrant/issues/12445) is still open you'll need to use one of the resolution steps in the comments to get the vagrant-libvirt to work**
+
+```
+sudo yum install -y yum-utils
+
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+sudo yum -y install vagrant gcc libvirt-devel libxml2-devel make ruby-devel gcc-c++ libstdc++-devel
+
+systemctl enable --now libvirtd
+
+vagrant plugin install vagrant-libvirt
+```
+Install git
+```
+yum install git
+```
+
+Install Ansible
+```
+yum install ansible
+```
+
+
+* * *
+## Pull down the Ansible Files From Github ##
+
+Perform a clone from the github repo
+
+```
+mkdir /home/<uname>/Labfiles
+cd /home/<uname>/Labfiles
+
+git clone https://github.com/talbotfoundry/k8s-kvm.git
+
+cd k8s-kvm
+```
+
+* * * 
 ## Start Up and Verify KVM ##
 
 Start the libvirtd service
@@ -100,7 +150,7 @@ If you fail on the /dev/kvm exists
 
 If you fail on 'load the fuse module'
 - yum reinstall fuse -y
-- **Still having trouble with this bit**
+- sudo modprobe fuse
 
 Verify network bridge
 
@@ -124,46 +174,72 @@ virt-install \
 --disk path=/var/lib/libvirt/images/centos7.qcow2,size=40,bus=virtio,format=qcow2
 ```
 
-## Ansible ##
-
-Install Vagrant and Ansible **Get to this later**
-```
-apt-get install -qy qemu-kvm libvirt-bin virtinst bridge-utils cpu-checker python3 vagrant ansible
-```
+* * * 
 
 ## Create a bridge
-This will depend on the ubuntu distro and how you chose to set up networking.  
-Call the bridge 'br0' if you can.  An example netplan configuration is
 
-Open /etc/netplan/50-cloud-init.yaml with your favorite editor
+Create a file called "ifcfg-br0" in "/etc/sysconfig/network-scripts"
 
 ```
-network:
-    ethernets:
-        enp1s0:
-            dhcp4: true
-    bridges:
-        br0:
-            dhcp4: true
-            interfaces:
-                - enp1s0
-    version: 2
- ```
- 
- Now run
- ```
- netplan apply
- ```
- 
- *Note this will likely result in the machine getting a new ip address*
- 
+nano /etc/sysconfig/network-scripts/ifcfg-br0
+```
+
+Place the following in the file
+
+```
+DEVICE="br0"
+BOOTPROTO="static"
+IPADDR="10.42.0.56"
+NETMASK="255.255.255.0"
+GATEWAY="10.42.0.1"
+DNS1="10.42.0.1"
+ONBOOT="yes"
+TYPE="Bridge"
+NM_CONTROLLED="no"
+```
+
+determine the adapter you want to use for bridging
+
+`nmcli d`
+
+identify an adapter with network connection (e.g. enp9s0)
+
+`nano /etc/sysconfig/network-scripts/ifcfg-enp9s0`
+
+Add content
+
+```
+DEVICE=enp9s0
+TYPE=Ethernet
+BOOTPROTO=dhcp
+ONBOOT=yes
+NM_CONTROLLED=no
+BRIDGE=br0
+```
+
+Restart the network
+
+`systemctl restart network`
+
+Double check everything with ifconfig the server will now be communicating over the br0 interface and `nmcli d` will show the device as 'unmanaged' since we set `NM_CONTROLLED=no`
+
+
 # Installation
 
 KVM needs to run as root, so go ahead and make yourself root
 
  
 ## Change the network prefix to the free address block you chose
- Open Vagrantfile with your favorite text editor and edit the following line.  Make sure you choose a network block that's good on your network.
+
+
+ Open Vagrantfile with your favorite text editor.
+ 
+ ```
+cd cd /home/<uname>/Labfiles/k8s-kvm
+nano Vagrantfile
+ ```
+ 
+ edit the following line.  Make sure you choose a network block that's good on your network.
  
  ```
  NETWORK_PREFIX="192.168.11.12"
@@ -196,7 +272,7 @@ vagrant up
 Your virtual machines should be created.  It may take several minutes to download the image the first time,
 but it'll cache it in case you wish to rebuild the cluster.
 
-*If* You get any screwy messages about image pool conflicts, try running:
+***If* You get any screwy messages about image pool conflicts**, try running:
 
 ```
 virsh pool-destroy images
@@ -206,6 +282,16 @@ virsh pool-undefine images
 
 
 ## Configure hosts for ansible
+
+Get Ips for the VMs
+
+```
+virsh net-list
+virsh net-info default
+virsh net-dhcp-leases default
+```
+
+Look at this https://serverfault.com/questions/627238/kvm-libvirt-how-to-configure-static-guest-ip-addresses-on-the-virtualisation-ho
 
 Edit hosts file
 Make sure it has the correct ip address for the master starting with the ip address block you chose
