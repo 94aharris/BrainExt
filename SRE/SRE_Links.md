@@ -17,7 +17,36 @@
 - [Overview of SRE Best Practices](https://www.slideshare.net/agarwalashutosh/overview-of-site-reliability-engineering-sre-best-practices)
 - [Google SRE Book](https://sre.google/sre-book/table-of-contents/)
 - [Google SRE Workbook](https://sre.google/workbook/table-of-contents/)
+- [Dropbox SRE Career Ladder](https://dropbox.github.io/dbx-career-framework/ic1_reliability_engineer.html)
 
 ## Tools ##
 
 - [List of Awsome SRE Tools](https://github.com/SquadcastHub/awesome-sre-tools)
+
+## Random ##
+
+
+- [Need for systems observability (blog)](https://blog.last9.io/need-for-systems-observability/)
+  - Everyday questions in war room
+    - What other services are impacted?
+    - What is going wrong?
+    - Is this happening somewhere else?
+    - Did we deploy something?
+    - Is the <external API> impacting us?
+    - It’s Kafka. Right?
+    - What’s the reason for this increased error rate?
+    - Did we get a page?
+    - Something is wrong. We had a massive spike of alerts
+  - How to Answer
+    - Ingest all sorts of **observability pillars**
+      - logs
+      - metrics
+      - traces
+    - Use dashboards and cross-hairs to detect correlations
+    - Build correlations and reliably inform the stakeholders on contextual information
+
+![Typical Monitoring Landscape](../Images/typical_monitoring_landscape.jpg)
+
+- [Troubleshooting a journey into the unknown (blog)](https://medium.com/booking-com-infrastructure/troubleshooting-a-journey-into-the-unknown-e31b524fa86)
+- [How SREs Prepared for Black Friday](https://medium.com/back-market-engineering/how-back-market-sres-prepared-for-black-friday-5f017f343408)
+  

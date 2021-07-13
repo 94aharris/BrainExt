@@ -196,4 +196,24 @@ a[shift:] + a[:shift]
 - Key Value Pairs
   - `dict = {'key1': 'Valuex'}`
 
-## If ##
+## Classes ##
+
+```
+class Dog:
+
+    kind = 'canine'  # class variable shared by all instances
+
+    def __init__(self, name):
+      self.name = name # new name for each dog
+      self.tricks = [] # new empty listing for each dog
+
+    def add_trick(self, trick):
+      self.tricks.append(trick)
+```
+
+```
+>> d = Dog('Fido')
+>> d.add_trick('roll over')
+>> d.tricks
+['roll over']
+```

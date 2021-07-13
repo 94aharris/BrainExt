@@ -7,6 +7,7 @@ Vagrant is a utility for provisioning and managing virtual machine environments.
 ## Resources ##
 
 - [Tutorials from Hashicorp](https://learn.hashicorp.com/vagrant)
+- [Vagrant Cheetsheet](https://linuxacademy.com/site-content/uploads/2017/12/vagrant-cheatsheet-Linux-Academy.pdf)
   
 ## Basics ##
 

@@ -367,6 +367,21 @@ Fail-over and Replication are complimentary
 
 [Derived from Azure Designing Distributed Systems](https://azure.microsoft.com/mediahandler/files/resourcefiles/designing-distributed-systems/Designing_Distributed_Systems.pdf)
 
+### Microservices ###
+
+- Multi-Node Distribued architectures Contrasted to Monolithic Systems
+- Typically communicating over a defined API
+- Benefits
+  - Reliability
+  - Agility (quick and frequent deployments)
+  - Reduced team size
+  - Reliable API contracts remove need for tight synchronization
+  - Better Scaling
+- Downsides
+  - Loosely coupled system can be difficult to debug
+  - Difficult to design and architect
+- Benefit from using well known patterns
+  
 ### Single Node Patterns ###
 
 ![SidecarPattern](../Images/sidecar_pattern.png)
@@ -393,6 +408,63 @@ Fail-over and Replication are complimentary
   - Applows deployment of a single tool that uses this interface
   - Useful for monitoring applications
 
+### Multi-Node Patterns ###
+
+![Load Balanced Pattern](../Images/loadbalanced_pattern.png)
+
+- **Replicated Load Balanced Services**
+  - **Stateless ** load balanced systems
+    - static content
+    - middlewhare systems that aggregate responses
+  - **Session Tracked** load balanced system
+    - typically done via consistent hashing function (to account for node scaling)
+    - Deploy Cache using **Sidecar Pattern** is option but uses a lot of memory
+  - provide redundancy and scale
+  - Need at least 3 nodes (2 replicas) for 'Highly Available'
+  - Ability to **horizontally scale**
+  - Should have some type of health / Readiness probe
+
+![Replicated vs Sharded Pattern](../Images/replicated_vs_shardedpattern.png)
+
+- **Sharded Services**
+  - Different requests go to different services
+  - Commonly used for sharding cache serving but useful for any service where more data needed than can fit on sigle machine
+
+![Scatter Gather Pattern](../Images/scatter_gather_pattern.png)
+
+- **Scatter Gather Pattern**
+  - parallelism by servicing requests to different nodes then pulling the values back together
+  - **With Root Distribution**
+    - User request to root App node
+    - Shards request to leaves
+    - Requests pulled back by root node and served back to user
+    - (e.g. Document search with **Elastic Search**)
 
 
+## Batch Computational Patterns ##
 
+![Work Queue Pattern](../Images/Work_Queue_pattern.png)
+
+- **Work Queue Systems**
+  - simplest batch processing
+  - perform each piece of work processed within a certain period of time
+  - Worker nodes and queue manager node
+  - Can allow for **dynamic scaling** of workers
+
+![Event Driven Processing](../Images/Event_Driven_Pattern.png)
+
+- **Event Driven**
+  - Chains the output of one queue to the input of the next queue
+  - Need an overall blueprint for how different event queues relate to each other
+  - **Copier**
+    - Take single stream of work and dupllicate it
+    - multiple pieces of work to be done on same item
+  - **Filter**
+    - reduce stream to a smaller stream of work
+    - filter out items that don't meet criteria
+  - **Splitter**
+    - sends different inputs to different queues
+  - **Sharder**
+    - divide a single queue into an evenly divided collection of work
+  - **Merger**
+    - turn multiple work queues and turn them into a single work queue
