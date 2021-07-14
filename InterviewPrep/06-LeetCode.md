@@ -11,7 +11,10 @@
 
 ## Overview ##
 
-* Use a dynamic programming language. My choice is **Python** ... or maybe Java?
+- Use a dynamic programming language. My choice is **Python** 
+  - Maybe shake the rust off Java and C# just to say be able to 'hello world'
+  - Would **love** to use PowerShell instead... but oh well
+- Prioritize simplicity and readability over performance first then Optimize 
 
 ## Interview Overview ##
 
@@ -24,7 +27,6 @@
 - Practice Whiteboard coding with someone in the room
 - If you notice you are quiet, take a step back and say your thought proccess, otherwise the interviewer may try to give you a hint
 - Say **something**, even if it is just mumbles
-
 
 ## 7 Steps to Solving Algorithm Problems ##
 

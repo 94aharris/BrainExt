@@ -20,15 +20,47 @@
 
 ## Some Info ##
 
-- 4 DataTypes
-  - Set 
+- All Built in Data Types
+  - Text
+    - str
+  - Numeric
+    - int, float, complex
+  - Sequence
+    - list, tuple, range
+  - Mapping
+    - dict
+  - Set
+    - set, frozenset
+  - Boolian
+    - bool
+  - Binary
+    - bytes, bytearray, memoryview
+
+- 4 Colllection Types
+  - Set
+    - Store single multiple items in a single variable
+    - unorderd, unindexed, do not allow duplicates (see unordered)
+    - written with {} braces
   - List (array)
+    - ordered, changeable, and allow duplicates
+    - written with [] brackets
   - Dictionary (hashtable)
+    - key value pairs
+    - ordered, changeable, and does not allow duplicates
   - Tuple
+    - ordered, unchangeable, and allow duplicates
+    - written with () brackets
+
+## Type-Specific Methods ##
+
+- type specific method operations generally only work on that type (e.g. strings) and nothing else
+- As a rule of thumb the toolset is layered: 
+  - Generic operations that span multiple types are built-in functions (`len(strvar)` and `len(arrvar)`)
+  - Type-specific operations are method calls (`srtvar.upper()`)
   
 ## Logic Parsing ##
 
-```
+```python
 def isMyName(name):
     if (name.lower() == "Anthony") : return True
     else : return False
@@ -36,11 +68,13 @@ def isMyName(name):
 
 - if statements are evaluated left first then (if false) the right is evaluated. thats why something like the below will **not** work (you will get an exception)
 
-      if not person or person.name == 'bob'
+```python
+if not person or person.name == 'bob'
+```
 
 ## Error Raising ##
 
-```
+```python
 raise Exception('This is a Generic Exception Which is bad')
 raise ValueError('This is a specific Exception which is better')
 ```
@@ -69,7 +103,7 @@ raise ValueError('This is a specific Exception which is better')
 - Convert an integer to a string
   - use `str()`
   
-```
+```python
 a = [1,2,3,4]
 strvar = ""
 for i in a
@@ -104,19 +138,21 @@ print(strvar)
 ## Loops ##
 
   While
-```
+
+```python
 while (i < len(arrvar)) :
   print(i)
 ```  
 
   For
 
-```
+```python
 for x in range(6):
   print(x)
 else:
   print("Finally finished!")
 ```
+
 ## List (Arrays) ##
 
 - Array Slicing
@@ -129,7 +165,7 @@ else:
     - `arrvar.extend([1,2,3])`
 - Array Splicing
   
-```
+```python
 a = [1,2,3,4,5] 
 shift = 4
 a[shift:]
@@ -148,17 +184,19 @@ a[shift:] + a[:shift]
 
 - Compare Arrays for Intersections
   - Convert to a 'Set' then compare
-      
-      arrvar1 = [1,2,3,4,5]
-      arrvar2 = [5,6,7,8,9]
 
-      set(arrvar1) & set(arrvar2)
-      >> {5}
+```python
+arrvar1 = [1,2,3,4,5]
+arrvar2 = [5,6,7,8,9]
 
-      s1 = "anthony"
-      s2 = "hello"
-      set(s1) & set(s2)
-      >> {'h','o'}
+set(arrvar1) & set(arrvar2)
+>> {5}
+
+s1 = "anthony"
+s2 = "hello"
+set(s1) & set(s2)
+>> {'h','o'}
+```
 
 ## Sets ##
 
@@ -190,7 +228,7 @@ a[shift:] + a[:shift]
 ## Tuple ##
 
 ## Dictionary (Hashtable) ##
- 
+
 *leet code tip* - Dictionaries are case sensitive, if a question mentions case sensitive lookups specifically, may be wanting a dictionary
 
 - Key Value Pairs
@@ -198,7 +236,14 @@ a[shift:] + a[:shift]
 
 ## Classes ##
 
-```
+- Pros
+  - Provide Inheritance
+  - Provide Composition
+  - Multiple instances
+  - customization via inheritance
+  - Operator overloading
+  
+```python
 class Dog:
 
     kind = 'canine'  # class variable shared by all instances
@@ -211,9 +256,37 @@ class Dog:
       self.tricks.append(trick)
 ```
 
-```
+```python
 >> d = Dog('Fido')
 >> d.add_trick('roll over')
 >> d.tricks
 ['roll over']
 ```
+
+## Important Python Statements ##
+
+- Assignment
+  - `intvar = 1`
+- Calls and expressions
+  - `log.write("blah")`
+- print calls
+  - `print (f"hello {name}")`
+- if/elif/else
+- for/else
+- while/else
+- pass
+- break
+- continue
+- def
+- return
+- yield
+- global
+- nonlocal
+- import
+- from
+- class
+- try/except/finally
+- raise
+- assert
+- with/as
+- del
