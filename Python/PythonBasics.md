@@ -4,6 +4,7 @@
 
 - [W3 Schools Python](https://www.w3schools.com/python/python_for_loops.asp)
 - [Python Zero to Mastery](https://github.com/kamranahmedse/developer-roadmap)
+- [HackerRank Python](https://www.hackerrank.com/domains/python)
 
 ## Learning Checklist ##
 
@@ -155,15 +156,15 @@ else:
 
 ## List (Arrays) ##
 
-- Array Slicing
-- Add to an array
+- **Add to an array**
   - at end
     - `arrvar.append("value")`
   - at given index (i)
     - `arrvar.insert(i,"value")`
   - add list to list
     - `arrvar.extend([1,2,3])`
-- Array Splicing
+
+- **Array Splicing**
   
 ```python
 a = [1,2,3,4,5] 
@@ -182,7 +183,7 @@ a[shift:] + a[:shift]
 -6  -5  -4  -3  -2  -1
 ```
 
-- Compare Arrays for Intersections
+- **Compare Arrays for Intersections**
   - Convert to a 'Set' then compare
 
 ```python
@@ -197,6 +198,10 @@ s2 = "hello"
 set(s1) & set(s2)
 >> {'h','o'}
 ```
+
+- **List Sorting**
+  - `listvar.sort()`
+  - This does not have to be assigned to anything, python lists are mutable
 
 ## Sets ##
 

@@ -4,14 +4,55 @@
 
 **Leet Code Daily** - Hacker Ranker
 
-* Linux - 3 weeks
-* Leet Code - 2 weeks
-* Algos / Data Struts  - 3 weeks
-* System Design - 2 weeks
-* Non-Abstract Large System Design - 1 Week
-* DevOps - 1 Week
-* Networking Refresher - 1 week
-* Review / Practice Qs - 2 Weeks
+1. [System Design](01-SystemDesignInterview.md) - 2 weeks (July 1 - 18)
+   1. Non-Abstract Large System Design - 1 Week
+2. [Linux](02-LinuxInterview.md) - 3 weeks (July 19 - August 7)
+   1. Shell
+   2. CentOS
+   3. Signals
+3. [Cloud Interview](03-CloudInterview.md) - 2 Weeks (August 9 - 20)
+   1. Concepts
+   2. Azure Tools
+   3. AWS Tools
+4. [Leet Code](04-LeetCode.md) - 2 weeks (August 23 - September 3)
+   1. Practice
+   2. Practice
+   3. Practice
+5. [Algos / Data Struts](05-Algos_DataStructs.md)  - 2 weeks (August 23 - September 3)
+   1. Concepts
+   2. Arrays and Strings
+   3. Linked Lists
+   4. Stacks and Queues
+   5. Trees and Graphs
+   6. Common Search Algorithms
+   7. Recursion and Backtracking
+   8. Big-O
+6. [DevOps](06-DevOpsInterview.md) - 1 Week (September 6 - 11)
+   1. Concepts / Operational Excellence
+   2. Kubernetes
+   3. Docker
+   4. CI/CD
+   5. Jenkins
+   6. Ansible
+   7. Vagrant
+7. [Networking Refresher](07-Networking.md) - 1 week (September 13 - 18)
+   1. TCP/IP
+   2. Common Ports and Protocols
+   3. "What Happens When..."
+   4. Common Network Troubleshooting / Tools
+   5. Common Network Topologies
+   6. Practice Network Questions
+8. [Databases](08-Databases.md) - 1 Week (September 20 - 25)
+   1. SQL Review
+   2. No SQL DBs
+   3. RDBMS and Other types of databases
+   4. Database Reliability Engineering and Database Internals
+9. [Review / Practice Qs](09-Review.md) - 2 Weeks (September 26 - October 6)
+   1. Flash Cards
+   2. Cheat Sheets
+   3. Organize Notes
+
+**Job Hunt!**
   
 ## How to Study ##
 

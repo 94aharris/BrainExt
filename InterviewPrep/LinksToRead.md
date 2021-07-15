@@ -86,3 +86,7 @@ Links that still need to be read, digested, and sorted
 ## Kubernetes ##
 
 - [ ] [Certified Kubernetes Application Developer (CKAD)](https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/)
+
+## Sysadmin ##
+
+- [ ] [Sysadmin Questions](https://github.com/trimstray/test-your-sysadmin-skills)
