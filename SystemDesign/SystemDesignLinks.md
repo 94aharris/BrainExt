@@ -24,7 +24,6 @@
 - [Best Practices in Cloud Applications](https://docs.microsoft.com/en-us/azure/architecture/best-practices/index-best-practices)
 - [Application Architecture Design](https://docs.microsoft.com/en-us/azure/architecture/guide/)
 
-
 ## Distributed Systems ##
 
 - [Distributed Systems Lecture](https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB)
@@ -34,12 +33,11 @@
 - [Parrallel Processing in Distributed Systems](https://heather.miller.am/teaching/cs212/slides/week19-scaled.pdf)
 - [Intro to Big Data Processing](http://www.eli.sdsu.edu/courses/spring20/cs696/notes/D02BigDataIntro.pdf)
 
-
 ## Microservices ##
 
 - [Microservices Criticisms and Concerns](https://en.wikipedia.org/wiki/Microservices#Criticism_and_concerns)
 - [Raspberry-pi-dramble](https://github.com/geerlingguy/raspberry-pi-dramble)
-
+- [Uber Engineering Microservices Architecture](https://eng.uber.com/microservice-architecture/)
 
 ## Examples ##
 
