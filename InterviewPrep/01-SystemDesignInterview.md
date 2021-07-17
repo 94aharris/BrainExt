@@ -33,12 +33,18 @@
 - [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
 - [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
 - [ ] [Scalability, availability, stability patterns (slideshare)](http://www.slideshare.net/jboner/scalability-availability-stability-patterns/)
+- [ ] [DNS Architecture](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197427(v=ws.10)?redirectedfrom=MSDN)
+- [ ] [10 Scalable System Design Patterns](http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html)
+- [ ] [No SQL Patterns](http://horicky.blogspot.com/2009/11/nosql-patterns.html)
+- [ ] [BigTable Model with Cassandra and HBase](http://horicky.blogspot.com/2010/10/bigtable-model-with-cassandra-and-hbase.html)
+- [ ] [NGINX Guide to Designing for Scale](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
+- [ ] [HAProxy Architecture Guide](http://www.haproxy.org/download/1.2/doc/architecture.txt)
 
 * * * * * * *
 
 ## **Interview Question Steps** ##
 
-**1. Outline Use Cases, Constraints and Assumptions [5-mins]**
+### **1. Outline Use Cases, Constraints and Assumptions [5-mins]** ###
 
 - who are the users?
 - how will they use?
@@ -50,7 +56,7 @@
 - read to write ratio
 - Usage Patterns
 
-**2. Estimations [5-mins]**
+### **2. Estimations [5-mins]** ###
 
 - Throughput (QPS for read and write queries)
 - Latency expected from the system (for read and write queries)
@@ -64,14 +70,14 @@
   - How much RAM and how many machines do we need
   - Amount of data you want to store in disk / ssd
 
-**3. Design Goals [5-mins]**
+### **3. Design Goals [5-mins]** ###
 
 - Latency and Throughput requirments
 - Consistency vs Availability 
   - Weak / Strong / eventual -> Consistency 
   - Failover / Replication -> Availability
 
-**4. High level design [5-10 mins]**
+### **4. High level design [5-10 mins]** ###
 
 - APIs for Read / Write scenarios for crucial components
   - Public APIs
@@ -80,9 +86,8 @@
 - Basic Algorithm
 - High level design for Read/Write Scenario
 
+### **5. Deep Dive [15 - 20 mins]** ###
 
-**5. Deep Dive [15 - 20 mins]**
-   
 - Scaling the algorithm
 - Scaling individual components
   - Availabiity, Consistency and Scale story for each component
@@ -120,7 +125,7 @@
     - REST
     - RPC
 
-**6. Justify [5-minutes]**
+### **6. Justify [5-minutes]** ###
 
 - Throughput of each layer
 - Latency cacuse between each layer
@@ -357,6 +362,7 @@ Fail-over and Replication are complimentary
     - used to detect and correct nodes with stale data
   - Multi-Datacenter
     - Writes sent to all nodes but client only waits for concensus from local datacenter
+  
 * * * * * * *
 
 ## **Non-Abstract Large System Design** ##
@@ -440,6 +446,7 @@ Fail-over and Replication are complimentary
     - Requests pulled back by root node and served back to user
     - (e.g. Document search with **Elastic Search**)
 
+* * * * * * *
 
 ## Batch Computational Patterns ##
 
@@ -468,3 +475,122 @@ Fail-over and Replication are complimentary
     - divide a single queue into an evenly divided collection of work
   - **Merger**
     - turn multiple work queues and turn them into a single work queue
+
+* * * * * * *
+
+## DNS (Domain Name System) ##
+
+![DNS Overview Image](../Images/DNS_Overview.jpg)
+
+### DNS Overview ###
+
+- DNS is how a device determines an IP address from a URL (i.e. website.com -> 22.12.2.12 )
+- Hierarchical, if the DNS server you query does not know, it will ask up a level
+- Lower level servers will cache requests which can become stale. Staleness is determined by TTL (Time to Live)
+
+### Common DNS Record Types ###
+
+- A Record (address) - Most common, points a FQDN (Fully Qualified Domain Name) to IP address
+- CNAME Records (canonical) - Points a name to another name (Like an alias)
+- NS Record (Name Server) - Specifies the DNS server for your domain
+- MX Record (Mail Exchange) - Specifies mail servers for accepting messages
+
+### DNS Services ###
+
+- **Weighted Round Robin**
+  - send traffic to different servers
+- **Latency-based**
+- **Geolocation-based**
+
+### DNS Costs ###
+
+- Accessing DNS introduces a delay, which is why results are cached
+- DNS server managment is comples
+- DNS services can come under attack
+
+* * * * * * *
+
+## CDN (Content Delivery Network) ##
+
+### CDN Overview ###
+
+- Globally distributed network of proxy servers serving content from close to the user 
+- Generally static such as html, photos, videos, etc.
+- Site DNS typically gets user to a CDN
+- Users Receive data faster and less strain on App Servers
+
+### Push CDNs ###
+
+- Receive new content whenever changes occur
+- You must expire content
+- Works best for sites that do not change often or have small sets of data
+- Uses a lot of data on the CDN
+
+### Pull CDN ###
+
+- Leave your content on the server until the first user requests the content
+- You leave content on your server and rewrite URLs to point to the CDN
+- Request is slower until content is cached on CDN
+- TTL tells CDN when to pull again
+- Pull CDNs minimize storage but can create redundancy
+- Heavy traffic load sites work better with pull CDNs
+
+### CDN Disadvantages ###
+
+- CDN costs can be significant
+- Content may become stale based on TTL
+- CDNs require changing URLs for static content before Pointing to CDN
+
+* * * * * * *
+
+## Load Balancers ##
+
+![Azure Load Balancer](../Images/azure_load_balancer.png)
+
+### Load Balancers Overview ###
+
+- Load balancers distribute incoming client requests to computing resources (e.g. applications and databases)
+- Standard use case for **Horizontal scaling**
+- Returns the response from the computing resource to the appropriate client
+- Can be implemented with hardware, software, or cloud service
+- Typically configured as multiple, either in **active-passive** or **active-active**
+
+### Load Balancer Effectiveness ###
+
+- General Benefits
+  - Prevent requests from going to unhealthy servers
+  - Preventing overloading a single server (depending on balancing type)
+  - Help reduce single points of failure
+- Type dependant benefits
+  - **SSL termination** - Decrypt incoming requests and encrypt responses so the operation does not have to be performed by backend servers (expensive action) and reduces the locations that SSL certificates need to be installed
+  - **Session Persistence** - Issue cookies and route a specific client request to the same instance
+
+### Load Balancer Algorithms ###
+
+- Random
+- Least Loaded
+- Session/cookies
+- Round Robin
+- Weighted Round Robin
+
+### Layer 4 Load Balancer ###
+
+- Only look at the **transport layer** to distribute packets (source / destination IP, and port information)
+- Forward packets to and from upstream server performing Network Address Translation (NAT)
+
+### Layer 7 Load Balancer ###
+
+- Look at application layer to distribute traffic
+- Can examine header, message, cookies, etc
+- Terminate network traffic -> read message -> makes a LB decision -> opens a connection to the selected server
+- Could direct video traffic to video servers or billing traffic to billing servers
+- Can perform path sensitive redirection
+
+### Load Balancer Trade-Offs ###
+
+- Scaling horizontally introduces complexity
+  - servers should be stateless: no user specific data
+  - Sessions will need to be stored in a centralized data store (SQL, NoSQL) or persistent cache (Redis, memcached)
+  - Downstream servers (e.g. caches and databases) will need to handle more connections as upstream servers scale out
+- LB can become a bottleneck or single point of failure
+- Increased complexity

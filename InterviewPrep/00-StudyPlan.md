@@ -5,7 +5,28 @@
 **Leet Code Daily** - Hacker Ranker
 
 1. [System Design](01-SystemDesignInterview.md) - 2 weeks (July 1 - 18)
-   1. Non-Abstract Large System Design - 1 Week
+   1. Overview Topics
+   2. Interview Question Steps
+   3. Back of Envelope Calculation
+   4. Scalability for Dummies
+   5. High Level Tradeoffs
+   6. Consistency Patterns
+   7. Availability Patterns
+   8. Non-Abstract Large System Design
+   9. Distributed System Patterns
+   10. Batch Computational Patterns
+   11. DNS
+   12. CDN
+   13. Load Balancer
+   14. Reverse Proxy
+   15. Application Layer
+   16. Database
+   17. Cache
+   18. Asynchronism
+   19. Communication
+   20. Security
+   21. Non-Abstract Large System Design 
+*Possibly separate this into a separate section also (distributed systems)*
 2. [Linux](02-LinuxInterview.md) - 3 weeks (July 19 - August 7)
    1. Shell
    2. CentOS
