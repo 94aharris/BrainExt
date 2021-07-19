@@ -267,11 +267,18 @@ You change the allotted number of CPU cores and memory.  Be sure not to overallo
 
 ## Run Vagrant
 ```
-vagrant up
+sudo vagrant up
 ```
+
+**Note** if you are using KVM, and have the vagrant libvert plugin installed, you may still get the libvirt provider not found error on vagrant up / halt if you forget to sudo. That's because the libvirt plugin is only installed in the sudo context (e.g. run `vagrant plugin list` vs `sudo vagrant plugin list`)
+
 Your virtual machines should be created.  It may take several minutes to download the image the first time,
 but it'll cache it in case you wish to rebuild the cluster.
 
+to later stop your cluster run
+```
+sudo vagrant halt
+```
 ***If* You get any screwy messages about image pool conflicts**, try running:
 
 ```
