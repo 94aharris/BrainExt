@@ -1,5 +1,9 @@
 # DevOps Thoughts #
 
+## Links ##
+
+- [Continuous Integration (Martin Fowler Blog)](https://www.martinfowler.com/articles/continuousIntegration.html)
+
 ## CALMS ##
 
 * Devops summarized as CALMS

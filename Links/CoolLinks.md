@@ -11,6 +11,7 @@
 ### Cool Computer People ###
 
 - [Netmeister ze cool architect](https://www.netmeister.org/)
+- [#1 Coder in Sweden](http://jonasboner.com/)
 
 ## Individuals ##
 
@@ -30,6 +31,8 @@
 - [Efficiency is the Enemy](https://fs.blog/2021/05/slack/)
 - [Are Beliefs Like Clothes?](http://mason.gmu.edu/~rhanson/belieflikeclothes.html)
 - [Programmer Comppetency Matrix](https://sijinjoseph.com/programmer-competency-matrix/)
+- [Reactive Manifesto](https://www.reactivemanifesto.org/)
+- [Surfing Complexity(blog)](https://surfingcomplexity.blog/)
 
 ## Zen / Mental ##
 

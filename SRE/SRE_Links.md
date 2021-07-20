@@ -25,6 +25,27 @@
 
 ## Random ##
 
+- [Cascading Failures(Video)](https://www.infoq.com/presentations/cascading-failure-risk)
+  - Cascading failures are at risk of requiring intervention during problem spike
+    - Take down entire service
+    - don't self heal
+    - no warning
+  - Any system that is designed to failure is at risk of cascading failure
+  - Example: AWS DynamoDB outage in 2015
+  - **CLD (Causal Loop Diagram)**
+    - **system dynamics modeling** to identify potential cascading failures
+    - All +'s can cause cascade
+  - Recovery
+    - Can't just scale out (get overstated)
+    - Reduce load until you can get sufficient capacity in place
+    - Disabling health checks temporarily help
+  - Avoid Cascading Failures
+    - Avoid accepting unbounded numbers of incoming requests
+    - Avoid dangerous client retry behavior (when you have control)
+    - Avoid crashing on bad input (poison pill)
+    - Avoid proximity-based failover without imposing maximum capacities (potential over-provisioning)
+    - Avoid work prompted by failure
+    - Avoid long startup times (makes autoscaling difficult)
 
 - [Need for systems observability (blog)](https://blog.last9.io/need-for-systems-observability/)
   - Everyday questions in war room
