@@ -18,6 +18,7 @@
 - [Implement SRE in your organization in one year](https://medium.com/site-reliability-engineering-leadership/how-to-implement-sre-in-your-organization-f103b30b1747) 
 - [Cross Functional DevOps Teams](https://caylent.com/devops-handbook-part-2-defining-devops-teams)
 - [Generate System Documentation Using Python](https://github.com/mingrammer/diagrams)
+- [We Don't Use Kubernetes](https://ably.com/blog/no-we-dont-use-kubernetes)
   
 ## Microsoft ##
 

@@ -1,5 +1,9 @@
 # Cool Links #
 
+## Learning ##
+
+- [How to Learn Stuff Quickly](https://www.joshwcomeau.com/blog/how-to-learn-stuff-quickly/)
+  
 ## Computer Stuff ##
 
 ### Computer Funny ###
@@ -33,6 +37,7 @@
 - [Programmer Comppetency Matrix](https://sijinjoseph.com/programmer-competency-matrix/)
 - [Reactive Manifesto](https://www.reactivemanifesto.org/)
 - [Surfing Complexity(blog)](https://surfingcomplexity.blog/)
+- [Habits of Expert Software Developers](https://thereader.mitpress.mit.edu/habits-of-expert-software-designers/)
 
 ## Zen / Mental ##
 

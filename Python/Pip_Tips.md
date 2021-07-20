@@ -17,3 +17,8 @@
   * `--python-version 37`
 * specify package version
   * `SomePackage==1.0`
+
+## Errors and Resolutions ##
+
+* On pip install **"ERROR: Cannot uninstall 'PyYAML'. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall"**
+  * Resolution: `pip install --ignore-installed PyYAML` This will attempt to install the newer version of PyYAML on top of the existing installation without uninstalling the old version. Once that completes, then try installing the other package.
