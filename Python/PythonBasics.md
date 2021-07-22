@@ -241,12 +241,17 @@ set(s1) & set(s2)
 
 ## Classes ##
 
+**Note:** if you get "[takes 1 positional argument but 2 were given"](https://careerkarma.com/blog/python-takes-one-positional-argument-but-two-were-given/) often raised when you try to pass an argument through a method in a class without adding self as an argument
+
 - Pros
   - Provide Inheritance
   - Provide Composition
   - Multiple instances
   - customization via inheritance
   - Operator overloading
+
+- Methods
+  - Made sure you have self as an input or you'll get an error
   
 ```python
 class Dog:
@@ -295,3 +300,7 @@ class Dog:
 - assert
 - with/as
 - del
+
+## Null ##
+
+- Python does not have `null` it uses `None`

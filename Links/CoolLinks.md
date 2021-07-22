@@ -16,6 +16,7 @@
 
 - [Netmeister ze cool architect](https://www.netmeister.org/)
 - [#1 Coder in Sweden](http://jonasboner.com/)
+- [Bob Monjian (Postgresql creator Blog)](https://momjian.us/)
 
 ## Individuals ##
 

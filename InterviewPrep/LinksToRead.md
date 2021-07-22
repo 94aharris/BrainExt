@@ -70,6 +70,9 @@ Links that still need to be read, digested, and sorted
 - [ ] [SQL DBA Training Plan](https://www.brentozar.com/archive/2019/07/welcome-to-the-dba-training-plan/)
 - [ ] [How Microsoft Scaled SQL Server in Cloud (PDF)](https://www.microsoft.com/en-us/research/uploads/prod/2019/05/socrates.pdf)
 - [ ] [Troubleshooting SQL Server: Guide for Accidental DBA (PDF)](https://assets.red-gate.com/community/books/troubleshooting-sql-server-accidental-dba.pdf)
+- [ ] [PostgreSQL Replication](https://momjian.us/main/writings/pgsql/replication.pdf)
+- [ ] [PostgreSQL: Database Tuning](https://momjian.us/main/writings/pgsql/performance.pdf)
+- [ ] [PostgreSQL: Future of Sharding](https://momjian.us/main/writings/pgsql/sharding.pdf)
 
 ## Hardware ##
 
@@ -90,3 +93,7 @@ Links that still need to be read, digested, and sorted
 ## Sysadmin ##
 
 - [ ] [Sysadmin Questions](https://github.com/trimstray/test-your-sysadmin-skills)
+
+## Security ##
+
+- [ ] [Fundamentals of Modern Cryptography](https://momjian.us/main/writings/crypto.pdf)

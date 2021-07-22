@@ -41,13 +41,13 @@
    3. Practice
 5. [Algos / Data Struts](05-Algos_DataStructs.md)  - 2 weeks (August 23 - September 3)
    1. Concepts
-   2. Arrays and Strings
-   3. Linked Lists
-   4. Stacks and Queues
-   5. Trees and Graphs
-   6. Common Search Algorithms
-   7. Recursion and Backtracking
-   8. Big-O
+   2. Big-O
+   3. Arrays and Strings
+   4. Linked Lists
+   5. Stacks and Queues
+   6. Trees and Graphs
+   7. Common Search Algorithms
+   8. Recursion and Backtracking
 6. [DevOps](06-DevOpsInterview.md) - 1 Week (September 6 - 11)
    1. Concepts / Operational Excellence
    2. Kubernetes

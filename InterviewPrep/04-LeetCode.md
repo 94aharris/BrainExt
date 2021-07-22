@@ -37,3 +37,25 @@
 5. Walk Through
 6. Implement
 7. Test
+
+## STAR Method ##
+
+### **Situation** ###
+
+- Background and context
+- Understand the problem
+
+### **Task** ###
+
+- Describe the problem and challenges
+- Describe brute force solution
+
+### **Action** ###
+
+- Do the work
+- Explain what you did
+
+### **Results** ###
+
+- State benefits, value, Big O, etc.
+- State possible improvments
