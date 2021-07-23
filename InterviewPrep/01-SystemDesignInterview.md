@@ -14,6 +14,7 @@
 
 ## **Resources** ##
 
+- [ ] [Hacking the Software Engineer Interview](https://tianpan.co/hacking-the-software-engineer-interview/?isAdmin=true)
 - [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
 - [x] [Please stop calling databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
 - [x] [Transactions Across Datacenters](https://snarfed.org/transactions_across_datacenters_io.html)
@@ -39,8 +40,15 @@
 - [ ] [BigTable Model with Cassandra and HBase](http://horicky.blogspot.com/2010/10/bigtable-model-with-cassandra-and-hbase.html)
 - [ ] [NGINX Guide to Designing for Scale](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
 - [ ] [HAProxy Architecture Guide](http://www.haproxy.org/download/1.2/doc/architecture.txt)
+- [ ] [Reverse Proxy vs Load Balancer](https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/)
+- [ ] [Intro to architecting systems for scale](https://lethain.com/introduction-to-architecting-systems-for-scale/)
+- [ ] [Crack the system design interview](https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview)
+- [ ] [Service Oriented Architecture](https://en.wikipedia.org/wiki/Service-oriented_architecture)
+- [ ] [Intro to Zookeeper(Slides)](https://www.slideshare.net/sauravhaloi/introduction-to-apache-zookeeper)
+- [ ] [What you should know before building Microservices](https://cloudncode.blog/2016/07/22/msa-getting-started/)
+- [ ] [System Design and Architecture Sample Questions](https://github.com/puncsky/system-design-and-architecture)
 
-* * * * * * *
+-----
 
 ## **Interview Question Steps** ##
 
@@ -133,7 +141,7 @@
 
 Bonus: Show back of the envelope calculations
 
-* * * * * * *
+-----
 
 ## **Back of the Envelope Calculations** ##
 
@@ -161,7 +169,7 @@ Keys about the numbers
 - Optimize for low contention
 - Optimize wide. Make writes as parallel as you can
 
-* * * * * * *
+-----
 
 ## **Scalability for Dummies** ##
 
@@ -243,7 +251,7 @@ Asynchronism allows work to be done bit by bit rather than waiting for the whole
 - Basic idea is to have a queue of tasks or jobs that a worker can process
 - If you do something time-consuming try to do it asynchronously
 
-* * * * * * *
+-----
 
 ## **High Level Tradeoffs to Remember** ##
 
@@ -280,7 +288,7 @@ You can pick 2 of the 3
   - Responses return most readily available version. Eventually consistent.
   - example Cassandra
 
-* * * * * * *
+-----
 
 ## **Consistency Patterns** ##
 
@@ -308,7 +316,7 @@ You can pick 2 of the 3
   - RDBMSes
   - Transactional DBs
 
-* * * * * * *
+-----
 
 ## **Availability Patterns** ##
 
@@ -363,11 +371,11 @@ Fail-over and Replication are complimentary
   - Multi-Datacenter
     - Writes sent to all nodes but client only waits for concensus from local datacenter
   
-* * * * * * *
+-----
 
 ## **Non-Abstract Large System Design** ##
 
-* * * * * * *
+-----
 
 ## **Distributed System Patterns** ##
 
@@ -446,7 +454,7 @@ Fail-over and Replication are complimentary
     - Requests pulled back by root node and served back to user
     - (e.g. Document search with **Elastic Search**)
 
-* * * * * * *
+-----
 
 ## Batch Computational Patterns ##
 
@@ -476,7 +484,7 @@ Fail-over and Replication are complimentary
   - **Merger**
     - turn multiple work queues and turn them into a single work queue
 
-* * * * * * *
+-----
 
 ## DNS (Domain Name System) ##
 
@@ -508,7 +516,7 @@ Fail-over and Replication are complimentary
 - DNS server managment is comples
 - DNS services can come under attack
 
-* * * * * * *
+-----
 
 ## CDN (Content Delivery Network) ##
 
@@ -541,7 +549,7 @@ Fail-over and Replication are complimentary
 - Content may become stale based on TTL
 - CDNs require changing URLs for static content before Pointing to CDN
 
-* * * * * * *
+-----
 
 ## Load Balancers ##
 
@@ -594,3 +602,75 @@ Fail-over and Replication are complimentary
   - Downstream servers (e.g. caches and databases) will need to handle more connections as upstream servers scale out
 - LB can become a bottleneck or single point of failure
 - Increased complexity
+
+-----
+
+## Reverse Proxy ##
+
+- Web Server that centralizes internal services
+- Unified interfaces to public
+- Requests from clients are forwarded to a server that can fulfil the request first
+
+### Reverse Proxy Benefits ###
+
+- Increased Security
+  - hide info about backend servers
+  - blacklist IPs
+  - Rate limiting
+- Increased Scale / Flexibility
+  - Clients only see reverse proxy IP
+  - Scale servers or change configuration
+- SSL Termination
+  - Decrypt incoming requests and encrypt server responses to backend
+  - Don't have to installl certs on every server
+- Compression
+  - Compress server responses
+- Caching
+  - Return the response for cached requests
+- Static Content
+  - Serve static content directly
+    - HTML / CSS / JS
+    - Photos
+    - Videos
+    - etc.
+
+### Reverse Proxy Disadvantages ###
+
+- Reduced complexity
+- Single point of failure or even more complexity with failover reverse proxies
+
+### Reverse Proxy Vs Load Balancer ###
+
+- Load balancer is only useful with multiple servers
+- Reverse proxies can be useful even with just one back end server
+- NGINX and HAProxy can support layer 7 reverse proxying and load balancing
+  
+### Reverse Proxy Examples ###
+
+- Nginx
+
+-----
+
+## Application Layer ##
+
+- Common in N-Tier Architecture (Web - App - DB)
+- Single Responsibility principle advocates for small and autonomous services
+- Help enable asynchronism
+
+### Microservices in App Tier ###
+
+- suite of independently deployable, small, modular services
+- communicate through a well-defined, lightweight, mechanism
+
+### Service Discovery ###
+
+- Systems such as **Consul**, **Etcd**, and **Zookeeper** help services find each other
+- Health checks help verify service integrity
+- Key-Value store can be useful for storing config values and other shared data
+
+### Disadvantages ###
+
+- Adding an app tier with loosely coupled services requires a different approach
+  - architectural considerations
+  - Operations considerations
+  - Process considerations

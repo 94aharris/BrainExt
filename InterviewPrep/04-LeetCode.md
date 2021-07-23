@@ -16,6 +16,8 @@
   - Would **love** to use PowerShell instead... but oh well
 - Prioritize simplicity and readability over performance first then Optimize 
 
+-----
+
 ## Interview Overview ##
 
 - Different errors matter differently
@@ -28,6 +30,8 @@
 - If you notice you are quiet, take a step back and say your thought proccess, otherwise the interviewer may try to give you a hint
 - Say **something**, even if it is just mumbles
 
+-----
+
 ## 7 Steps to Solving Algorithm Problems ##
 
 1. Listen
@@ -37,6 +41,8 @@
 5. Walk Through
 6. Implement
 7. Test
+
+-----
 
 ## STAR Method ##
 
@@ -59,3 +65,9 @@
 
 - State benefits, value, Big O, etc.
 - State possible improvments
+
+-----
+
+## General Tips ##
+
+- If the brute force solution leads you to O(n^2) try Sort then work for a O(n log n) solution (potentially)

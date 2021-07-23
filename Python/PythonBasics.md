@@ -135,6 +135,9 @@ print(strvar)
 - Min/Max
   - Return the max or min of passed values (good for preventing array overrun)
   - `max(i-2,0)` - prevent an iterator from going below 0 on an array (out of bounds)
+- Absolute Value
+  - Return the absolute value (e.g. 1 = 1 ; -1 = 1) of a value
+  - `abs(num)`
 
 ## Loops ##
 
