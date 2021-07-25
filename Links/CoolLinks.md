@@ -11,6 +11,7 @@
 - [Falshoods CS Students Believe](https://www.netmeister.org/blog/cs-falsehoods.html)
 - [Lessons Ops Learns the Hard Way](https://www.netmeister.org/blog/ops-lessons.html)
 - [Fancy Pants](https://www.slideshare.net/jschauma/fancy-pants-13484018/12)
+- [The Association for Computational Heresy](http://sigbovik.org/)
 
 ### Cool Computer People ###
 
