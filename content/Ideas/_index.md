@@ -1,0 +1,4 @@
+---
+title: Ideas
+geekdocCollapseSection: true
+---

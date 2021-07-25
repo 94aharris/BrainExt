@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Microservices on BrainExt</title>
+    <link>localhost/microservices/</link>
+    <description>Recent content in Microservices on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="localhost/microservices/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>localhost/Microservices/Kubernetes/BasicKubernetes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/Microservices/Kubernetes/BasicKubernetes/</guid>
+      <description>Basic Kubernetes    Resources     KataCoda - Kubernetes Kubernetes 101 (learn Kubernetes in 10 Days) Kubernetes the Hard Way MiniKube Kubernetes Learning Path Kubernetes Tutorials(Interactive) Kubernetes Lab with KVM K8S on Centos 7 Getting Started with KVM and K8s Learn Kubernetes Basics   Overview    Kubernetes is an Orchestration and Control Plane for docker images. Similar to docker swarm.
+Key Terms    Pods     Basic unit for running containers inside of Kubernetes Provides a way to set environment variables, mount storage, and feed information into a container Pods are responsible for running the container and every pod holds at least one container and controls the execution of that container when all containers exit the pod dies  Replica Sets     Ensures that a set of identially configured Pods are running at the desired replica count Replaces one if one pod dies &amp;ldquo;low-level&amp;rdquo; type in kubernetes, less referred to than &amp;lsquo;Deployments&amp;rsquo; and DaemonSets  Secrets     Used to store non-public information such as tokens, certs, or passwords attached to Pods at runtime Base 64 encoded at rest but decoded when attached to a pod attached as files or environment variables Use add-on encryption for actual encryption (not just encoded)  Deployments     High level abstraction that controls deploying and maintaining a set of Pods Uses a ReplicaSet to keep the Pods running, but offers sophisticated logic for deploying, updating, and scaling a set of Pods Support rolling updates and rollbacks Rollouts can be paused  DaemonSets     Provide a way to ensure that a copy of a Pod is running on every node in the cluster Adjusts as a cluster grows / shrinks, DaemonSet spreads these specific Pods across all the nodes One frequent patterns is to install or configure software on each host node  Ingresses     Route traffic to and from the cluster declare that traffic ought to be channeled from the outside of the cluster into destinations inside the cluster Provide a single SSL endpoint for many applications Many different implementations for customization  CronJobs     Provide a method for scheduling execution of Pods Used for running periodic tasks like backups, reports, and automated tests Use common Cron syntax Part of the Batch API for creating short lived non-server tools  Custom Resource Definitions (CRD)     Provide an extension mechanism that cluster operators and developers can use to create own resource type Defines a new resource type, tells Kubernetes about it Once a new resource type is added, a new instance of that resource may be created Common pattern is to create a custom controller that watches for new CRD instances and responds accordingly   Launching Single Node Cluster    Uses Minikube</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/Microservices/Microservices/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/Microservices/Microservices/</guid>
+      <description>Microservices    Resources     What I Wish I Knew About Microservices  What I Wish I Knew Notes     Costs of Microservices  You are using a distributed system (complex) Everything is an RPC Everything is a tradeoff You end up building around problems rather than solving them You trade complexity for politics You keep your biases (I like this language / tool / framework)   RPC  HTTP / REST Gets complicated quickly  Why are you using HTTP symantics?</description>
+    </item>
+    
+  </channel>
+</rss>

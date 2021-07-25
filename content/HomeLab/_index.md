@@ -1,0 +1,4 @@
+---
+title: HomeLab
+geekdocCollapseSection: true
+---

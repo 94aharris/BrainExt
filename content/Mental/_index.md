@@ -1,0 +1,4 @@
+---
+title: Mental
+geekdocCollapseSection: true
+---

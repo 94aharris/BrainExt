@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Links on BrainExt</title>
+    <link>https://anthonybrainext.netlify.app/Links/</link>
+    <description>Recent content in Links on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://anthonybrainext.netlify.app/Links/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://anthonybrainext.netlify.app/Links/CoolLinks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://anthonybrainext.netlify.app/Links/CoolLinks/</guid>
+      <description>Cool Links    Learning     How to Learn Stuff Quickly  Computer Stuff    Computer Funny     Falshoods CS Students Believe Lessons Ops Learns the Hard Way Fancy Pants  Cool Computer People     Netmeister ze cool architect #1 Coder in Sweden Bob Monjian (Postgresql creator Blog)  Individuals    Paul Graham     Makers Schedule, Managers Schedule Fierce Nerds Think for Yourself  Work     Embrace the Grind Career Planning Planning a High Impact Career Career Planning In Depth Always be Quitting Efficiency is the Enemy Are Beliefs Like Clothes?</description>
+    </item>
+    
+  </channel>
+</rss>

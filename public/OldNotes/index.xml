@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OldNotes on BrainExt</title>
+    <link>https://anthonybrainext.netlify.app/OldNotes/</link>
+    <description>Recent content in OldNotes on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://anthonybrainext.netlify.app/OldNotes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://anthonybrainext.netlify.app/OldNotes/2019July_GreenNotebook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://anthonybrainext.netlify.app/OldNotes/2019July_GreenNotebook/</guid>
+      <description>July 2019 - July 2020 Notebook    Oct    Alerting     4 Golden signals  Latency Traffic Errors Saturation   Actional Alerts   </description>
+    </item>
+    
+  </channel>
+</rss>

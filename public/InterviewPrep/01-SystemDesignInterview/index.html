@@ -1,0 +1,4135 @@
+<!DOCTYPE html>
+<html lang="en" class="color-toggle-hidden">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark" />
+
+
+
+
+
+    <meta name="description" content="System Design     Remember Everything is a Tradeoff
+ Contents     Resources Interview Question Steps Back of the Envelope Calculations Scalability for Dummies High Level Tradeoffs to Remember Non-Abstract Large System Design Important Tools to Know  Resources     System Design Primer Please stop calling databases CP or AP Transactions Across Datacenters How Google Serves Data From Multiple Datacenters Google Pro Back of Envelope Calculations Palantir - How to rock a systems design interview Numbers every programmer should know Powers of two table What Happens When&hellip; SRE Cheat Sheets Distributed Systems Primer by Loyola SRE Flash Cards How to get into SRE My Path to Site Reliablity Management Google Book - Non Abstract Large System Design Big O Cheat Sheet You&rsquo;re Doing it Wrong (server performance rethought) Scaling Instagram Infrastructure (video) Scalability, availability, stability patterns (slideshare) DNS Architecture 10 Scalable System Design Patterns No SQL Patterns BigTable Model with Cassandra and HBase NGINX Guide to Designing for Scale HAProxy Architecture Guide   Interview Question Steps    1.">
+
+
+
+    <title>01 System Design Interview | BrainExt</title>
+
+    <link rel="icon" href="/favicon/favicon-32x32.png" type="image/x-icon">
+
+    <script src="/js/darkmode-ce906ea916.min.js"></script>
+
+<link rel="preload" as="font" href="/fonts/Metropolis.woff2" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" as="font" href="/fonts/LiberationSans.woff2" type="font/woff2" crossorigin="anonymous">
+
+<link rel="preload" href="/main-468ccf24c5.min.css" as="style">
+<link rel="stylesheet" href="/main-468ccf24c5.min.css" media="all">
+
+<link rel="preload" href="/mobile-0e5d2e7ecf.min.css" as="style">
+<link rel="stylesheet" href="/mobile-0e5d2e7ecf.min.css" media="screen and (max-width: 45rem)">
+
+<link rel="preload" href="/print-f79fc3e5d7.min.css" as="style">
+<link rel="stylesheet" href="/print-f79fc3e5d7.min.css" media="print">
+
+<link rel="preload" href="/custom.css" as="style">
+<link rel="stylesheet" href="/custom.css" media="all">
+
+
+
+<!-- Made with Geekdoc theme https://github.com/thegeeklab/hugo-geekdoc -->
+
+    
+
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage">
+    
+<!-- geekdoc include: sprites/geekdoc.svg -->
+<svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_back" xmlns="http://www.w3.org/2000/svg"><path d="M24 10.526v2.947H5.755l8.351 8.421-2.105 2.105-12-12 12-12 2.105 2.105-8.351 8.421H24z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_left_alt" xmlns="http://www.w3.org/2000/svg"><path d="M5.965 10.526V6.035L0 12l5.965 5.965v-4.491H24v-2.947H5.965z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_right_alt" xmlns="http://www.w3.org/2000/svg"><path d="M18.035 10.526V6.035L24 12l-5.965 5.965v-4.491H0v-2.947h18.035z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_bitbucket" xmlns="http://www.w3.org/2000/svg"><path d="M15.905 13.355c.189 1.444-1.564 2.578-2.784 1.839-1.375-.602-1.375-2.784-.034-3.403 1.151-.705 2.818.223 2.818 1.564zm1.907-.361c-.309-2.44-3.076-4.056-5.328-3.042-1.426.636-2.389 2.148-2.32 3.747.086 2.097 2.08 3.815 4.176 3.626s3.729-2.234 3.472-4.331zm4.108-9.315c-.756-.997-2.045-1.169-3.179-1.358-3.214-.516-6.513-.533-9.727.034-1.066.172-2.269.361-2.939 1.323 1.1 1.031 2.664 1.186 4.073 1.358 2.544.327 5.156.344 7.699.017 1.426-.172 3.008-.309 4.073-1.375zm.979 17.788c-.481 1.684-.206 3.953-1.994 4.932-3.076 1.701-6.806 1.89-10.191 1.289-1.787-.327-3.884-.894-4.864-2.578-.43-1.65-.705-3.334-.98-5.018l.103-.275.309-.155c5.121 3.386 12.288 3.386 17.427 0 .808.241.206 1.22.189 1.805zM26.01 4.951c-.584 3.764-1.255 7.51-1.908 11.257-.189 1.1-1.255 1.719-2.148 2.183-3.214 1.615-6.96 1.89-10.483 1.512-2.389-.258-4.829-.894-6.771-2.389-.911-.705-.911-1.908-1.083-2.922-.602-3.523-1.289-7.046-1.719-10.604.206-1.547 1.942-2.217 3.231-2.698C6.848.654 8.686.362 10.508.19c3.884-.378 7.854-.241 11.618.859 1.341.395 2.784.945 3.695 2.097.412.533.275 1.203.189 1.805z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_bookmark" xmlns="http://www.w3.org/2000/svg"><path d="M15.268 4.392q.868 0 1.532.638t.664 1.506v17.463l-7.659-3.268-7.608 3.268V6.536q0-.868.664-1.506t1.532-.638h10.876zm4.34 14.144V4.392q0-.868-.638-1.532t-1.506-.664H6.537q0-.868.664-1.532T8.733 0h10.876q.868 0 1.532.664t.664 1.532v17.412z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_auto" xmlns="http://www.w3.org/2000/svg"><path d="M16.846 18.938h2.382L15.22 7.785h-2.44L8.772 18.938h2.382l.871-2.44h3.95zm7.087-9.062L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809zm-11.385 4.937L14 10.282l1.452 4.531h-2.904z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_dark" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079 0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565q-1.51 0-3.079.697 1.917.871 3.108 2.701T15.22 14t-1.191 4.037-3.108 2.701q1.568.697 3.079.697zm9.933-11.559L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_light" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079 0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565 8.743 8.743 6.565 14t2.178 5.257T14 21.435zm9.933-3.311v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809L27.999 14z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_cloud_off" xmlns="http://www.w3.org/2000/svg"><path d="M9.023 10.5H7q-1.914 0-3.281 1.395t-1.367 3.309 1.367 3.281T7 19.852h11.375zM3.5 4.976l1.477-1.477L24.5 23.022l-1.477 1.477-2.352-2.297H6.999q-2.898 0-4.949-2.051t-2.051-4.949q0-2.844 1.969-4.867t4.758-2.133zm19.086 5.578q2.242.164 3.828 1.832T28 16.351q0 3.008-2.461 4.758l-1.695-1.695q1.805-.984 1.805-3.063 0-1.422-1.039-2.461t-2.461-1.039h-1.75v-.602q0-2.68-1.859-4.539t-4.539-1.859q-1.531 0-2.953.711l-1.75-1.695Q11.431 3.5 14.001 3.5q2.953 0 5.496 2.078t3.09 4.977z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_code" xmlns="http://www.w3.org/2000/svg"><path d="M9.917 24.5a1.75 1.75 0 10-3.501.001 1.75 1.75 0 003.501-.001zm0-21a1.75 1.75 0 10-3.501.001A1.75 1.75 0 009.917 3.5zm11.666 2.333a1.75 1.75 0 10-3.501.001 1.75 1.75 0 003.501-.001zm1.75 0a3.502 3.502 0 01-1.75 3.026c-.055 6.581-4.721 8.039-7.82 9.023-2.898.911-3.846 1.349-3.846 3.117v.474a3.502 3.502 0 011.75 3.026c0 1.932-1.568 3.5-3.5 3.5s-3.5-1.568-3.5-3.5c0-1.294.711-2.424 1.75-3.026V6.526A3.502 3.502 0 014.667 3.5c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5a3.502 3.502 0 01-1.75 3.026v9.06c.93-.456 1.914-.766 2.807-1.039 3.391-1.075 5.323-1.878 5.359-5.687a3.502 3.502 0 01-1.75-3.026c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_date" xmlns="http://www.w3.org/2000/svg"><path d="M27.192 28.844V11.192H4.808v17.652h22.384zm0-25.689q1.277 0 2.253.976t.976 2.253v22.459q0 1.277-.976 2.216t-2.253.939H4.808q-1.352 0-2.291-.901t-.939-2.253V6.385q0-1.277.939-2.253t2.291-.976h1.577V.001h3.23v3.155h12.769V.001h3.23v3.155h1.577zm-3.155 11.267v3.155h-3.23v-3.155h3.23zm-6.46 0v3.155h-3.155v-3.155h3.155zm-6.384 0v3.155h-3.23v-3.155h3.23z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_download" xmlns="http://www.w3.org/2000/svg"><path d="M2.866 28.209h26.269v3.79H2.866v-3.79zm26.268-16.925L16 24.418 2.866 11.284h7.493V.001h11.283v11.283h7.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_email" xmlns="http://www.w3.org/2000/svg"><path d="M28.845 9.615v-3.23L16 14.422 3.155 6.385v3.23L16 17.577zm0-6.46q1.277 0 2.216.977T32 6.385v19.23q0 1.277-.939 2.253t-2.216.977H3.155q-1.277 0-2.216-.977T0 25.615V6.385q0-1.277.939-2.253t2.216-.977h25.69z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_git" xmlns="http://www.w3.org/2000/svg"><path d="M27.472 12.753L15.247.529a1.803 1.803 0 00-2.55 0l-2.84 2.84 2.137 2.137a2.625 2.625 0 013.501 3.501l3.499 3.499a2.625 2.625 0 11-1.237 1.237l-3.499-3.499c-.083.04-.169.075-.257.106v7.3a2.626 2.626 0 11-1.75 0v-7.3a2.626 2.626 0 01-1.494-3.607L8.62 4.606l-8.09 8.09a1.805 1.805 0 000 2.551l12.225 12.224a1.803 1.803 0 002.55 0l12.168-12.168a1.805 1.805 0 000-2.551z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_github" xmlns="http://www.w3.org/2000/svg"><path d="M16 .394c8.833 0 15.999 7.166 15.999 15.999 0 7.062-4.583 13.062-10.937 15.187-.813.146-1.104-.354-1.104-.771 0-.521.021-2.25.021-4.396 0-1.5-.5-2.458-1.083-2.958 3.562-.396 7.312-1.75 7.312-7.896 0-1.75-.625-3.167-1.646-4.291.167-.417.708-2.042-.167-4.25-1.333-.417-4.396 1.646-4.396 1.646a15.032 15.032 0 00-8 0S8.937 6.602 7.603 7.018c-.875 2.208-.333 3.833-.167 4.25-1.021 1.125-1.646 2.542-1.646 4.291 0 6.125 3.729 7.5 7.291 7.896-.458.417-.875 1.125-1.021 2.146-.917.417-3.25 1.125-4.646-1.333-.875-1.521-2.458-1.646-2.458-1.646-1.562-.021-.104.979-.104.979 1.042.479 1.771 2.333 1.771 2.333.938 2.854 5.396 1.896 5.396 1.896 0 1.333.021 2.583.021 2.979 0 .417-.292.917-1.104.771C4.582 29.455-.001 23.455-.001 16.393-.001 7.56 7.165.394 15.998.394zM6.063 23.372c.042-.083-.021-.187-.146-.25-.125-.042-.229-.021-.271.042-.042.083.021.187.146.25.104.062.229.042.271-.042zm.646.709c.083-.062.062-.208-.042-.333-.104-.104-.25-.146-.333-.062-.083.062-.062.208.042.333.104.104.25.146.333.062zm.625.937c.104-.083.104-.25 0-.396-.083-.146-.25-.208-.354-.125-.104.062-.104.229 0 .375s.271.208.354.146zm.875.875c.083-.083.042-.271-.083-.396-.146-.146-.333-.167-.417-.062-.104.083-.062.271.083.396.146.146.333.167.417.062zm1.187.521c.042-.125-.083-.271-.271-.333-.167-.042-.354.021-.396.146s.083.271.271.312c.167.062.354 0 .396-.125zm1.313.104c0-.146-.167-.25-.354-.229-.187 0-.333.104-.333.229 0 .146.146.25.354.229.187 0 .333-.104.333-.229zm1.208-.208c-.021-.125-.187-.208-.375-.187-.187.042-.312.167-.292.312.021.125.187.208.375.167s.312-.167.292-.292z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_gitlab" xmlns="http://www.w3.org/2000/svg"><path d="M1.629 11.034L14 26.888.442 17.048a1.09 1.09 0 01-.39-1.203l1.578-4.811zm7.217 0h10.309l-5.154 15.854zM5.753 1.475l3.093 9.559H1.63l3.093-9.559a.548.548 0 011.031 0zm20.618 9.559l1.578 4.811c.141.437-.016.922-.39 1.203l-13.558 9.84 12.371-15.854zm0 0h-7.216l3.093-9.559a.548.548 0 011.031 0z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_heart" xmlns="http://www.w3.org/2000/svg"><path d="M16 29.714a1.11 1.11 0 01-.786-.321L4.072 18.643c-.143-.125-4.071-3.714-4.071-8 0-5.232 3.196-8.357 8.535-8.357 3.125 0 6.053 2.464 7.464 3.857 1.411-1.393 4.339-3.857 7.464-3.857 5.339 0 8.535 3.125 8.535 8.357 0 4.286-3.928 7.875-4.089 8.035L16.785 29.392c-.214.214-.5.321-.786.321z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_down" xmlns="http://www.w3.org/2000/svg"><path d="M3.281 5.36L14 16.079 24.719 5.36 28 8.641l-14 14-14-14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_left" xmlns="http://www.w3.org/2000/svg"><path d="M25.875 28.25L22.125 32 6.126 16.001 22.125.002l3.75 3.75-12.25 12.25z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_right" xmlns="http://www.w3.org/2000/svg"><path d="M6.125 28.25L18.375 16 6.125 3.75 9.875 0l15.999 15.999L9.875 31.998z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_up" xmlns="http://www.w3.org/2000/svg"><path d="M24.719 22.64L14 11.921 3.281 22.64 0 19.359l14-14 14 14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_link" xmlns="http://www.w3.org/2000/svg"><path d="M24.037 7.963q3.305 0 5.634 2.366T32 16t-2.329 5.671-5.634 2.366h-6.46v-3.08h6.46q2.028 0 3.493-1.465t1.465-3.493-1.465-3.493-3.493-1.465h-6.46v-3.08h6.46zM9.615 17.578v-3.155h12.77v3.155H9.615zM3.005 16q0 2.028 1.465 3.493t3.493 1.465h6.46v3.08h-6.46q-3.305 0-5.634-2.366T0 16.001t2.329-5.671 5.634-2.366h6.46v3.08h-6.46q-2.028 0-3.493 1.465t-1.465 3.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_menu" xmlns="http://www.w3.org/2000/svg"><path d="M.001 5.334h31.998v3.583H.001V5.334zm0 12.416v-3.5h31.998v3.5H.001zm0 8.916v-3.583h31.998v3.583H.001z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_notification" xmlns="http://www.w3.org/2000/svg"><path d="M22.615 19.384l2.894 2.894v1.413H2.49v-1.413l2.894-2.894V12.25q0-3.365 1.716-5.856t4.745-3.231v-1.01q0-.875.606-1.514T13.999 0t1.548.639.606 1.514v1.01q3.029.74 4.745 3.231t1.716 5.856v7.134zM14 27.999q-1.211 0-2.053-.808t-.841-2.019h5.788q0 1.144-.875 1.986T14 27.999z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_path" xmlns="http://www.w3.org/2000/svg"><path d="M28 12.62h-9.793V8.414h-2.826v11.173h2.826v-4.206H28V26.62h-9.793v-4.206H12.62v-14H9.794v4.206H.001V1.381h9.793v4.206h8.413V1.381H28V12.62z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_person" xmlns="http://www.w3.org/2000/svg"><path d="M16 20.023q5.052 0 10.526 2.199t5.473 5.754v4.023H0v-4.023q0-3.555 5.473-5.754t10.526-2.199zM16 16q-3.275 0-5.614-2.339T8.047 8.047t2.339-5.661T16 0t5.614 2.386 2.339 5.661-2.339 5.614T16 16z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_search" xmlns="http://www.w3.org/2000/svg"><path d="M11.925 20.161q3.432 0 5.834-2.402t2.402-5.834-2.402-5.834-5.834-2.402-5.834 2.402-2.402 5.834 2.402 5.834 5.834 2.402zm10.981 0L32 29.255 29.255 32l-9.094-9.094v-1.458l-.515-.515q-3.26 2.831-7.721 2.831-4.976 0-8.45-3.432T.001 11.925t3.474-8.45 8.45-3.474 8.407 3.474 3.432 8.45q0 1.802-.858 4.075t-1.973 3.646l.515.515h1.458z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_shield" xmlns="http://www.w3.org/2000/svg"><path d="M22.167 15.166V3.5h-8.166v20.726c.93-.492 2.424-1.349 3.883-2.497 1.95-1.531 4.284-3.919 4.284-6.562zm3.499-13.999v14c0 7.674-10.737 12.523-11.192 12.724-.146.073-.31.109-.474.109s-.328-.036-.474-.109c-.456-.201-11.192-5.049-11.192-12.724v-14C2.334.529 2.863 0 3.501 0H24.5c.638 0 1.167.529 1.167 1.167z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_tags" xmlns="http://www.w3.org/2000/svg"><path d="M6.606 7.549c0-1.047-.84-1.887-1.887-1.887s-1.887.84-1.887 1.887.84 1.887 1.887 1.887 1.887-.84 1.887-1.887zm15.732 8.493c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546s-.988-.206-1.327-.546L1.342 14.066C.59 13.329 0 11.899 0 10.852V4.718a1.9 1.9 0 011.887-1.887h6.134c1.047 0 2.477.59 3.229 1.342L21.792 14.7c.339.354.546.84.546 1.342zm5.661 0c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546-.767 0-1.15-.354-1.651-.87l6.93-6.93c.339-.339.546-.826.546-1.327s-.206-.988-.546-1.342L13.609 4.173c-.752-.752-2.182-1.342-3.229-1.342h3.303c1.047 0 2.477.59 3.229 1.342L27.454 14.7c.339.354.546.84.546 1.342z"/></symbol></svg>
+
+
+
+    <div class="wrapper dark-mode-dim">
+        <input type="checkbox" class="hidden" id="menu-control" />
+        
+        <header class="gdoc-header">
+    <div class="container flex align-center justify-between">
+        
+        <label for="menu-control" class="gdoc-nav__control">
+            <svg class="icon gdoc_menu"><use xlink:href="#gdoc_menu"></use></svg>
+            <svg class="icon gdoc_arrow_back"><use xlink:href="#gdoc_arrow_back"></use></svg>
+        </label>
+        
+        <a class="gdoc-header__link" href="https://anthonybrainext.netlify.app">
+            <span class="gdoc-brand flex align-center">
+                <img class="gdoc-brand__img" src="/Images/profile.png" alt="">
+                <span class="gdoc-brand__title">BrainExt</span>
+            </span>
+        </a>
+        <span id="gdoc-dark-mode">
+            <svg class="icon gdoc_brightness_dark"><use xlink:href="#gdoc_brightness_dark"></use></svg>
+            <svg class="icon gdoc_brightness_light"><use xlink:href="#gdoc_brightness_light"></use></svg>
+            <svg class="icon gdoc_brightness_auto"><use xlink:href="#gdoc_brightness_auto"></use></svg>
+        </span>
+    </div>
+</header>
+
+
+        <main class="container flex flex-even">
+            
+            <aside class="gdoc-nav">
+                <nav>
+    
+    <div class="gdoc-search">
+        <svg class="icon gdoc_search"><use xlink:href="#gdoc_search"></use></svg>
+        <input type="text" id="gdoc-search-input" class="gdoc-search__input" placeholder="Search..."
+            aria-label="Search" maxlength="64" />
+        <div class="gdoc-search__spinner spinner hidden"></div>
+        <ul id="gdoc-search-results" class="gdoc-search__list"></ul>
+    </div>
+
+
+
+    <section class="gdoc-nav--main">
+        <h2>Navigation</h2>
+        
+            
+
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-c56b9135" class="gdoc-nav__toggle" >
+            <label for="navtree-c56b9135" class="flex justify-between">
+            
+            
+                <span class="flex">APM</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/APM/AppDynamics/" class="gdoc-nav__entry ">
+                        App Dynamics
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-60cf3992" class="gdoc-nav__toggle" >
+            <label for="navtree-60cf3992" class="flex justify-between">
+            
+            
+                <span class="flex">ArcGis</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/ArcGis/metrics/" class="gdoc-nav__entry ">
+                        Metrics
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-78f4229b" class="gdoc-nav__toggle" >
+            <label for="navtree-78f4229b" class="flex justify-between">
+            
+            
+                <span class="flex">Azure</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Azure/AppInsights/" class="gdoc-nav__entry ">
+                        App Insights
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Azure/AppService/" class="gdoc-nav__entry ">
+                        App Service
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Azure/RandomAzureResources/" class="gdoc-nav__entry ">
+                        Random Azure Resources
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-bfafa510" class="gdoc-nav__toggle" >
+            <label for="navtree-bfafa510" class="flex justify-between">
+            
+            
+                <span class="flex">Books</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Books/ReccomendedReading/" class="gdoc-nav__entry ">
+                        Reccomended Reading
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Books/WayOfRockWarrior/" class="gdoc-nav__entry ">
+                        Way of Rock Warrior
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-97c3dee3" class="gdoc-nav__toggle" >
+            <label for="navtree-97c3dee3" class="flex justify-between">
+            
+            
+                <span class="flex">DevOpsTools</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/DevOpsTools/Ansible/" class="gdoc-nav__entry ">
+                        Ansible
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/DevOpsTools/Vagrant/" class="gdoc-nav__entry ">
+                        Vagrant
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-03465887" class="gdoc-nav__toggle" >
+            <label for="navtree-03465887" class="flex justify-between">
+            
+            
+                <span class="flex">Fitness</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Meal Prep Basics</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Fitness/NutritionBasics/" class="gdoc-nav__entry ">
+                        Nutrition Basics
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Quick Snacks</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Standard Breakfast</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Thai Chicken</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Fitness/WorkoutBasics/" class="gdoc-nav__entry ">
+                        Workout Basics
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Workout Routines</span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-8f4cf62a" class="gdoc-nav__toggle" >
+            <label for="navtree-8f4cf62a" class="flex justify-between">
+            
+            
+                <span class="flex">Formatting</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Formatting/HowToMarkdown/" class="gdoc-nav__entry ">
+                        How to Markdown
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Formatting/Pandoc/" class="gdoc-nav__entry ">
+                        Pandoc
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-066131fc" class="gdoc-nav__toggle" >
+            <label for="navtree-066131fc" class="flex justify-between">
+            
+            
+                <span class="flex">HomeLab</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/HomeLab/BlogSetup/" class="gdoc-nav__entry ">
+                        Blog Setup
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/HomeLab/BrainExtApp/" class="gdoc-nav__entry ">
+                        Brain Ext App
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/HomeLab/HomeLabOverview/" class="gdoc-nav__entry ">
+                        Home Lab Overview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/HomeLab/KubernetesServer/" class="gdoc-nav__entry ">
+                        Kubernetes Server
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-a4e8744b" class="gdoc-nav__toggle" >
+            <label for="navtree-a4e8744b" class="flex justify-between">
+            
+            
+                <span class="flex">Ideas</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Ideas/ShrugGuyApi/" class="gdoc-nav__entry ">
+                        Shrug Guy API
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Ideas/TransferStuff/" class="gdoc-nav__entry ">
+                        Transfer Stuff
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-584ef7c2" class="gdoc-nav__toggle" checked>
+            <label for="navtree-584ef7c2" class="flex justify-between">
+            
+            
+                <span class="flex">Interview Prep</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/00-StudyPlan/" class="gdoc-nav__entry ">
+                        00 Study Plan
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/01-SystemDesignInterview/" class="gdoc-nav__entry is-active">
+                        01 System Design Interview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/02-LinuxInterview/" class="gdoc-nav__entry ">
+                        02 Linux Interview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/03-CloudInterview/" class="gdoc-nav__entry ">
+                        03 Cloud Interview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/04-LeetCode/" class="gdoc-nav__entry ">
+                        04 Leet Code
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/05-Algos_DataStructs/" class="gdoc-nav__entry ">
+                        05 Algos Data Structs
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/06-DevOpsInterview/" class="gdoc-nav__entry ">
+                        06 Dev Ops Interview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/07-Networking/" class="gdoc-nav__entry ">
+                        07 Networking
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/08-Databases/" class="gdoc-nav__entry ">
+                        08 Databases
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">09 Review</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/10-GeneralInterview/" class="gdoc-nav__entry ">
+                        10 General Interview
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Checklist</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/Extras/coding-interview-university/" class="gdoc-nav__entry ">
+                        Coding Interview University
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/Extras/CrackingCodingInterviewNotes/" class="gdoc-nav__entry ">
+                        Cracking Coding Interview Notes
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/Extras/Flashcards/" class="gdoc-nav__entry ">
+                        Flashcards
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">Glossary</span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/Extras/OperationalExcellenceAssesment/" class="gdoc-nav__entry ">
+                        Operational Excellence Assesment
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/InterviewPrep/LinksToRead/" class="gdoc-nav__entry ">
+                        Links to Read
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-7dc6a7b5" class="gdoc-nav__toggle" >
+            <label for="navtree-7dc6a7b5" class="flex justify-between">
+            
+            
+                <span class="flex">Javascript</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Javascript/Angular/" class="gdoc-nav__entry ">
+                        Angular
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Javascript/beginner_stuff/" class="gdoc-nav__entry ">
+                        Beginner Stuff
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-af6be1f4" class="gdoc-nav__toggle" >
+            <label for="navtree-af6be1f4" class="flex justify-between">
+            
+            
+                <span class="flex">Links</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Links/CoolLinks/" class="gdoc-nav__entry ">
+                        Cool Links
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-286c71da" class="gdoc-nav__toggle" >
+            <label for="navtree-286c71da" class="flex justify-between">
+            
+            
+                <span class="flex">Linux</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Linux/LinuxCentos/" class="gdoc-nav__entry ">
+                        Linux( Centos)
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Linux/LinuxSignlals/" class="gdoc-nav__entry ">
+                        Linux Signlals
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-48569d4c" class="gdoc-nav__toggle" >
+            <label for="navtree-48569d4c" class="flex justify-between">
+            
+            
+                <span class="flex">Mental</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Mental/ComputationalThinking/" class="gdoc-nav__entry ">
+                        Computational Thinking
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Mental/RandomTips/" class="gdoc-nav__entry ">
+                        Random Tips
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Mental/StressReduction/" class="gdoc-nav__entry ">
+                        Stress Reduction
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-2af2398c" class="gdoc-nav__toggle" >
+            <label for="navtree-2af2398c" class="flex justify-between">
+            
+            
+                <span class="flex">Microservices</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Microservices/Kubernetes/BasicKubernetes/" class="gdoc-nav__entry ">
+                        Basic Kubernetes
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Microservices/Microservices/" class="gdoc-nav__entry ">
+                        Microservices
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-bf2beb05" class="gdoc-nav__toggle" >
+            <label for="navtree-bf2beb05" class="flex justify-between">
+            
+            
+                <span class="flex">OldNotes</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/OldNotes/2019July_GreenNotebook/" class="gdoc-nav__entry ">
+                        2019 July Green Notebook
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-dca39928" class="gdoc-nav__toggle" >
+            <label for="navtree-dca39928" class="flex justify-between">
+            
+            
+                <span class="flex">PowerShell</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_BestPractices/" class="gdoc-nav__entry ">
+                        Power Shell Best Practices
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_IseTips/" class="gdoc-nav__entry ">
+                        Power Shell Ise Tips
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_Links/" class="gdoc-nav__entry ">
+                        Power Shell Links
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_ModuleBuilding/" class="gdoc-nav__entry ">
+                        Power Shell Module Building
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_Pester/" class="gdoc-nav__entry ">
+                        Power Shell Pester
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_TipsTricks/" class="gdoc-nav__entry ">
+                        Power Shell Tips Tricks
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/PowerShell/PowerShell_ToolMaking/" class="gdoc-nav__entry ">
+                        Power Shell Tool Making
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-8adfe48b" class="gdoc-nav__toggle" >
+            <label for="navtree-8adfe48b" class="flex justify-between">
+            
+            
+                <span class="flex">Python</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Python/Pip_Tips/" class="gdoc-nav__entry ">
+                        Pip Tips
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Python/PythonBasics/" class="gdoc-nav__entry ">
+                        Python Basics
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-8efd4fd6" class="gdoc-nav__toggle" >
+            <label for="navtree-8efd4fd6" class="flex justify-between">
+            
+            
+                <span class="flex">Quotes</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Quotes/Quotes/" class="gdoc-nav__entry ">
+                        Quotes
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-e311566c" class="gdoc-nav__toggle" >
+            <label for="navtree-e311566c" class="flex justify-between">
+            
+            
+                <span class="flex">Resume</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/Resume/ResumeTips/" class="gdoc-nav__entry ">
+                        Resume Tips
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-16cf8939" class="gdoc-nav__toggle" >
+            <label for="navtree-16cf8939" class="flex justify-between">
+            
+            
+                <span class="flex">Reverse Engineering</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/ReverseEngineering/Ghidra/" class="gdoc-nav__entry ">
+                        Ghidra
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-e2dbf47d" class="gdoc-nav__toggle" >
+            <label for="navtree-e2dbf47d" class="flex justify-between">
+            
+            
+                <span class="flex">SQL</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SQL/DesignConsiderations/" class="gdoc-nav__entry ">
+                        Design Considerations
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SQL/Postgresql/" class="gdoc-nav__entry ">
+                        Postgresql
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SQL/RenameSqlServer/" class="gdoc-nav__entry ">
+                        Rename SQL Server
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SQL/SSPI_for_AG/" class="gdoc-nav__entry ">
+                        Sspi for Ag
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SQL/TroubleshootingSql/" class="gdoc-nav__entry ">
+                        Troubleshooting SQL
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-9842109e" class="gdoc-nav__toggle" >
+            <label for="navtree-9842109e" class="flex justify-between">
+            
+            
+                <span class="flex">SRE</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SRE/SRE_Links/" class="gdoc-nav__entry ">
+                        Sre Links
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SRE/SRE_WhitePaper/" class="gdoc-nav__entry ">
+                        Sre White Paper
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-436f7e29" class="gdoc-nav__toggle" >
+            <label for="navtree-436f7e29" class="flex justify-between">
+            
+            
+                <span class="flex">System Design</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SystemDesign/DevOps_OrgThoughts/" class="gdoc-nav__entry ">
+                        Dev Ops Org Thoughts
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SystemDesign/DistributedComputing/" class="gdoc-nav__entry ">
+                        Distributed Computing
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/SystemDesign/SystemDesignLinks/" class="gdoc-nav__entry ">
+                        System Design Links
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            <input type="checkbox" id="navtree-e8d26996" class="gdoc-nav__toggle" >
+            <label for="navtree-e8d26996" class="flex justify-between">
+            
+            
+                <span class="flex">Windows TShoot</span>
+            
+            
+                <svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"></use></svg>
+                <svg class="icon gdoc_keyborad_arrow_down hidden"><use xlink:href="#gdoc_keyborad_arrow_down"></use></svg>
+            </label>
+            
+
+            
+                
+    
+
+    <ul class="gdoc-nav__list">
+        
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/WindowsTshoot/GroupPolicy/" class="gdoc-nav__entry ">
+                        Group Policy
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/WindowsTshoot/NetworkTroubleshooting/" class="gdoc-nav__entry ">
+                        Network Troubleshooting
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/WindowsTshoot/RDPCryptoError/" class="gdoc-nav__entry ">
+                        Rdpcrypto Error
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+
+            <li>
+            
+            
+                <span class="flex">
+                    <a href="/WindowsTshoot/SCOM/" class="gdoc-nav__entry ">
+                        Scom
+                    </a>
+                </span>
+            
+            
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+            
+            </li>
+            
+            
+        
+    </ul>
+
+
+
+
+
+        
+    </section>
+
+    <section class="gdoc-nav--more">
+        
+    </section>
+</nav>
+
+            </aside>
+            
+
+            <div class="gdoc-page">
+                
+    
+
+
+    
+
+
+
+
+
+
+<div class="gdoc-page__header flex flex-wrap
+     justify-between 
+    
+    " itemprop="breadcrumb">
+    
+    <div>
+        <svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"></use></svg>
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            
+            
+            
+            
+    
+    
+        
+        
+        
+        
+    
+    
+        
+        
+        
+        
+    
+    
+        <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/' href='/'><span itemprop='name'></span></a><meta itemprop='position' content='1' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><a itemscope itemtype='https://schema.org/WebPage' itemprop='item' itemid='/InterviewPrep/' href='/InterviewPrep/'><span itemprop='name'>Interview Prep</span></a><meta itemprop='position' content='2' /></li><li> / </li><li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'><span itemprop='name'>01 System Design Interview</span><meta itemprop='position' content='3' /></li>
+    
+
+    
+
+    
+
+        </ol>
+    </div>
+    
+    
+    <div>
+        <span class="editpage">
+            <svg class="icon gdoc_code"><use xlink:href="#gdoc_code"></use></svg>
+            <a href="https://github.com/94aharris/BrainExt/edit/main/exampleSite/content/InterviewPrep/01-SystemDesignInterview.md">
+                Edit this page
+            </a>
+        </span>
+    </div>
+    
+</div>
+
+
+    <article class="gdoc-markdown gdoc-markdown__align--left">
+        <h1>01 System Design Interview</h1>
+        <div class="gdoc-page__anchorwrap">
+    <h1 id="system-design">
+        System Design
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#system-design" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor System Design" href="#system-design">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h1>
+</div><blockquote>
+<p>Remember Everything is a Tradeoff</p>
+</blockquote>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="contents">
+        <strong>Contents</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#contents" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Contents" href="#contents">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><ul>
+<li>Resources</li>
+<li>Interview Question Steps</li>
+<li>Back of the Envelope Calculations</li>
+<li>Scalability for Dummies</li>
+<li>High Level Tradeoffs to Remember</li>
+<li>Non-Abstract Large System Design</li>
+<li>Important Tools to Know</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="resources">
+        <strong>Resources</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#resources" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Resources" href="#resources">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><ul>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://github.com/donnemartin/system-design-primer#study-guide">System Design Primer</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html">Please stop calling databases CP or AP</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://snarfed.org/transactions_across_datacenters_io.html">Transactions Across Datacenters</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html">How Google Serves Data From Multiple Datacenters</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html">Google Pro Back of Envelope Calculations</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://www.palantir.com/2011/10/how-to-rock-a-systems-design-interview/">Palantir - How to rock a systems design interview</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://github.com/donnemartin/system-design-primer#latency-numbers-every-programmer-should-know">Numbers every programmer should know</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://github.com/donnemartin/system-design-primer#powers-of-two-table">Powers of two table</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://github.com/alex/what-happens-when">What Happens When&hellip;</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://github.com/michael-kehoe/awesome-sre-cheatsheets/blob/master/README.md">SRE Cheat Sheets</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://ds.cs.luc.edu/index.html">Distributed Systems Primer by Loyola</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://danrl.com/sre-flash-cards/SRE%20Flash%20Cards.pdf">SRE Flash Cards</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://blog.alicegoldfuss.com/how-to-get-into-sre/">How to get into SRE</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://danrl.com/srm/#qualified">My Path to Site Reliablity Management</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://sre.google/workbook/non-abstract-design/">Google Book - Non Abstract Large System Design</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://www.bigocheatsheet.com/">Big O Cheat Sheet</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://queue.acm.org/detail.cfm?id=1814327">You&rsquo;re Doing it Wrong (server performance rethought)</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://www.youtube.com/watch?v=hnpzNAPiC0E">Scaling Instagram Infrastructure (video)</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">Scalability, availability, stability patterns (slideshare)</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197427%28v=ws.10%29?redirectedfrom=MSDN">DNS Architecture</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html">10 Scalable System Design Patterns</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://horicky.blogspot.com/2009/11/nosql-patterns.html">No SQL Patterns</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://horicky.blogspot.com/2010/10/bigtable-model-with-cassandra-and-hbase.html">BigTable Model with Cassandra and HBase</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/">NGINX Guide to Designing for Scale</a></li>
+<li><input disabled="" type="checkbox"> <a class="gdoc-markdown__link" href="http://www.haproxy.org/download/1.2/doc/architecture.txt">HAProxy Architecture Guide</a></li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="interview-question-steps">
+        <strong>Interview Question Steps</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#interview-question-steps" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Interview Question Steps" href="#interview-question-steps">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="1-outline-use-cases-constraints-and-assumptions-5-mins">
+        <strong>1. Outline Use Cases, Constraints and Assumptions [5-mins]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#1-outline-use-cases-constraints-and-assumptions-5-mins" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. Outline Use Cases, Constraints and Assumptions [5-mins]" href="#1-outline-use-cases-constraints-and-assumptions-5-mins">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>who are the users?</li>
+<li>how will they use?</li>
+<li>how many users?</li>
+<li>what will the system do</li>
+<li>what are the inputs and outputs</li>
+<li>how much data</li>
+<li>how many requests per second</li>
+<li>read to write ratio</li>
+<li>Usage Patterns</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="2-estimations-5-mins">
+        <strong>2. Estimations [5-mins]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#2-estimations-5-mins" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2. Estimations [5-mins]" href="#2-estimations-5-mins">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Throughput (QPS for read and write queries)</li>
+<li>Latency expected from the system (for read and write queries)</li>
+<li>Read / Write Ratio</li>
+<li>Traffic Estimates
+<ul>
+<li>Write (QPS, Volume of data)</li>
+<li>Read (QPS, Volume of data)</li>
+</ul>
+</li>
+<li>Storage Estimates</li>
+<li>Memory estimates
+<ul>
+<li>if using a cache, what is the kind of data we want to store in cache</li>
+<li>How much RAM and how many machines do we need</li>
+<li>Amount of data you want to store in disk / ssd</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="3-design-goals-5-mins">
+        <strong>3. Design Goals [5-mins]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#3-design-goals-5-mins" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3. Design Goals [5-mins]" href="#3-design-goals-5-mins">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Latency and Throughput requirments</li>
+<li>Consistency vs Availability
+<ul>
+<li>Weak / Strong / eventual -&gt; Consistency</li>
+<li>Failover / Replication -&gt; Availability</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="4-high-level-design-5-10-mins">
+        <strong>4. High level design [5-10 mins]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#4-high-level-design-5-10-mins" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4. High level design [5-10 mins]" href="#4-high-level-design-5-10-mins">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>APIs for Read / Write scenarios for crucial components
+<ul>
+<li>Public APIs</li>
+<li>Private APIs</li>
+</ul>
+</li>
+<li>Database Schema</li>
+<li>Basic Algorithm</li>
+<li>High level design for Read/Write Scenario</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="5-deep-dive-15---20-mins">
+        <strong>5. Deep Dive [15 - 20 mins]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#5-deep-dive-15---20-mins" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 5. Deep Dive [15 - 20 mins]" href="#5-deep-dive-15---20-mins">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>
+<p>Scaling the algorithm</p>
+</li>
+<li>
+<p>Scaling individual components</p>
+<ul>
+<li>Availabiity, Consistency and Scale story for each component</li>
+<li>Consistency and availabilty patterns</li>
+</ul>
+</li>
+<li>
+<p><strong>Think about following and how they would fit</strong></p>
+<ul>
+<li>DNS</li>
+<li>CDN [Push Pull]</li>
+<li>Load Balancers [Active-Passive, Active-Active, Layer 4, Layer 7]</li>
+<li>Reverse Proxy</li>
+<li>Application Layer Scaling [Microservices, Service Discovery</li>
+<li>DB [RDBMS, NoSql]
+<ul>
+<li>RDBMS
+<ul>
+<li>Master-Slave, Master-Master, Federation, Sharding, Denormalization, SQL Tuning</li>
+</ul>
+</li>
+<li>NoSql
+<ul>
+<li>Key-Value, Wide-Column, Graph, Document</li>
+<li>Fast Lookups
+<ul>
+<li>RAM [Bounded Size] -&gt; Redis, Memcached</li>
+<li>AP [Unbounded Size] -&gt; Cassandra, RIAK, Voldemort</li>
+<li>CP [Unbounded Size] -&gt; HBase, MongoDB, Couchbase, DynamoDB</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Caches
+<ul>
+<li>Client Caching, CDN caching, Webserver caching, Database caching, Application caching, Cache @ Query level, Cache @Object LLevel</li>
+<li>Eviction policies
+<ul>
+<li>Cache aside</li>
+<li>Write Through</li>
+<li>Write Behind</li>
+<li>Refresh ahead</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Asychronism
+<ul>
+<li>Message Queues</li>
+<li>Task Queues</li>
+<li>Backpressure</li>
+</ul>
+</li>
+<li>Communication
+<ul>
+<li>TCP</li>
+<li>UDP</li>
+<li>REST</li>
+<li>RPC</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="6-justify-5-minutes">
+        <strong>6. Justify [5-minutes]</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#6-justify-5-minutes" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 6. Justify [5-minutes]" href="#6-justify-5-minutes">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Throughput of each layer</li>
+<li>Latency cacuse between each layer</li>
+<li>Overall latency justification</li>
+</ul>
+<p>Bonus: Show back of the envelope calculations</p>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="back-of-the-envelope-calculations">
+        <strong>Back of the Envelope Calculations</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#back-of-the-envelope-calculations" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Back of the Envelope Calculations" href="#back-of-the-envelope-calculations">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p><strong>Numbers Everyone Should Know</strong></p>
+<ul>
+<li>L1 cache reference 0.5 ns</li>
+<li>Branch mispredict 5 ns</li>
+<li>L2 cache reference 7 ns</li>
+<li>Mutex lock/unlock 100 ns</li>
+<li>Main memory reference 100 ns</li>
+<li>Compress 1K bytes with Zippy 10,000 ns</li>
+<li>Send 2K bytes over 1 Gbps network 20,000 ns</li>
+<li>Read 1 MB sequentially from memory 250,000 ns</li>
+<li>Round trip within same datacenter 500,000 ns</li>
+<li>Disk seek 10,000,000 ns</li>
+<li>Read 1 MB sequentially from network 10,000,000 ns</li>
+<li>Read 1 MB sequentially from disk 30,000,000 ns</li>
+<li>Send packet CA-&gt;Netherlands-&gt;CA 150,000,000 ns</li>
+</ul>
+<p>Keys about the numbers</p>
+<ul>
+<li>Memory is fast and disks are slow</li>
+<li>Even just cheap compression can save a lot of bandwidth</li>
+<li>Writes are 50 times more expensive than reads</li>
+<li>Architect for scaling writes</li>
+<li>Optimize for low contention</li>
+<li>Optimize wide. Make writes as parallel as you can</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="scalability-for-dummies">
+        <strong>Scalability for Dummies</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#scalability-for-dummies" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Scalability for Dummies" href="#scalability-for-dummies">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="1-clones">
+        1. Clones
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#1-clones" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. Clones" href="#1-clones">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><div class="gdoc-page__anchorwrap">
+    <h4 id="overview">
+        Overview
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#overview" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Overview" href="#overview">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ul>
+<li>Every server contains the same codebase and does not store user related data</li>
+<li>Sessions need to be stored in a centralized data store
+<ul>
+<li>external database</li>
+<li>external persistent cache</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="2-database">
+        2. Database
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#2-database" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2. Database" href="#2-database">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><div class="gdoc-page__anchorwrap">
+    <h4 id="database">
+        Database
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#database" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Database" href="#database">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ul>
+<li>After app grows and starts to get slower you can
+<ul>
+<li>(not great) Stick with same sql (e.g. MySQL) let is grow and start trying things like master-slave and upgrading RAM and sharding / denomalizing</li>
+<li>(better) denormalize from the start, no more joins in any database query. Use mysql like NoSQL or switch right away to nosql</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="3-caches">
+        3. Caches
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#3-caches" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3. Caches" href="#3-caches">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Caches like Memcached and Redis</li>
+<li>Key value store as a buffering layer between application and storage
+<ul>
+<li>App should try to read from here first</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="cache-patterns">
+        Cache Patterns
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#cache-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Cache Patterns" href="#cache-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ol>
+<li>Cached Database Queries</li>
+</ol>
+<ul>
+<li>Most common used caching pattern</li>
+<li>Hash of query is key, value is returned value</li>
+<li>First check is in cache</li>
+<li>Hard to delete a cached result when you cache a complex query, when one piece of data changes you have to delete all cached queries who may contain cell</li>
+</ul>
+<ol start="2">
+<li>Cached Objects</li>
+</ol>
+<ul>
+<li>Newer and recommended</li>
+<li>See your data as an object</li>
+<li>Let your class assemble a dataset from your database and store instance of the class in the cache</li>
+<li>Once a data object is assembled, store it directly in the cache (data array or better yet the object)</li>
+<li>Rid the object when something changes</li>
+<li>Worker processes can assemble the object and application never directly touches the database</li>
+<li>Good Objects to cach
+<ul>
+<li>User Sessions</li>
+<li>Fully rendered blog articles</li>
+<li>Activity streams</li>
+<li>User &lt;-&gt; friend relationships</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="cache-types">
+        Cache Types
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#cache-types" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Cache Types" href="#cache-types">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ul>
+<li><strong>Redis</strong>
+<ul>
+<li>allows for persistence and built in data structures</li>
+<li>with cleverness can use to completely remove a database</li>
+</ul>
+</li>
+<li><strong>Memcached</strong>
+<ul>
+<li>better if just need a cache</li>
+<li>easy to setup and easy to scale</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="4-async">
+        4. Async
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#4-async" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4. Async" href="#4-async">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p>Asynchronism allows work to be done bit by bit rather than waiting for the whole completed product to be dropped at once</p>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="async-paradigms">
+        Async Paradigms
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#async-paradigms" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Async Paradigms" href="#async-paradigms">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ol>
+<li>Turn dynamic content into static content</li>
+</ol>
+<ul>
+<li>Pages are pre-rendered and stored as static HTML</li>
+<li>Static pages can be stored to CDN to handle scale very well</li>
+</ul>
+<ol start="2">
+<li>Special requests can not be pre-rendered
+<ol>
+<li>user hits page and a request is sent to a job queue for work. User is shown loading signal.</li>
+<li>The frontend constantly checks for completed job and pulls content when ready</li>
+</ol>
+</li>
+</ol>
+<div class="gdoc-page__anchorwrap">
+    <h4 id="async-tips">
+        Async Tips
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#async-tips" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Async Tips" href="#async-tips">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h4>
+</div><ul>
+<li>Look at RabbitMQ</li>
+<li>Look at Redis List</li>
+<li>Look at ActiveMQ</li>
+<li>Basic idea is to have a queue of tasks or jobs that a worker can process</li>
+<li>If you do something time-consuming try to do it asynchronously</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="high-level-tradeoffs-to-remember">
+        <strong>High Level Tradeoffs to Remember</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#high-level-tradeoffs-to-remember" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor High Level Tradeoffs to Remember" href="#high-level-tradeoffs-to-remember">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="performance-vs-scalability">
+        Performance vs Scalability
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#performance-vs-scalability" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Performance vs Scalability" href="#performance-vs-scalability">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>
+<p><strong>Scalable</strong> = performance increases proportional to resources added</p>
+<ul>
+<li>Can refer to serving more work or handling larger units of work (e.g. data)</li>
+</ul>
+</li>
+<li>
+<p>If you have a performance problem, sthe system is slow for one user</p>
+</li>
+<li>
+<p>If you have a scalability problem it is slow under load</p>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="latency-vs-throughput">
+        Latency vs Throughput
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#latency-vs-throughput" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Latency vs Throughput" href="#latency-vs-throughput">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li><strong>Latency</strong> = time to performa an action</li>
+<li><strong>Throughput</strong> = number of actions per unit of time</li>
+<li>Aim for max througput with acceptable latency</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="availability-vs-consistency">
+        Availability vs Consistency
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#availability-vs-consistency" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Availability vs Consistency" href="#availability-vs-consistency">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><strong>CAP Theorem</strong>
+You can pick 2 of the 3</p>
+<ul>
+<li><strong>Consistency</strong> - Every read receives the most recent write or an err</li>
+<li><strong>Availability</strong> - Every request receives a response, without guarantee it contains most recent information</li>
+<li><strong>Partition Tolerance</strong> - System continues to operate despite arbitrary partitioning due to network failures</li>
+</ul>
+<p><em><a class="gdoc-markdown__link" href="https://codahale.com/you-cant-sacrifice-partition-tolerance/">You can&rsquo;t chose CA</a>, Networks are unreliable</em></p>
+<p><em><a class="gdoc-markdown__link" href="https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html">Some Systems are not CP or AP</a></em></p>
+<ul>
+<li><strong>CP</strong> - consistent and partition tolerance
+<ul>
+<li>waiting for a response might result in timeout. CP is good for atomic reads / writes</li>
+<li>example: MSSQL(sometimes), MariaDB, MySql(sometimes)</li>
+</ul>
+</li>
+<li><strong>AP</strong> - Availability and Partition tolerance
+<ul>
+<li>Responses return most readily available version. Eventually consistent.</li>
+<li>example Cassandra</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="consistency-patterns">
+        <strong>Consistency Patterns</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#consistency-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Consistency Patterns" href="#consistency-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="weak-consistency">
+        Weak Consistency
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#weak-consistency" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Weak Consistency" href="#weak-consistency">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><em>After a write, reads may or may not see it</em></p>
+<ul>
+<li>uses
+<ul>
+<li>VoIP</li>
+<li>Realtime Multiplayer</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="eventual-consistency">
+        Eventual Consistency
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#eventual-consistency" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Eventual Consistency" href="#eventual-consistency">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><em>After a write, reads will eventually see it. Asynchronous Replication</em></p>
+<ul>
+<li>Uses
+<ul>
+<li>DNS, Email, Highly Available Systems</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="strong-consistency">
+        Strong Consistency
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#strong-consistency" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Strong Consistency" href="#strong-consistency">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><em>After a write, reads will see it. Data replicated synchronously. Across datacenters, multi-write is a better option but costs in latency</em></p>
+<ul>
+<li>Uses
+<ul>
+<li>RDBMSes</li>
+<li>Transactional DBs</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="availability-patterns">
+        <strong>Availability Patterns</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#availability-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Availability Patterns" href="#availability-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p>Fail-over and Replication are complimentary</p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="failover">
+        Failover
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#failover" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Failover" href="#failover">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li><strong>Active Passive</strong>
+<ul>
+<li>one primary and one in hot standby (SQL AG)</li>
+<li>Changes are typically replicated as part of the replication log / change stream</li>
+<li>when the heartbeat goes away the standby takes over</li>
+<li>length of downtime determined by failover time</li>
+<li>You can see data loss depending on the replication pattern</li>
+</ul>
+</li>
+<li><strong>Active-Active</strong>
+<ul>
+<li>both servers managing traffic with load balancera</li>
+<li>Could potentially lead to inconsistent state</li>
+<li>Also referred to as multi-master</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="replication">
+        Replication
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#replication" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Replication" href="#replication">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li><strong>Single-Leader</strong>
+<ul>
+<li>Single writable reader with follower(s)</li>
+<li>Asynchronous = leader does not wait for followers to catch up before considering actions a success
+<ul>
+<li>More risk of data loss if leader crashes</li>
+<li>Crashing / latent follower won&rsquo;t block writes</li>
+</ul>
+</li>
+<li>Synchronous = action must be successful on follower before leader considers change successful
+<ul>
+<li>Less risk of data loss if leader crashes</li>
+<li>A lagging or unresponsive follower can block writes</li>
+</ul>
+</li>
+<li>You can have multiple followers some synchronous and others async</li>
+</ul>
+</li>
+<li><strong>Multi-Leader</strong>
+<ul>
+<li>more than one node can accept writes</li>
+<li>Does not make sense for single data center</li>
+<li>Does make sense with multi-data center</li>
+<li>Pros
+<ul>
+<li>better write performance for users closer to far data center</li>
+<li>Tolerant of data center outages</li>
+<li>tolerant of network problems</li>
+</ul>
+</li>
+<li>Uses
+<ul>
+<li>Clients with offline communication (every device has local db)</li>
+<li>Collaborative editing (google docs)</li>
+</ul>
+</li>
+<li>Biggest con, have to handle for write confllicts
+<ul>
+<li>conflict avoidance (e.g. user assigned a datacenter)</li>
+<li>Convergence (e.g. last write wins)</li>
+<li>Resolve on read or resolve on write</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Leaderless</strong>
+<ul>
+<li>All Nodes are Writeable
+<ul>
+<li>Cassandra</li>
+<li>Voldemort</li>
+</ul>
+</li>
+<li>Writes sent to multiple nodes</li>
+<li>Reads are sent to multiple nodes
+<ul>
+<li>used to detect and correct nodes with stale data</li>
+</ul>
+</li>
+<li>Multi-Datacenter
+<ul>
+<li>Writes sent to all nodes but client only waits for concensus from local datacenter</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="non-abstract-large-system-design">
+        <strong>Non-Abstract Large System Design</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#non-abstract-large-system-design" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Non-Abstract Large System Design" href="#non-abstract-large-system-design">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="distributed-system-patterns">
+        <strong>Distributed System Patterns</strong>
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#distributed-system-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Distributed System Patterns" href="#distributed-system-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p><a class="gdoc-markdown__link" href="https://azure.microsoft.com/mediahandler/files/resourcefiles/designing-distributed-systems/Designing_Distributed_Systems.pdf">Derived from Azure Designing Distributed Systems</a></p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="microservices">
+        Microservices
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#microservices" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Microservices" href="#microservices">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Multi-Node Distribued architectures Contrasted to Monolithic Systems</li>
+<li>Typically communicating over a defined API</li>
+<li>Benefits
+<ul>
+<li>Reliability</li>
+<li>Agility (quick and frequent deployments)</li>
+<li>Reduced team size</li>
+<li>Reliable API contracts remove need for tight synchronization</li>
+<li>Better Scaling</li>
+</ul>
+</li>
+<li>Downsides
+<ul>
+<li>Loosely coupled system can be difficult to debug</li>
+<li>Difficult to design and architect</li>
+</ul>
+</li>
+<li>Benefit from using well known patterns</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="single-node-patterns">
+        Single Node Patterns
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#single-node-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Single Node Patterns" href="#single-node-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><img src="/Images/sidecar_pattern.png" alt="SidecarPattern"  /></p>
+<ul>
+<li><strong>SideCar Pattern</strong>
+<ul>
+<li>Sits on the side of an existing application</li>
+<li>Extends functionality, sometimes transparently to the application</li>
+<li>Creeping legacy app or extension app (e.g. add https)</li>
+</ul>
+</li>
+</ul>
+<p><img src="/Images/ambassador_pattern.png" alt="AmbassadorPatternServiceBroker"  /></p>
+<ul>
+<li>
+<p><strong>Ambassador Pattern</strong></p>
+<ul>
+<li>Helps to adapt existing application to sharded backend</li>
+<li>The application code only knows it needs to talk to storage which it finds (ambassador) the ambassador then performs the necessary sharding</li>
+<li><em>Service Brokering</em> is the act of having the ambassador introspect the environment and find appropriate service to connect</li>
+<li><em>Experimentation / Request Splitting</em> can be handled by the ambassador (e.g. a/b testing)</li>
+</ul>
+<p><img src="/Images/adapter_pattern.png" alt="AdapterPattern"  /></p>
+</li>
+<li>
+<p><strong>Adapters</strong></p>
+<ul>
+<li>adapter is used to modify the interface of the application container so it conforms to a predefined interface expected of all applications</li>
+<li>Can ensure application implements a consistent monitoring interface</li>
+<li>To effectively monitor and operate you need common interfaces</li>
+<li>Applows deployment of a single tool that uses this interface</li>
+<li>Useful for monitoring applications</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="multi-node-patterns">
+        Multi-Node Patterns
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#multi-node-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Multi-Node Patterns" href="#multi-node-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><p><img src="/Images/loadbalanced_pattern.png" alt="Load Balanced Pattern"  /></p>
+<ul>
+<li><strong>Replicated Load Balanced Services</strong>
+<ul>
+<li>**Stateless ** load balanced systems
+<ul>
+<li>static content</li>
+<li>middlewhare systems that aggregate responses</li>
+</ul>
+</li>
+<li><strong>Session Tracked</strong> load balanced system
+<ul>
+<li>typically done via consistent hashing function (to account for node scaling)</li>
+<li>Deploy Cache using <strong>Sidecar Pattern</strong> is option but uses a lot of memory</li>
+</ul>
+</li>
+<li>provide redundancy and scale</li>
+<li>Need at least 3 nodes (2 replicas) for &lsquo;Highly Available&rsquo;</li>
+<li>Ability to <strong>horizontally scale</strong></li>
+<li>Should have some type of health / Readiness probe</li>
+</ul>
+</li>
+</ul>
+<p><img src="/Images/replicated_vs_shardedpattern.png" alt="Replicated vs Sharded Pattern"  /></p>
+<ul>
+<li><strong>Sharded Services</strong>
+<ul>
+<li>Different requests go to different services</li>
+<li>Commonly used for sharding cache serving but useful for any service where more data needed than can fit on sigle machine</li>
+</ul>
+</li>
+</ul>
+<p><img src="/Images/scatter_gather_pattern.png" alt="Scatter Gather Pattern"  /></p>
+<ul>
+<li><strong>Scatter Gather Pattern</strong>
+<ul>
+<li>parallelism by servicing requests to different nodes then pulling the values back together</li>
+<li><strong>With Root Distribution</strong>
+<ul>
+<li>User request to root App node</li>
+<li>Shards request to leaves</li>
+<li>Requests pulled back by root node and served back to user</li>
+<li>(e.g. Document search with <strong>Elastic Search</strong>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="batch-computational-patterns">
+        Batch Computational Patterns
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#batch-computational-patterns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Batch Computational Patterns" href="#batch-computational-patterns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p><img src="/Images/Work_Queue_pattern.png" alt="Work Queue Pattern"  /></p>
+<ul>
+<li><strong>Work Queue Systems</strong>
+<ul>
+<li>simplest batch processing</li>
+<li>perform each piece of work processed within a certain period of time</li>
+<li>Worker nodes and queue manager node</li>
+<li>Can allow for <strong>dynamic scaling</strong> of workers</li>
+</ul>
+</li>
+</ul>
+<p><img src="/Images/Event_Driven_Pattern.png" alt="Event Driven Processing"  /></p>
+<ul>
+<li><strong>Event Driven</strong>
+<ul>
+<li>Chains the output of one queue to the input of the next queue</li>
+<li>Need an overall blueprint for how different event queues relate to each other</li>
+<li><strong>Copier</strong>
+<ul>
+<li>Take single stream of work and dupllicate it</li>
+<li>multiple pieces of work to be done on same item</li>
+</ul>
+</li>
+<li><strong>Filter</strong>
+<ul>
+<li>reduce stream to a smaller stream of work</li>
+<li>filter out items that don&rsquo;t meet criteria</li>
+</ul>
+</li>
+<li><strong>Splitter</strong>
+<ul>
+<li>sends different inputs to different queues</li>
+</ul>
+</li>
+<li><strong>Sharder</strong>
+<ul>
+<li>divide a single queue into an evenly divided collection of work</li>
+</ul>
+</li>
+<li><strong>Merger</strong>
+<ul>
+<li>turn multiple work queues and turn them into a single work queue</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="dns-domain-name-system">
+        DNS (Domain Name System)
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#dns-domain-name-system" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor DNS (Domain Name System)" href="#dns-domain-name-system">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p><img src="/Images/DNS_Overview.jpg" alt="DNS Overview Image"  /></p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="dns-overview">
+        DNS Overview
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#dns-overview" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor DNS Overview" href="#dns-overview">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>DNS is how a device determines an IP address from a URL (i.e. website.com -&gt; 22.12.2.12 )</li>
+<li>Hierarchical, if the DNS server you query does not know, it will ask up a level</li>
+<li>Lower level servers will cache requests which can become stale. Staleness is determined by TTL (Time to Live)</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="common-dns-record-types">
+        Common DNS Record Types
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#common-dns-record-types" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Common DNS Record Types" href="#common-dns-record-types">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>A Record (address) - Most common, points a FQDN (Fully Qualified Domain Name) to IP address</li>
+<li>CNAME Records (canonical) - Points a name to another name (Like an alias)</li>
+<li>NS Record (Name Server) - Specifies the DNS server for your domain</li>
+<li>MX Record (Mail Exchange) - Specifies mail servers for accepting messages</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="dns-services">
+        DNS Services
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#dns-services" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor DNS Services" href="#dns-services">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li><strong>Weighted Round Robin</strong>
+<ul>
+<li>send traffic to different servers</li>
+</ul>
+</li>
+<li><strong>Latency-based</strong></li>
+<li><strong>Geolocation-based</strong></li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="dns-costs">
+        DNS Costs
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#dns-costs" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor DNS Costs" href="#dns-costs">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Accessing DNS introduces a delay, which is why results are cached</li>
+<li>DNS server managment is comples</li>
+<li>DNS services can come under attack</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="cdn-content-delivery-network">
+        CDN (Content Delivery Network)
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#cdn-content-delivery-network" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor CDN (Content Delivery Network)" href="#cdn-content-delivery-network">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><div class="gdoc-page__anchorwrap">
+    <h3 id="cdn-overview">
+        CDN Overview
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#cdn-overview" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor CDN Overview" href="#cdn-overview">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Globally distributed network of proxy servers serving content from close to the user</li>
+<li>Generally static such as html, photos, videos, etc.</li>
+<li>Site DNS typically gets user to a CDN</li>
+<li>Users Receive data faster and less strain on App Servers</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="push-cdns">
+        Push CDNs
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#push-cdns" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Push CDNs" href="#push-cdns">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Receive new content whenever changes occur</li>
+<li>You must expire content</li>
+<li>Works best for sites that do not change often or have small sets of data</li>
+<li>Uses a lot of data on the CDN</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="pull-cdn">
+        Pull CDN
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#pull-cdn" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Pull CDN" href="#pull-cdn">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Leave your content on the server until the first user requests the content</li>
+<li>You leave content on your server and rewrite URLs to point to the CDN</li>
+<li>Request is slower until content is cached on CDN</li>
+<li>TTL tells CDN when to pull again</li>
+<li>Pull CDNs minimize storage but can create redundancy</li>
+<li>Heavy traffic load sites work better with pull CDNs</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="cdn-disadvantages">
+        CDN Disadvantages
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#cdn-disadvantages" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor CDN Disadvantages" href="#cdn-disadvantages">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>CDN costs can be significant</li>
+<li>Content may become stale based on TTL</li>
+<li>CDNs require changing URLs for static content before Pointing to CDN</li>
+</ul>
+<hr>
+<div class="gdoc-page__anchorwrap">
+    <h2 id="load-balancers">
+        Load Balancers
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#load-balancers" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Load Balancers" href="#load-balancers">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h2>
+</div><p><img src="/Images/azure_load_balancer.png" alt="Azure Load Balancer"  /></p>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="load-balancers-overview">
+        Load Balancers Overview
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#load-balancers-overview" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Load Balancers Overview" href="#load-balancers-overview">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Load balancers distribute incoming client requests to computing resources (e.g. applications and databases)</li>
+<li>Standard use case for <strong>Horizontal scaling</strong></li>
+<li>Returns the response from the computing resource to the appropriate client</li>
+<li>Can be implemented with hardware, software, or cloud service</li>
+<li>Typically configured as multiple, either in <strong>active-passive</strong> or <strong>active-active</strong></li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="load-balancer-effectiveness">
+        Load Balancer Effectiveness
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#load-balancer-effectiveness" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Load Balancer Effectiveness" href="#load-balancer-effectiveness">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>General Benefits
+<ul>
+<li>Prevent requests from going to unhealthy servers</li>
+<li>Preventing overloading a single server (depending on balancing type)</li>
+<li>Help reduce single points of failure</li>
+</ul>
+</li>
+<li>Type dependant benefits
+<ul>
+<li><strong>SSL termination</strong> - Decrypt incoming requests and encrypt responses so the operation does not have to be performed by backend servers (expensive action) and reduces the locations that SSL certificates need to be installed</li>
+<li><strong>Session Persistence</strong> - Issue cookies and route a specific client request to the same instance</li>
+</ul>
+</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="load-balancer-algorithms">
+        Load Balancer Algorithms
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#load-balancer-algorithms" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Load Balancer Algorithms" href="#load-balancer-algorithms">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Random</li>
+<li>Least Loaded</li>
+<li>Session/cookies</li>
+<li>Round Robin</li>
+<li>Weighted Round Robin</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="layer-4-load-balancer">
+        Layer 4 Load Balancer
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#layer-4-load-balancer" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Layer 4 Load Balancer" href="#layer-4-load-balancer">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Only look at the <strong>transport layer</strong> to distribute packets (source / destination IP, and port information)</li>
+<li>Forward packets to and from upstream server performing Network Address Translation (NAT)</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="layer-7-load-balancer">
+        Layer 7 Load Balancer
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#layer-7-load-balancer" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Layer 7 Load Balancer" href="#layer-7-load-balancer">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Look at application layer to distribute traffic</li>
+<li>Can examine header, message, cookies, etc</li>
+<li>Terminate network traffic -&gt; read message -&gt; makes a LB decision -&gt; opens a connection to the selected server</li>
+<li>Could direct video traffic to video servers or billing traffic to billing servers</li>
+<li>Can perform path sensitive redirection</li>
+</ul>
+<div class="gdoc-page__anchorwrap">
+    <h3 id="load-balancer-trade-offs">
+        Load Balancer Trade-Offs
+        <a data-clipboard-text="https://anthonybrainext.netlify.app/InterviewPrep/01-SystemDesignInterview/#load-balancer-trade-offs" class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Load Balancer Trade-Offs" href="#load-balancer-trade-offs">
+            <svg class="icon gdoc_link"><use xlink:href="#gdoc_link"></use></svg>
+        </a>
+    </h3>
+</div><ul>
+<li>Scaling horizontally introduces complexity
+<ul>
+<li>servers should be stateless: no user specific data</li>
+<li>Sessions will need to be stored in a centralized data store (SQL, NoSQL) or persistent cache (Redis, memcached)</li>
+<li>Downstream servers (e.g. caches and databases) will need to handle more connections as upstream servers scale out</li>
+</ul>
+</li>
+<li>LB can become a bottleneck or single point of failure</li>
+<li>Increased complexity</li>
+</ul>
+
+
+    </article>
+
+                
+
+
+
+
+
+
+
+
+    
+    
+
+    
+
+
+
+
+
+<div class="gdoc-page__footer flex flex-wrap justify-between">
+    
+    
+</div>
+
+            </div>
+        </main>
+
+        <footer class="gdoc-footer">
+    <div class="container flex">
+        <div class="flex flex-wrap">
+            <span class="gdoc-footer__item gdoc-footer__item--row">
+                Built with <a href="https://gohugo.io/" class="gdoc-footer__link">Hugo</a> and
+                <svg class="icon gdoc_heart"><use xlink:href="#gdoc_heart"></use></svg>
+            </span>
+            
+            
+        </div>
+        
+        <div class="flex flex-25 justify-end">
+            <span class="gdoc-footer__item">
+                <a class="gdoc-footer__link fake-link" href="#" aria-label="Back to top">
+                    <svg class="icon gdoc_keyborad_arrow_up"><use xlink:href="#gdoc_keyborad_arrow_up"></use></svg> <span class="hidden-mobile">Back to top</span>
+                </a>
+            </span>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+
+    
+
+
+
+
+<script defer src="/js/en.search.min.f02212bf45f44408c9296299252ed0a593eb2fa2f0e43c0e53bcc1a9d1e89a4d.js"></script>
+
+
+
+<script defer src="/js/clipboard-27784b7376.min.js"></script>
+<script defer src="/js/clipboard-loader-f0b5fbd5f6.min.js"></script>
+
+
+</body>
+</html>

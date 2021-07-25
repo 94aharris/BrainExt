@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>InterviewPreps on BrainExt</title>
+    <link>localhost/interviewprep/</link>
+    <description>Recent content in InterviewPreps on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="localhost/interviewprep/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/00-StudyPlan/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/00-StudyPlan/</guid>
+      <description>Study Plan    Overview    Leet Code Daily - Hacker Ranker
+ System Design - 2 weeks (July 1 - 18)  Overview Topics Interview Question Steps Back of Envelope Calculation Scalability for Dummies High Level Tradeoffs Consistency Patterns Availability Patterns Non-Abstract Large System Design Distributed System Patterns Batch Computational Patterns DNS CDN Load Balancer Reverse Proxy Application Layer Database Cache Asynchronism Communication Security Non-Abstract Large System Design Possibly separate this into a separate section also (distributed systems)   Linux - 3 weeks (July 19 - August 7)  Shell CentOS Signals   Cloud Interview - 2 Weeks (August 9 - 20)  Concepts Azure Tools AWS Tools   Leet Code - 2 weeks (August 23 - September 3)  Practice Practice Practice   Algos / Data Struts - 2 weeks (August 23 - September 3)  Concepts Big-O Arrays and Strings Linked Lists Stacks and Queues Trees and Graphs Common Search Algorithms Recursion and Backtracking   DevOps - 1 Week (September 6 - 11)  Concepts / Operational Excellence Kubernetes Docker CI/CD Jenkins Ansible Vagrant   Networking Refresher - 1 week (September 13 - 18)  TCP/IP Common Ports and Protocols &amp;ldquo;What Happens When&amp;hellip;&amp;rdquo; Common Network Troubleshooting / Tools Common Network Topologies Practice Network Questions   Databases - 1 Week (September 20 - 25)  SQL Review No SQL DBs RDBMS and Other types of databases Database Reliability Engineering and Database Internals   Review / Practice Qs - 2 Weeks (September 26 - October 6)  Flash Cards Cheat Sheets Organize Notes    Job Hunt!</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/01-SystemDesignInterview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/01-SystemDesignInterview/</guid>
+      <description>System Design     Remember Everything is a Tradeoff
+ Contents     Resources Interview Question Steps Back of the Envelope Calculations Scalability for Dummies High Level Tradeoffs to Remember Non-Abstract Large System Design Important Tools to Know  Resources     System Design Primer Please stop calling databases CP or AP Transactions Across Datacenters How Google Serves Data From Multiple Datacenters Google Pro Back of Envelope Calculations Palantir - How to rock a systems design interview Numbers every programmer should know Powers of two table What Happens When&amp;hellip; SRE Cheat Sheets Distributed Systems Primer by Loyola SRE Flash Cards How to get into SRE My Path to Site Reliablity Management Google Book - Non Abstract Large System Design Big O Cheat Sheet You&amp;rsquo;re Doing it Wrong (server performance rethought) Scaling Instagram Infrastructure (video) Scalability, availability, stability patterns (slideshare) DNS Architecture 10 Scalable System Design Patterns No SQL Patterns BigTable Model with Cassandra and HBase NGINX Guide to Designing for Scale HAProxy Architecture Guide   Interview Question Steps    1.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/02-LinuxInterview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/02-LinuxInterview/</guid>
+      <description>Linux Interview Study Guide    Resource     Linux HackerRank  Common Commands and Purpose    Bash    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/03-CloudInterview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/03-CloudInterview/</guid>
+      <description>Cloud Interview    General    AWS    Azure    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/04-LeetCode/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/04-LeetCode/</guid>
+      <description>Leet Code    Resources     HackerRanker Interview Prep Kit  Every Day!   Two Pointer Technique Cracking Coding Skills (Cheat Sheet) Soft Skills (Cheat Sheet) Cracking Google Interview Prep (Blog)  Overview     Use a dynamic programming language. My choice is Python  Maybe shake the rust off Java and C# just to say be able to &amp;lsquo;hello world&amp;rsquo; Would love to use PowerShell instead&amp;hellip; but oh well   Prioritize simplicity and readability over performance first then Optimize  Interview Overview      Different errors matter differently</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/05-Algos_DataStructs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/05-Algos_DataStructs/</guid>
+      <description>Algos and DataStructures    Resources     Big-O Simple Explanation  General Algorithmic Concepts    Big O    Space and time complexity of a solution as the input (n) gets larger. The &amp;lsquo;Worse Case&amp;rsquo;
+Multi-Part Algorithms     Multiply Big O when you do x for each y  Nested for loops Double Loop with complexity of O(n) each is a total of O(n*n) = O(n^2)   Add Big O when you do this then that  Do one thing after the other Sort the array O(n log n) then traverse O(n) is O((n log n) + n) = O(n log n)    O(1) - Constant Time     constant time to run algorithm Math equations Print statements Hash access  O(n) - Linear Time     Time increases at same pace as input foreach, map, and reduce  O(log n) - Logarithmic Time     Running time in proportion to the Log of the input size run time barelly increases as you exponentially increase the input Binary Search  O(n log n) - Asymptotic Time Complexity     when you need to do work O(log n) for each item building perfectly balanced binary tree or traversing a binary tree Mergesort / quicksort  O(n^2) - Quadratic Time     Time is squared size of the output commonly double loop Bubble Sort  Arrays and Strings    Hash Tables     Map key to value for efficient lookup Hashes the key into a code (int) Map the code (int) into an array index then use for lookup At each index is a linked list of values Assumed that lookup runtime is O(1) but high collision could theoretically be as high as O(n)  Array List     Resizable array Insertion is O(1) so inserting n items is O(n)  Strings     Immutable string copy can have bad performance Mutable strings or Stringbuilder is a better performance option  Linked Lists    Overview     Sequence of nodes Singly Linked - each node points to the next Doubly Linked - each node points to the next and the previous You can add and remove items from the start and end of list in constant time  Singly Linked List Example in Python    class Node: def __init__(self, data): self.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/06-DevOpsInterview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/06-DevOpsInterview/</guid>
+      <description>DevOps Interview    Reading     Highly Effective Environments and Case Studies  Monitoring    Signals     Googles 4-Golden Signals  Latency Traffic Errors Saturation   RED  Rate Errors Duration   USE  Utilization Saturation Errors    OKR    Objectives and Key Results</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/07-Networking/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/07-Networking/</guid>
+      <description>Networking    Resources     Digital Ocean Networking Tutorials Primer to Computer Networking TCP/IP Illustrated Cloudflare Learning Center  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/08-Databases/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/08-Databases/</guid>
+      <description>Databases    Resources     SQL HackerRank  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/09-Review/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/09-Review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/10-GeneralInterview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/10-GeneralInterview/</guid>
+      <description>General Interview    Resources     How to pass the engineering interview in 2021 Interview Cake (Programming Interview Tips)  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/Checklist/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/Checklist/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/coding-interview-university/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/coding-interview-university/</guid>
+      <description>Copy Pastad from https://github.com/jwasham/coding-interview-university for ease of use    Coding Interview University     I originally created this as a short to-do list of study topics for becoming a software engineer, but it grew to the large list you see today. After going through this study plan, I got hired as a Software Development Engineer at Amazon! You probably won&amp;rsquo;t have to study as much as I did.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/CrackingCodingInterviewNotes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/CrackingCodingInterviewNotes/</guid>
+      <description>Cracking the Coding Interview Notes    Big O    Technical Questions    Look for BUD    DIY    Simplify and Generalize    Base Case and Build    Data Structure Brainstorm    Best Conceivable Runtime    What Good Code Looks Like     Correct Efficient Simple Readable Maintainable  Data Structures    Arrays and Strings     Hash Tables ArrayList &amp;amp; ResizableArray StringBuilder  Linked Lists     Creating a Linked List Deleting a Node from a Singly Linked List &amp;ldquo;Runner&amp;rdquo; Technique Recursive Problem  Stacks and Queues     Implement a Stack Implement a Queue  Trees and Graphs     Types of Trees Binary Tree Traversal Binary Heaps (Min-Heaps / Max-Heaps) Tries (Prefix Trees) Graphs Graph Search  Concepts and Al    </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/Flashcards/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/Flashcards/</guid>
+      <description>FlashCards    Use Anki Decks</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/Glossary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/Glossary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/Extras/OperationalExcellenceAssesment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/Extras/OperationalExcellenceAssesment/</guid>
+      <description>Operational Excellence Assessment    Overview    How to Use    An outline operational assessment for a technical organization. Derived from &amp;ldquo;The Practice of Cloud System Administration&amp;rdquo;
+Example Matrix
+   Assesment Q1 Q2 Q3     RT 1 1 2   ER 2 3 3   MM 1 2 2   &amp;hellip;       Contents     Regular Tasks (RT) Emergency Response (ER) Monitoring and Metrics (MM) Capacity Planning (CP) Change Management (CM) New Product Introduction and Removal (NPI/NPR) Service Deployment and Decommissioning (SDD) Performance and Efficiency (PE) Service Delivery: Build Phase (SDBP) Service Delivery: Deployment Phase (SDDP) Toil Reduction (TR) Disaster Preparedness (DP)  &amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/InterviewPrep/LinksToRead/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/InterviewPrep/LinksToRead/</guid>
+      <description>Links To Read    Great read! - [ ] My Path to Site Reliability Management
+Links that still need to be read, digested, and sorted
+System Design     https://blog.pramp.com/how-to-succeed-in-a-system-design-interview-27b35de0df26 System Design Checklist System Design Primer Scalable Web Architecture Distributed Systems Reading List  Direct PDF Designing Distributed Systems Labs Good K8S Resource!   Designing Distributed Systems Free Book High Scalability Best of All Time (Blog) System Design Interview Checklist System Design Interview in 8 Steps Cracking System Design Resources for System Design Interview Prep System Design for Advanced Beginners Acing your Architecture Interview Architecture Interview System Design Interview Concepts to Know All Things Distributed (Blog) Real Big Architecture Video Series  Read Designing Data Intensive Applications Book Get System Design Interview Book</description>
+    </item>
+    
+  </channel>
+</rss>

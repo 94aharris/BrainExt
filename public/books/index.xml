@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Books on BrainExt</title>
+    <link>localhost/books/</link>
+    <description>Recent content in Books on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="localhost/books/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>localhost/Books/ReccomendedReading/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/Books/ReccomendedReading/</guid>
+      <description>Reccomended Reading    Learning     A Mind for Numbers by Barbara Oakley  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>localhost/Books/WayOfRockWarrior/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>localhost/Books/WayOfRockWarrior/</guid>
+      <description>Way of Rock Warrior    Key Tenants    Ego is killing you (no better / worse)    Real vs Phantom Fear    </description>
+    </item>
+    
+  </channel>
+</rss>

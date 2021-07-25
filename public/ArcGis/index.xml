@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ArcGis on BrainExt</title>
+    <link>https://anthonybrainext.netlify.app/ArcGis/</link>
+    <description>Recent content in ArcGis on BrainExt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://anthonybrainext.netlify.app/ArcGis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://anthonybrainext.netlify.app/ArcGis/metrics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://anthonybrainext.netlify.app/ArcGis/metrics/</guid>
+      <description>ArcGis Metrics    Steps     Either programatically or manually get a token to use in requests  http://server[:port]/arcgis/admin/generateToken Specify the web portal in the url field   Navigate to the server subsite admin page and test the token  Run https://127.0.0.1/&amp;lt;serversite&amp;gt;/&amp;lt;webadaptor&amp;gt;/admin/usagereports?f=json   Run a report to pull usage reports or logs  Usage reports can be used to see the site hits by product Logs can be used to see specific user hits per product Users may show as anonymous   Programatically pull the JSON with the token in order to evaluate Upsert the pulled data into a sql table and perform some analysis Enrich the pulled data with additional context (User info from AD, user location, etc.</description>
+    </item>
+    
+  </channel>
+</rss>

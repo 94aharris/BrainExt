@@ -1,0 +1,4 @@
+---
+title: Formatting
+geekdocCollapseSection: true
+---
