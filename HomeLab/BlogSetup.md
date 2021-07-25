@@ -1,5 +1,7 @@
 # Blog Setup #
 
+https://anthonybrainext.netlify.app/
+
 ## Resources ##
 
 - [Homebrew on Linux](https://docs.brew.sh/Homebrew-on-Linux)
@@ -7,6 +9,9 @@
 - [Hugo Quickstart](https://gohugo.io/getting-started/quick-start/)
 - [GeekDoc Theme](https://themes.gohugo.io/themes/hugo-geekdoc/)
 - [GeekDoc Getting Started](https://geekdocs.de/usage/getting-started/)
+- [Hugo Static Files](https://gohugo.io/content-management/static-files/)
+- [Netlifi Toml](https://docs.netlify.com/configure-builds/file-based-configuration/#sample-file)
+- [Hosting Hugo on Netlifi](https://gohugo.io/hosting-and-deployment/hosting-on-netlify/)
   
   
 ## Blog Stack Overview ##
@@ -14,6 +19,10 @@
 - Using Netlify
 - Using Hugo
 - Using Centos 8
+
+Future state
+blog.<siteurl>.com
+brainext.<siteurl>.com
   
 ## Setting up Hugo ##
 
@@ -69,10 +78,22 @@ See how it all looks with a hugo build
 hugo server -D
 ```
 
-Integrate with Netifly 
+Integrate with netlify 
 
-Easy manual build (for the time being)
+Current Option - netlify Wired up to Git
+
+- Make sure to set **Hugo Version**
+- If you receive an error like you probably didn't set the version
+  - ""
+- In the project root add netlifi.toml
+
+```toml
+[context.production.environment]
+HUGO_VERSION = "0.86.0"
+```
+
+Backup Option - Easy manual build 
 
 - Perform a hugo build `hugo -D`
   - make sure the config.toml reflects the correct website base url
-- Upload the 'public' folder to netifly
+- Upload the 'public' folder to netlify
