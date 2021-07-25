@@ -13,9 +13,9 @@ doc-assets:
 
 .PHONY: doc-build
 doc-build:
-        cd $(BASEDIR); hugo
+	cd $(BASEDIR); hugo
 
 .PHONY: clean
 clean:
 	rm -rf $(THEMEDIR) && \
-   rm -rf $(BASEDIR)/public
+	rm -rf $(BASEDIR)/public
