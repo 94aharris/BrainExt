@@ -82,10 +82,15 @@ Integrate with netlify
 
 Current Option - netlify Wired up to Git
 
-- Make sure to set **Hugo Version**
-- If you receive an error like you probably didn't set the version
-  - ""
+- Wired up to the Brainext/netlifi branch
 - In the project root add netlifi.toml
+- Make sure to set **Hugo Version**
+- If you receive an error like below you probably didn't set the version
+
+```  
+"Error: "/opt/build/repo/themes/hugo-geekdoc/layouts/partials/title.html:11:1": parse failed: template: partials/title.html:11: function "return" not defined"
+```
+
 
 ```toml
 [context.production.environment]
