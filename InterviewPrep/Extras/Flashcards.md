@@ -1,3 +1,0 @@
-## FlashCards ##
-
-Use Anki Decks
