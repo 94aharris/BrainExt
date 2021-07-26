@@ -25,6 +25,10 @@
 - [Best Practices in Cloud Applications](https://docs.microsoft.com/en-us/azure/architecture/best-practices/index-best-practices)
 - [Application Architecture Design](https://docs.microsoft.com/en-us/azure/architecture/guide/)
 
+## CloudFlare ##
+
+- [How Cloudflare Workers Work](https://developers.cloudflare.com/workers/learning/how-workers-works)
+
 ## Distributed Systems ##
 
 - [Distributed Systems Lecture](https://www.youtube.com/playlist?list=PLeKd45zvjcDFUEv_ohr_HdUFe97RItdiB)

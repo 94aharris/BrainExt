@@ -2,6 +2,12 @@
 
 https://anthonybrainext.netlify.app/
 
+## Notes ##
+
+- Hugo builds output very quickly
+- Netlify is much faster on the build (particularly initialization) than CloudFlare Pages
+- 
+
 ## Resources ##
 
 - [Homebrew on Linux](https://docs.brew.sh/Homebrew-on-Linux)
@@ -12,6 +18,8 @@ https://anthonybrainext.netlify.app/
 - [Hugo Static Files](https://gohugo.io/content-management/static-files/)
 - [Netlifi Toml](https://docs.netlify.com/configure-builds/file-based-configuration/#sample-file)
 - [Hosting Hugo on Netlifi](https://gohugo.io/hosting-and-deployment/hosting-on-netlify/)
+- [Cloudflare Pages](https://pages.cloudflare.com/)
+- [Deploy Hugo with Cloudflare Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-a-hugo-site)
   
   
 ## Blog Stack Overview ##
@@ -78,7 +86,7 @@ See how it all looks with a hugo build
 hugo server -D
 ```
 
-Integrate with netlify 
+## Integrate Hugo with Netlify ##
 
 Current Option - netlify Wired up to Git
 
@@ -91,7 +99,6 @@ Current Option - netlify Wired up to Git
 "Error: "/opt/build/repo/themes/hugo-geekdoc/layouts/partials/title.html:11:1": parse failed: template: partials/title.html:11: function "return" not defined"
 ```
 
-
 ```toml
 [context.production.environment]
 HUGO_VERSION = "0.86.0"
@@ -102,3 +109,9 @@ Backup Option - Easy manual build
 - Perform a hugo build `hugo -D`
   - make sure the config.toml reflects the correct website base url
 - Upload the 'public' folder to netlify
+
+## Deploy Hugo with CloudFlare Pages ##
+
+- Similar as with Netifly, need to specify hugo version
+- Set Environmental variable in build config
+  - `HUGO_VERSION` : `0.86.0`
