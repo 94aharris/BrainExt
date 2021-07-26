@@ -1,5 +1,21 @@
 # BrainExt Application #
 
+## Thoughts ##
+
+- Utilize Python (Django) for the markdown conversion? Part of the build or dynamically at the app?
+  - Deffinitely part of the build, dynamically would slow things down
+- Need some sort of search index, Elasticsearch maybe?
+- Not sure what I would use a Postgresql DB for other than user login, tbd I suppose
+- Python would be good for doing DS / Graphs but would I need those other than the relationship graph?
+- Angular w/ Typescript is still on the table, if nothing else since that is used heavily at work
+- Backend?
+  - Docker would be nice but may be overkill, other than to just learn it better
+  - Heroku is an option, but what's the price look like on that? Heroku free nodes shutdown after 30 mins of inactivity
+  - CloudFlare workers are different, thats V8 infra, like javascript
+  - again, why would I need a DB? Search index is more of what I'm after
+- I'm essentially designing a CMS that hooks up to github...
+- I do want to tinker more with docker and such, the app is less important to me, I want to learn how to better deploy things
+
 ## Resources ##
 
 - [Gatsby Digital Garden (example)](https://github.com/mathieudutour/gatsby-digital-garden#readme)
