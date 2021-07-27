@@ -51,3 +51,7 @@ Visit the DB
 - <appname>/db
 - e.g. 'https://strong-duck-4049.herokuapp.com/db'
 - the error is expected
+
+Run the django migrate to create appropriate tables
+- `heroku run python manage.py migrate`
+- 

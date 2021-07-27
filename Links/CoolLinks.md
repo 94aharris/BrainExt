@@ -38,6 +38,7 @@
 - [Reactive Manifesto](https://www.reactivemanifesto.org/)
 - [Surfing Complexity(blog)](https://surfingcomplexity.blog/)
 - [Habits of Expert Software Developers](https://thereader.mitpress.mit.edu/habits-of-expert-software-designers/)
+- [Developer Roadmaps](https://roadmap.sh/roadmaps)
 
 ## Zen / Mental ##
 
