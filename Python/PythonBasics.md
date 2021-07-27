@@ -204,7 +204,32 @@ set(s1) & set(s2)
 
 - **List Sorting**
   - `listvar.sort()`
-  - This does not have to be assigned to anything, python lists are mutable
+    - This does not have to be assigned to anything, python lists are mutable
+    - This works on a multi dimensional array as well (automatically sorts on first column)
+
+    ```python
+    >>> arr = [[1,0],[7,1],[5,1],[3,0]]
+    >>> arr
+    [[1, 0], [7, 1], [5, 1], [3, 0]]
+    >>> arr.sort()
+    >>> arr
+    [[1, 0], [3, 0], [5, 1], [7, 1]]
+    ```
+  - `sorted()` function
+    - Function which returns a new sorted list from items in an iterable
+    - optional arguments
+      - cmp - comparison function of two arguments to compare two iterable elements
+      - key - specifies a function that is used to extract the comparison key (e.g. key=len)
+      - reverse - boolian if set to true list elements sorted as if each comparison was reversed
+    - **Hot Tip:** use key with a lambda function of lambda x: x[i] to sort a multidimensional list iterable by the ith element on the inner list
+    
+    ```python
+    >>> arr = [['a',2],['b',0],['c',1]]
+    >>> sorted_multi_list = sorted(multi_list, key=lambda x: x[1])
+    >>> sortedList = sorted(arr, key=lambda x: x[1])
+    >>> print(sortedList)
+    [['b', 0], ['c', 1], ['a', 2]]
+    ```
 
 ## Sets ##
 

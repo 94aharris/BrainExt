@@ -1,10 +1,8 @@
 # Algos and DataStructures #
 
-## Resources ##
-
-- [Big-O Simple Explanation](https://www.linkedin.com/pulse/big-o-notation-simple-explanation-examples-pamela-lovett/)
-
 ## General Algorithmic Concepts ##
+
+-----
 
 ## Big O ##
 
@@ -49,6 +47,8 @@ Space and time complexity of a solution as the input (n) gets larger. The 'Worse
 - commonly double loop
 - Bubble Sort
 
+-----
+
 ## Arrays and Strings ##
 
 ### Hash Tables ###
@@ -68,6 +68,8 @@ Space and time complexity of a solution as the input (n) gets larger. The 'Worse
 
 - Immutable string copy can have bad performance
 - Mutable strings or Stringbuilder is a better performance option
+
+-----
 
 ## Linked Lists ##
 
@@ -116,3 +118,25 @@ class Node:
 ## Common Search Algorithms ##
 
 ## Recursion and Backtracking ##
+
+## Greedy Algorithms ##
+
+Greedy is an algorithm that builds a solution piece by piece, choosing the piece that offers the most immediate benefit. These are often closely associated with **NP-Completeness**
+
+In general have five components:
+1. A **candidate set**, from which solution is created
+2. A **selection function**, which chooses the best candidate to be added to the solution
+3. A **feasiblity function**, that is used to determine if a candidate can be used to contribute
+4. An **Objective Function**, assigns a value to a solution or partial solution
+5. A **Solution Function**, which will indicate when the complete solution has been discovered
+
+A greedy algorithm chooses what is the best option in each subproblem and does not geruntee the best solution, sometimes it is even the worst. This is a contrast to **dynamic programming**
+
+**Knapsack Problem** - One of the most famous greedy algorithm solutions, local optimal strategy is to choose the item that has the maximum value to weight ratio. This leads to a global optimal solution because we can take fractions of an item.
+
+## Resources ##
+
+- [Big-O Simple Explanation](https://www.linkedin.com/pulse/big-o-notation-simple-explanation-examples-pamela-lovett/)
+- [Greedy Algorithm (wikipedia)](https://en.wikipedia.org/wiki/Greedy_algorithm)
+- [NP-completeness](https://en.wikipedia.org/wiki/NP-completeness)
+- [Grokking Algorithms](https://www.amazon.com/Grokking-Algorithms-illustrated-programmers-curious)

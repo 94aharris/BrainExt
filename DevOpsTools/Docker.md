@@ -55,3 +55,8 @@ sudo docker run hello-world
 - [Setting up Docker on CentOs](https://docs.docker.com/engine/install/centos/)
 - [Problems with Podman and Buildah](https://feitam.es/how-to-fix-error-problem-with-installed-package-podman-and-buildah-installed-docker-ce-in-centos/)
 - [Postgres Docker Image](https://hub.docker.com/_/postgres)
+- [Katacoda Docker Course](https://www.katacoda.com/courses/docker)
+- [Docker Getting Started](https://docs.docker.com/get-started/overview/)
+- [Packaging Docker Containers for Heroku](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
+- [Play with Docker Training](https://training.play-with-docker.com/)
+- [Containers are Not the Future](https://www.linkedin.com/pulse/containers-future-ian-eyberg/)
