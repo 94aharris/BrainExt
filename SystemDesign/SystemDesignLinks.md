@@ -19,6 +19,9 @@
 - [Cross Functional DevOps Teams](https://caylent.com/devops-handbook-part-2-defining-devops-teams)
 - [Generate System Documentation Using Python](https://github.com/mingrammer/diagrams)
 - [We Don't Use Kubernetes](https://ably.com/blog/no-we-dont-use-kubernetes)
+- [PostMortem Template](https://postmortems.pagerduty.com/resources/post_mortem_template/)
+- [PostMortem Checklist](https://postmortems.pagerduty.com/resources/checklist/)
+- [PostMortem Analysis Questions](https://postmortems.pagerduty.com/resources/analysis/)
   
 ## Microsoft ##
 
@@ -37,17 +40,31 @@
 - [PACELC Theorem (extended CAP)](https://en.wikipedia.org/wiki/PACELC_theorem)
 - [Parrallel Processing in Distributed Systems](https://heather.miller.am/teaching/cs212/slides/week19-scaled.pdf)
 - [Intro to Big Data Processing](http://www.eli.sdsu.edu/courses/spring20/cs696/notes/D02BigDataIntro.pdf)
+- [Engineering Dependability and Fault Tolerance in Distributed Systems](https://ably.com/blog/engineering-dependability-and-fault-tolerance-in-a-distributed-system)
+- [Database Coupling vs Modularity](https://ably.com/blog/realtime-and-databases-coupling-vs-modularity)
 
 ## Microservices ##
 
 - [Microservices Criticisms and Concerns](https://en.wikipedia.org/wiki/Microservices#Criticism_and_concerns)
 - [Raspberry-pi-dramble](https://github.com/geerlingguy/raspberry-pi-dramble)
 - [Uber Engineering Microservices Architecture](https://eng.uber.com/microservice-architecture/)
+- [No We Don't Use Kubernetes](https://ably.com/blog/no-we-dont-use-kubernetes)
 
+## Load Balancers ##
+
+- [Limits on AWS Network Load Balancers](https://ably.com/blog/limits-aws-network-load-balancers)
+
+## RPC ##
+
+- [The Gotcha of gRPC Stream Performance](https://ably.com/blog/grpc-stream-performance)
+- [Idempotency - Challenges and Solutions over HTTP](https://ably.com/topic/idempotency)
+- [The Harmful Consequences of the Robustness Principle](https://datatracker.ietf.org/doc/draft-iab-protocol-maintenance/)
+  
 ## Examples ##
 
 - [Reddit System Design Following WSB Incident p1](https://www.reddit.com/r/RedditEng/comments/o4yb4z/rwallstreetbets_incident_anthology_more_data_more/)
 - [Reddit System Design Following WSB Incident p2](https://www.reddit.com/r/RedditEng/comments/o4ygp0/rwallstreetbets_incident_anthology_what_worked/)
+- [Achieving Exactly-Once Delivery with Ably](https://ably.com/blog/achieving-exactly-once-message-processing-with-ably)
 - [Caching at Reddit](https://redditblog.com/2017/01/17/caching-at-reddit/)
   - Heavy use of memcached
     - **Key Value Store**

@@ -3,25 +3,23 @@
 ## Learning ##
 
 - [How to Learn Stuff Quickly](https://www.joshwcomeau.com/blog/how-to-learn-stuff-quickly/)
+- [Question Driven Development](https://nickjanetakis.com/blog/learning-a-new-web-framework-with-question-driven-development)
   
-## Computer Stuff ##
-
-### Computer Funny ###
+## Computer Funny ##
 
 - [Falshoods CS Students Believe](https://www.netmeister.org/blog/cs-falsehoods.html)
 - [Lessons Ops Learns the Hard Way](https://www.netmeister.org/blog/ops-lessons.html)
 - [Fancy Pants](https://www.slideshare.net/jschauma/fancy-pants-13484018/12)
 - [The Association for Computational Heresy](http://sigbovik.org/)
 
-### Cool Computer People ###
+## Cool Computer People ##
 
 - [Netmeister ze cool architect](https://www.netmeister.org/)
 - [#1 Coder in Sweden](http://jonasboner.com/)
-- [Bob Monjian (Postgresql creator Blog)](https://momjian.us/)
+- [Bruce Momjian (Postgresql creator Blog)](https://momjian.us/)
+- [Brendan Gregg (Systems Performance / BPF Performance Tools)](https://www.brendangregg.com/overview.html)
 
-## Individuals ##
-
-### Paul Graham ###
+## Paul Graham ##
 
 - [Makers Schedule, Managers Schedule](http://www.paulgraham.com/makersschedule.html)
 - [Fierce Nerds](http://paulgraham.com/fn.html)
