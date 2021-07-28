@@ -1,7 +1,7 @@
 
 baseURL = "https://anthonybrainext.netlify.app"
 languageCode = "en-us"
-title = "BrainExt"
+title = "AnthonyBrainExt"
 theme = "hugo-geekdoc"
 
 # Required to get well formatted code blocks
