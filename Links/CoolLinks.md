@@ -50,3 +50,7 @@
 ## Tools ##
 
 - [ISO Creation RUFUS](https://rufus.ie/en_US/)
+
+## Low Level Computer ##
+
+- [Branch Misprediction Penalty](https://users.elis.ugent.be/~leeckhou/papers/ispass06-eyerman.pdf)
