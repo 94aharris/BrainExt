@@ -1,5 +1,31 @@
 # Docker #
 
+## Questions ##
+
+can you rename a container after it is started?
+how can you top multiple containers?
+
+## Important Docker Commands ##
+
+- List
+  -  containers
+     - `docker container ls`
+   - networks
+     - `docker network ls`
+- Print Container Logs
+  - `docker logs --tail 100 <containerid>`
+- Run commands
+  - Basic Run
+    - `docker run --name <containername> <containerimage>`
+  - Creates a pseudo-TTY connected to the containers stdin (-it)
+    - `docker run -it ...`
+  - Publish or expose port
+    - `docker run -p 127.0.0.1:80/8080/tcp`
+      - binds port 8080 of the container to TCP port 80 on local host
+- Stop Commands
+  - `docker stop <containername>`
+
+
 ## Setting Up Docker-ce on Centos ##
 
 - Remove any old version
@@ -43,14 +69,9 @@ sudo docker run hello-world
 - Connect to psql (if you have psql clients installed)
   - 
 
-## Important Docker Commands ##
-
-- List containers
-  - `docker container ls`
-- Print Container Logs
-
 ## Resources ##
 
+- [Docker Docs](https://docs.docker.com/engine/reference/commandline/run/) 
 - [Docker Cheet Sheet](https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf)
 - [Setting up Docker on CentOs](https://docs.docker.com/engine/install/centos/)
 - [Problems with Podman and Buildah](https://feitam.es/how-to-fix-error-problem-with-installed-package-podman-and-buildah-installed-docker-ce-in-centos/)

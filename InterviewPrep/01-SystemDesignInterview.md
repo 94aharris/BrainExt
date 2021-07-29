@@ -12,42 +12,6 @@
 - Non-Abstract Large System Design
 - Important Tools to Know
 
-## **Resources** ##
-
-- [ ] [Hacking the Software Engineer Interview](https://tianpan.co/hacking-the-software-engineer-interview/?isAdmin=true)
-- [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
-- [x] [Please stop calling databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
-- [x] [Transactions Across Datacenters](https://snarfed.org/transactions_across_datacenters_io.html)
-- [x] [How Google Serves Data From Multiple Datacenters](http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html)
-- [ ] [Google Pro Back of Envelope Calculations](http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html)
-- [ ] [Palantir - How to rock a systems design interview](https://www.palantir.com/2011/10/how-to-rock-a-systems-design-interview/)
-- [ ] [Numbers every programmer should know](https://github.com/donnemartin/system-design-primer#latency-numbers-every-programmer-should-know)
-- [ ] [Powers of two table](https://github.com/donnemartin/system-design-primer#powers-of-two-table)
-- [ ] [What Happens When...](https://github.com/alex/what-happens-when)
-- [ ] [SRE Cheat Sheets](https://github.com/michael-kehoe/awesome-sre-cheatsheets/blob/master/README.md)
-- [ ] [Distributed Systems Primer by Loyola](https://ds.cs.luc.edu/index.html)
-- [ ] [SRE Flash Cards](https://danrl.com/sre-flash-cards/SRE%20Flash%20Cards.pdf)
-- [ ] [How to get into SRE](https://blog.alicegoldfuss.com/how-to-get-into-sre/)
-- [ ] [My Path to Site Reliablity Management](https://danrl.com/srm/#qualified)
-- [ ] [Google Book - Non Abstract Large System Design](https://sre.google/workbook/non-abstract-design/)
-- [ ] [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
-- [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
-- [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
-- [ ] [Scalability, availability, stability patterns (slideshare)](http://www.slideshare.net/jboner/scalability-availability-stability-patterns/)
-- [ ] [DNS Architecture](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197427(v=ws.10)?redirectedfrom=MSDN)
-- [ ] [10 Scalable System Design Patterns](http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html)
-- [ ] [No SQL Patterns](http://horicky.blogspot.com/2009/11/nosql-patterns.html)
-- [ ] [BigTable Model with Cassandra and HBase](http://horicky.blogspot.com/2010/10/bigtable-model-with-cassandra-and-hbase.html)
-- [ ] [NGINX Guide to Designing for Scale](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
-- [ ] [HAProxy Architecture Guide](http://www.haproxy.org/download/1.2/doc/architecture.txt)
-- [ ] [Reverse Proxy vs Load Balancer](https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/)
-- [ ] [Intro to architecting systems for scale](https://lethain.com/introduction-to-architecting-systems-for-scale/)
-- [ ] [Crack the system design interview](https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview)
-- [ ] [Service Oriented Architecture](https://en.wikipedia.org/wiki/Service-oriented_architecture)
-- [ ] [Intro to Zookeeper(Slides)](https://www.slideshare.net/sauravhaloi/introduction-to-apache-zookeeper)
-- [ ] [What you should know before building Microservices](https://cloudncode.blog/2016/07/22/msa-getting-started/)
-- [ ] [System Design and Architecture Sample Questions](https://github.com/puncsky/system-design-and-architecture)
-
 -----
 
 ## **Interview Question Steps** ##
@@ -674,3 +638,127 @@ Fail-over and Replication are complimentary
   - architectural considerations
   - Operations considerations
   - Process considerations
+
+-----
+
+## Database ##
+
+Used for storage, association, and querying of data. Not associated with 'blob' data (e.g. files). May be relational or non-relational. Most databases support CRUD operations
+
+- Create
+- Read
+- Update
+- Delete
+
+Databases handle these operations in different ways with emphesis on different parts of the CAP Theorem. Databases are typically divided into two 'types', ACID and BASE with ACID being typically associated with traditional CP (consistent / partition tolerant) Relational Databases and BASE being typically associated with AP (Available / Partition tolerant) NoSQL Databases.
+
+### ACID vs BASE ###
+
+- **ACID** Databases are commonly thought of with traditional SQL DBs
+  - **Atomicity** - All or nothing
+  - **Consistency** - Any transaction will bring the DB from one state to another
+  - **Isolation** - Executing transactions concurrently is the same as if they were serial
+  - **Durability** - Once a transaction has been committed it will remain comitted
+
+
+- **BAS(s)E** Databases are commonly referred to as 'NoSQL'
+  - **Basically Available** - Prioritize Availability over Consistency
+  - **Soft State** - The state of the system may change over time, even without input
+  - **Eventual consistency** - the system will become consistent over a period of time, given no additional inputs
+
+
+## Different Types of Databases ##
+
+### BASE (NoSQL DBs) ###
+
+- **Key Value Store**
+  - abstract = hash table
+  - fast read / write backed by memory or ssd
+  - used for simple data or rapidly changing data
+  - common for Caches (e.g. Redis)
+- **Document Store**
+  - abstract = key value with documents
+  - a 'document' (xml, json, binary, etc) is the value with some sort of key
+  - provides APIs to query a language based on internal structure of the doc
+  - Useful for data that changes often or for document searches
+- **Wide column store**
+  - abstraction = nested map
+  - column can group sub column families (de-normalized nested data)
+  - often used for very large datasets
+  - e.g. Cassandra, BigTable, HBase
+- **Graph Database**
+  - abstraction = graph
+  - each node is a record and each arc is a relasionship
+  - good for things like social networks
+
+## Database Scaling Strategies ##
+
+- **Active Passive**
+  - A writable Databse with a read only secondary
+- **Active Active**
+  - multiple writable active databases which deal with conflicts down the line
+- **Federation**
+  - Splits up database by function
+  - adds more hardware and complexity
+- **Change Data Capture**
+  - Single 'Record of Truth'
+  - Use idempotent batch processing & event streams to feed other data stores
+- **Sharding**
+  - Writes data across multiple nodes with subsets of data
+  - less read and write traffic
+  - Index size is reduced (faster queries)
+  - Secondary shards are on standby, but your query is only as fast as your slowest shard
+  - You can end up with data hot spots
+- **Denormalization**
+  - Improve read performance at the expense of writes
+  - Create reduendant copies of data reduce **Normal Form**
+  - A denormalized DB under heavy write load may perform worse than normalized counterpart
+- **SQL Tuning**
+  - Use benchmarks and profiling to uncover bottlenects
+  - Tighten up SQL schema
+  - Use good indicies
+  - Avoid expensive joins
+  - Partition tables
+  - Tune the query store
+When to use different types of Databases?
+What are the tradeoffs of different databases?
+
+
+## **Resources** ##
+
+- [ ] [Hacking the Software Engineer Interview](https://tianpan.co/hacking-the-software-engineer-interview/?isAdmin=true)
+- [ ] [System Design Primer](https://github.com/donnemartin/system-design-primer#study-guide)
+- [x] [Please stop calling databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html)
+- [x] [Transactions Across Datacenters](https://snarfed.org/transactions_across_datacenters_io.html)
+- [x] [How Google Serves Data From Multiple Datacenters](http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html)
+- [ ] [Google Pro Back of Envelope Calculations](http://highscalability.com/blog/2011/1/26/google-pro-tip-use-back-of-the-envelope-calculations-to-choo.html)
+- [ ] [Palantir - How to rock a systems design interview](https://www.palantir.com/2011/10/how-to-rock-a-systems-design-interview/)
+- [ ] [Numbers every programmer should know](https://github.com/donnemartin/system-design-primer#latency-numbers-every-programmer-should-know)
+- [ ] [Powers of two table](https://github.com/donnemartin/system-design-primer#powers-of-two-table)
+- [ ] [What Happens When...](https://github.com/alex/what-happens-when)
+- [ ] [SRE Cheat Sheets](https://github.com/michael-kehoe/awesome-sre-cheatsheets/blob/master/README.md)
+- [ ] [Distributed Systems Primer by Loyola](https://ds.cs.luc.edu/index.html)
+- [ ] [SRE Flash Cards](https://danrl.com/sre-flash-cards/SRE%20Flash%20Cards.pdf)
+- [ ] [How to get into SRE](https://blog.alicegoldfuss.com/how-to-get-into-sre/)
+- [ ] [My Path to Site Reliablity Management](https://danrl.com/srm/#qualified)
+- [ ] [Google Book - Non Abstract Large System Design](https://sre.google/workbook/non-abstract-design/)
+- [ ] [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
+- [ ] [You're Doing it Wrong (server performance rethought)](https://queue.acm.org/detail.cfm?id=1814327)
+- [ ] [Scaling Instagram Infrastructure (video)](https://www.youtube.com/watch?v=hnpzNAPiC0E)
+- [ ] [Scalability, availability, stability patterns (slideshare)](http://www.slideshare.net/jboner/scalability-availability-stability-patterns/)
+- [ ] [DNS Architecture](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd197427(v=ws.10)?redirectedfrom=MSDN)
+- [ ] [10 Scalable System Design Patterns](http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html)
+- [ ] [No SQL Patterns](http://horicky.blogspot.com/2009/11/nosql-patterns.html)
+- [ ] [BigTable Model with Cassandra and HBase](http://horicky.blogspot.com/2010/10/bigtable-model-with-cassandra-and-hbase.html)
+- [ ] [NGINX Guide to Designing for Scale](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/)
+- [ ] [HAProxy Architecture Guide](http://www.haproxy.org/download/1.2/doc/architecture.txt)
+- [ ] [Reverse Proxy vs Load Balancer](https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/)
+- [ ] [Intro to architecting systems for scale](https://lethain.com/introduction-to-architecting-systems-for-scale/)
+- [ ] [Crack the system design interview](https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview)
+- [ ] [Service Oriented Architecture](https://en.wikipedia.org/wiki/Service-oriented_architecture)
+- [ ] [Intro to Zookeeper(Slides)](https://www.slideshare.net/sauravhaloi/introduction-to-apache-zookeeper)
+- [ ] [What you should know before building Microservices](https://cloudncode.blog/2016/07/22/msa-getting-started/)
+- [ ] [System Design and Architecture Sample Questions](https://github.com/puncsky/system-design-and-architecture)
+- [ ] [Magic of Consistent Hashing](https://www.paperplanes.de/2011/12/9/the-magic-of-consistent-hashing.html)
+- [ ] [Elasticsearch Architecture](https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up)
+- [ ] [Scale up to your first 10 million users](https://www.youtube.com/watch?v=kKjm4ehYiMs)
