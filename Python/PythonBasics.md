@@ -222,7 +222,7 @@ set(s1) & set(s2)
       - key - specifies a function that is used to extract the comparison key (e.g. key=len)
       - reverse - boolian if set to true list elements sorted as if each comparison was reversed
     - **Hot Tip:** use key with a lambda function of lambda x: x[i] to sort a multidimensional list iterable by the ith element on the inner list
-    
+  
     ```python
     >>> arr = [['a',2],['b',0],['c',1]]
     >>> sorted_multi_list = sorted(multi_list, key=lambda x: x[1])

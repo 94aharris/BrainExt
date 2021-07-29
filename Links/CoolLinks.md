@@ -39,6 +39,7 @@
 - [Surfing Complexity(blog)](https://surfingcomplexity.blog/)
 - [Habits of Expert Software Developers](https://thereader.mitpress.mit.edu/habits-of-expert-software-designers/)
 - [Developer Roadmaps](https://roadmap.sh/roadmaps)
+- [10X More Selective](http://yosefk.com/blog/10x-more-selective.html)
 
 ## Zen / Mental ##
 
