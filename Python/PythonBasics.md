@@ -167,6 +167,19 @@ else:
   - add list to list
     - `arrvar.extend([1,2,3])`
 
+- **Enumerating a List without WHILE**
+
+```python
+lst = ['a','b','c']
+
+for index, letter in enumerate(lst):
+  print(f"{letter} at {index}")
+
+a at 0
+b at 1
+c at 2
+```
+
 - **Array Splicing**
   
 ```python
@@ -266,6 +279,16 @@ set(s1) & set(s2)
 
 - Key Value Pairs
   - `dict = {'key1': 'Valuex'}`
+  - `dict['key1] = 'updated value'`
+- if the value in a Dictionary is a list you can append direct
+
+```python
+  >>>dict = {}
+  >>>dict['a'] = [1]
+  >>>dict['a'].append(2)
+  >>>dict
+  {'a': [1,2]}
+ ```
 
 ## Classes ##
 
