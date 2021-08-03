@@ -81,3 +81,5 @@ sudo docker run hello-world
 - [Packaging Docker Containers for Heroku](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
 - [Play with Docker Training](https://training.play-with-docker.com/)
 - [Containers are Not the Future](https://www.linkedin.com/pulse/containers-future-ian-eyberg/)
+- [DISA Kubernetes Hardening Guide](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
+- [Docker Security Cheat Sheet](https://blog.gitguardian.com/how-to-improve-your-docker-containers-security-cheat-sheet/)
