@@ -9,6 +9,7 @@
   * **must use --only-binary:all: as well**
   * `pip download --platform manylinux1_x86_64 --only-binary=:all: --python 38 SomePackage`
 * valid platforms
+  * manylinux2014_x86_64
   * linux_x86_64
   * manylinux1_x86_64
   * win32
