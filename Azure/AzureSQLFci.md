@@ -1,10 +1,26 @@
 # Azure SQL FCI #
 
-## Storage Options ##
+## To-Do ##
+
+What to do? Let try
 
 * Azure Shared Disks
 * Storage Spaces Direct
+
+Get a cluster with each, try some graceful / bad failovers and stress test these guys.
+Get some baseline #s.
+
+## Storage Options ##
+
+* Azure Shared Disks
+  * Pros
+  * Cons
+* Storage Spaces Direct
+  * Pros
+  * Cons
 * Premium File Share
+  * Pros
+  * Cons
 
 ## Performance Optimization ##
 
