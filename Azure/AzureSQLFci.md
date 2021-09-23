@@ -99,6 +99,12 @@ Required for Azure Shared Disks
 
 Per Microsoft recommendations, a shared disk Quorum is recommended for shared disk FCI and is more resilient than a cloud quorum
 
+* If you have a mount point from one shared cluster resource disk to another, ensure the disks are in the same group and the mounted disk resource is dependent on its source disk
+
+### Mount Points ###
+
+Not strictly necessary, but using mount points enables presenting multiple disks under a single root
+- 
 ## Resources ##
 
 * [Azure FCI Overview](https://docs.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/failover-cluster-instance-overview)
@@ -110,3 +116,14 @@ Per Microsoft recommendations, a shared disk Quorum is recommended for shared di
 * [Make the most out of your Azure Disks using Storage Pools](https://blog.coeo.com/make-the-most-out-of-your-azure-disks-using-storage-pools)
 * [Format SQL Disks with Use Large FRS to Avoid Check DBCC](https://www.codykonior.com/2017/10/18/are-your-disks-formatted-with-uselargefrs/)
 * [Potential SQL Solution on Azure (Pros and Cons)](https://www.omegamadlab.com/sql-server-high-availability-solutions-on-azure-vms/)
+* [Deploy Clustered Storage Spaces](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj822937(v=ws.11))
+* [Configure Volume Mount Points for SQL Cluster](https://docs.microsoft.com/en-us/troubleshoot/windows-server/high-availability/configure-volume-mount-points-server-cluser)
+* [Storage Spaces Disk Won't Pool](http://www.davidbarber.org/technology/storage_spaces.html)
+* [Setup Cluster Disk Pool](https://www.ntfs.com/wss-how-to-set-up.htm)
+* [Setup SQL on Failover Cluster](https://www.mssqltips.com/sqlservertip/6473/install-sql-server-2017-on-windows-server-2016-failover-cluster-part-1/)
+* [Configure SQL Server TempDB on SSDs in Azure](https://www.sqlservice.se/configure-sql-server-tempdb-on-ssds-in-azure-virtual-machines-iaas/)
+* [Disk Performance Testing](https://github.com/microsoft/diskspd)
+* [Storage Considerations for Running in Azure](https://clusteringformeremortals.com/2019/05/02/storage-considerations-for-running-sql-server-in-azure/)
+* [Shared Storage Options for Azure](https://thetechl33t.com/2020/11/04/shared-storage-options-in-azure-part-1-azure-shared-disks/)
+* [SQL Stress Test](https://github.com/ErikEJ/SqlQueryStress)
+* [How to Fake Loads with SQL Query Stress](https://www.brentozar.com/archive/2015/05/how-to-fake-load-tests-with-sqlquerystress/)
