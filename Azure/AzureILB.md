@@ -24,6 +24,20 @@ When using the default LB rule setting, we do perform Destination NAT
 
 ![Azure ILB Not Working Self back to self](../Images/ILB_NotWorking_Flow.png)
 
+
+## Second NIC Workaround ##
+
+* Create Additional (second) NIC for the VM
+* Shutdown the VM
+* Deallocate the VM
+* Attach the second NIC
+* Boot the VM
+* Get the interface number
+  * netsh int ipv4 show interfaces
+* set the interface to not register with DNS
+* create a static route for the ILB FE IP to go out the secondary NIC to the gateway
+
+
 ## Resources ##
 
 * [Azure Load Balancer SNAT for outbound connections](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-outbound-connections#exhaustion)
