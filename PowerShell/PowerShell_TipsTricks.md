@@ -496,3 +496,10 @@ Param (
 ## Start new PowerShell as Admin from existing non-admin PowerShell
 
 ` > Start-Process Powershell -verb runas `
+
+
+## If you Invoke Powershell with CMD you may have trouble with Validating Parameter Sets ##
+
+[Why Won't PowerShell Recognize Quoted Parameters](https://stackoverflow.com/questions/55201798/why-does-powershell-not-recognize-quoted-parameters)
+
+TLDR: Instead of "powershell "%cmdir%..\script.ps1" use "powershell -file %cmdir%..\script.ps1"
