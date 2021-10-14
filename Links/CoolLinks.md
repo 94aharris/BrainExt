@@ -40,7 +40,8 @@
 - [Habits of Expert Software Developers](https://thereader.mitpress.mit.edu/habits-of-expert-software-designers/)
 - [Developer Roadmaps](https://roadmap.sh/roadmaps)
 - [10X More Selective](http://yosefk.com/blog/10x-more-selective.html)
-
+- [20 Things I've Learned in my 20 Years as an Engineer](https://www.simplethread.com/20-things-ive-learned-in-my-20-years-as-a-software-engineer/)
+  
 ## Zen / Mental ##
 
 - [Zen Habits](https://zenhabits.net/)
