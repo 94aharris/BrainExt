@@ -133,3 +133,6 @@
 
 "I'm not a great programmer. I'm just a good programmer with great habits." 
 ― Kent Beck
+
+"Common sense is wonderful at making sense of the world, but not necessarily at understanding it"
+- Duncan J. Watts (Everything is Obvious once you know the answer)
