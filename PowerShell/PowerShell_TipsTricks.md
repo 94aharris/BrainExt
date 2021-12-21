@@ -503,3 +503,14 @@ Param (
 [Why Won't PowerShell Recognize Quoted Parameters](https://stackoverflow.com/questions/55201798/why-does-powershell-not-recognize-quoted-parameters)
 
 TLDR: Instead of "powershell "%cmdir%..\script.ps1" use "powershell -file %cmdir%..\script.ps1"
+
+
+## Get all logged in Users and Status ##
+
+returns all sessions and states
+
+```powershell
+> qwinsta
+SESSION NAME  USERNAME  ID  STATE TYPE  DEVICE
+.....
+```
