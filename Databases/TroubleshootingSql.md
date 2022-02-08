@@ -3,6 +3,14 @@
 ## Resources ##
 
 - [RedGate TroubleShooting SQL Server](https://assets.red-gate.com/community/books/troubleshooting-sql-server-accidental-dba.pdf)
+- [SQL Server Profiler Setup](https://www.mssqltips.com/sqlservertutorial/3502/how-to-launch-a-sql-server-profiler-session/)
+
+## Checklist ##
+
+[ ] How is sql configured? Are Data, Temp, and Log on separate drives or not?
+[ ] Is instant initialization enabled (negated if encryption at rest is enabled)
+[ ] How often is autogrowth occuring?
+[ ] Any errors in SQL Logs?
 
 ## Early Analysis ##
 
@@ -43,3 +51,18 @@
 
 - Schema modification
 - Locks everything for the schema (Lifegaurds rotating shift everyone out of the pool)
+
+## SQL Profiler ##
+
+Standard Event Selections
+
+- Security Audit
+  - Audit Login
+  - Audit Logout
+- Sessions
+  - Existing Connection
+- Stored Procedures
+  - RPC Completed
+- TSQL
+  - SQL:BatchCompleted
+  - SQL:BatchStarting
