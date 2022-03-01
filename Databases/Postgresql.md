@@ -2,6 +2,7 @@
 
 ## Links ##
 
+- [The Internals of PostgreSQL](https://www.interdb.jp/pg/)
 - [PostgreSQL: Introduction and Concepts](https://momjian.us/main/writings/pgsql/aw_pgsql_book/)
 - [PostgreSQL: Database Tuning](https://momjian.us/main/writings/pgsql/performance.pdf)
 - [PostgreSQL: Future of Sharding](https://momjian.us/main/writings/pgsql/sharding.pdf)
