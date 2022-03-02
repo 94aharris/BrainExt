@@ -1,5 +1,38 @@
 # C\# Design Patterns #
 
+## Overview of C# Design Patterns ##
+
+Good Resource on [C# Design Patterns](https://www.dofactory.com/net/design-patterns)
+
+Patterns themselves to know
+
+- Creational Patterns
+  - Abstract Factory
+  - Builder
+  - Factory Method
+  - Prototype
+  - Singleton
+- Structural Patterns
+  - Adapter
+  - Bridge
+  - Composite
+  - Decorator
+  - Facade
+  - Flyweight
+  - Proxy
+- Behavioral Patterns
+  - Chain of Responsibility
+  - Command
+  - Interpreter
+  - Iterator
+  - Mediator
+  - Memento
+  - Observer
+  - State
+  - Strategy
+  - Template Method
+  - Visitor
+
 ## Data Transfer Objects (DTOs) ##
 
 ### DTO Links ###

@@ -16,6 +16,27 @@
 - [ ] T-Rex OS Book
 - [ ] Systems Performance Tuning
 - [ ] Linux Bible
+- [ ] Just Enough Software Architecture
+- [ ] Clean Code
+- [ ] Pragmatic Programmer
+- [ ] Code 2 Complete
+- [ ] Cloud Sys Admin
+- [ ] Clean Architecture
+- [ ] Patterns of Enterprise Application Architecture
+- [ ] Domain Driven Design
+- [ ] Implementing Domain Driven Design
+- [ ] Building Microservices
+- [ ] Continuous Delivery
+- [ ] The Fundamentals of Software Architecture
+- [ ] Dependency Injection in .Net
+- [ ] Dependency Injection Principles Practices and Patterns
+- [ ] Enterprise Integration Patterns
+- [ ] Patterns of Enterprise Application Architecture
+- [ ] C# in Depth
+- [ ] Working Effectively with Legacy Code
+- [ ] Gang of Four Design Patterns
+- [ ] Game Design Patterns
+- [ ] Dive Into Design Patterns
 
 ## Learning ##
 
