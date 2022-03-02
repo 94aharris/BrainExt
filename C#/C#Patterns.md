@@ -2,7 +2,10 @@
 
 ## Overview of C# Design Patterns ##
 
-Good Resource on [C# Design Patterns](https://www.dofactory.com/net/design-patterns)
+Good Links
+
+- [C# Design Patterns](https://www.dofactory.com/net/design-patterns)
+- [C# Corner](https://www.c-sharpcorner.com/UploadFile/bd5be5/design-patterns-in-net/)
 
 Patterns themselves to know
 
