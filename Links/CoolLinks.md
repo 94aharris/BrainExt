@@ -4,6 +4,7 @@
 
 - [How to Learn Stuff Quickly](https://www.joshwcomeau.com/blog/how-to-learn-stuff-quickly/)
 - [Question Driven Development](https://nickjanetakis.com/blog/learning-a-new-web-framework-with-question-driven-development)
+- [Software Engineering Soft Parts](https://addyosmani.com/blog/software-engineering-soft-parts/)
   
 ## Computer Funny ##
 
