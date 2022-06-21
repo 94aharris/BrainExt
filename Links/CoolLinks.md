@@ -28,6 +28,7 @@
 
 ## Work ##
 
+- [Software Disenchantment](https://tonsky.me/blog/disenchantment/)
 - [Embrace the Grind](https://jacobian.org/2021/apr/7/embrace-the-grind/)
 - [Career Planning](https://80000hours.org/career-planning/)
 - [Planning a High Impact Career](https://80000hours.org/career-planning/summary/)
