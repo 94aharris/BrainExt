@@ -1,5 +1,10 @@
 # AZ-204
 
+## 0.0 Resources
+- [AZ-204 Exam Information](https://docs.microsoft.com/en-us/learn/certifications/exams/az-204)
+- [Thomas Maurer AZ-204 Study Guide](https://www.thomasmaurer.ch/2020/03/az-204-study-guide-developing-solutions-for-microsoft-azure/)
+- [Whizlabs AZ-204 Practice Exam](https://www.whizlabs.com/microsoft-azure-certification-az-204/)
+
 ## 1.1 Implement IaaS Solutions
 
 ### *Provision Virtual Machines (VMs)*
@@ -113,6 +118,9 @@
 
 ### *Configure Container Images for Solutions*
 
+https://docs.microsoft.com/en-us/learn/modules/build-and-store-container-images/?WT.mc_id=thomasmaurer-blog-thmaure
+https://docs.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app?WT.mc_id=thomasmaurer-blog-thmaure 
+
 ### *Publish an Image to Azure Container Registry (ACR)*
 
 - **Azure CLI Commands**
@@ -223,3 +231,180 @@
   ```
 ### *Run Containers by Using Azure Container Instance*
 
+- **Things to remember**
+  - Due to YAML's more concise nature, a YAML file is recommended when a deployment includes only container instances (as opposed to ARM)
+  - YAML (reccomended) or ARM is requried when deploying a multi-container group. ```az container create``` will is suited only for single container
+- **Azure CLI Commands**
+  - Deploy a container instance using Azure CLI
+  ```bash
+  az group create --name az204-aci-rg --location <mylocation>
+  ```
+  - Create container (name, docker image, and azure rg)
+  - Create DNS name to expose container to internet
+  ```bash
+  DNS_NAME_LABEL=aci-example-$RANDOM
+  ```
+  - start container instance (basic sample nodejs container)
+  ```bash
+  az container create --resource-group az204-aci-rg \
+  --name mycontainer \
+  --image mcr.microsoft.com/azuredocs/aci-helloworld \
+  --ports 80 \
+  --dns-name-label $DNS_NAME_LABEL --location <mylocation> \
+  ```
+  - Specify container restart policy
+  ```bash
+  az container create \
+  --resource-group myResourceGroup \
+  --name mycontainer \
+  --image mycontainerimage \
+  --restart-policy OnFailure
+  ```
+  - Provide environment variables
+  ```bash
+  az container create \
+  --resource-group myResourcegroup \
+  --name mycontainer2 \
+  --image mcr.microsoft.com/azuredocs/aci-wordcount:latest \
+  --restart-policy OnFailure \
+  --environment-variables 'NumWords'='5' 'MinLength'='8' \
+  ```
+  - create container from yaml
+  ```bash
+  az container create --resource-group myResourceGroup \
+  --file secure-env.yaml \
+  ```
+  - Deploy container and Mount Volume
+  ```bash
+  az container create \
+  --resource-group $ACI_PERS_RESOURCE_GROUP \
+  --name hellofiles \
+  --image mcr.microsoft.com/azuredocs/aci-hellofiles \
+  --dns-name-label aci-demo \
+  --ports 80 \
+  --azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME \
+  --azure-file-volume-account-key $STORAGE_KEY \
+  --azure-file-volume-share-name $ACI_PERS_SHARE_NAME \
+  --azure-file-volume-mount-path /aci/logs/
+  ```
+  - verify container
+  ```bash
+  az container show --resource-group az204-aci-rg \
+  --name mycontainer \
+  --query "{FQDN:ipAddress.fqdn,ProvisioningState:provisioningState}" \
+  --out table \
+  ```
+  - Delete everything
+  ```bash
+  az group delete --name az204-aci-rg --no-wait
+  ```
+- Run containerized tasks with restart policies (three different types)
+  - Always - Containers in container group always restarted (**default policy**)
+  - Never - Containers are never restarted. Run *at most* once
+  - OnFailure - Containers are restarted only when the process executed in the container fails (non-zero exit). Run *at least* once.
+  - ACI stops containers when application or script exit. When policy is ```Never``` or ```OnFailure``` the container status is set to *Terminated*
+- Container Instances Environmental variables
+  - Environmental variables in container intances allows for dynamic configuration of the application or script run by the container
+  - Secure values hold sensitive information (keys / pws)
+    - Only accessible within the container
+    - specify as ```secureValue``` instead of ```value```
+    - Example in container YAML
+    ```YAML
+    apiVersion: 2018-10-01
+    location: eastus
+    name: securetest
+    properties:
+      containers:
+      - name: mycontainer
+        properties:
+          environmentVariables:
+            - name: 'NOTSECRET'
+              value: 'my-exposed-value'
+            - name: 'SECRET'
+              secureValue: 'my-secret-value'
+          image: nginx
+          ports: []
+          resources:
+            requests:
+              cpu: 1.0
+              memoryInGB: 1.5
+      osType: Linux
+      restartPolicy: Always
+    tags: null
+    type: Microsoft.ContainerInstance/containerGroups
+    ```
+- Mount Azure file share in Azure Container Instances (ACI)
+  - ACI are stateless by default. Persisted data must be written to a mount volume
+  - ACI can mount an Azure File Share created with Azure Files via SMB
+  - Limitations
+    - Only mountable to **Linux** containers
+    - Requires Linux container to run as root
+    - Limited to CIFS support
+  - Example YAML template
+  ```bash
+  apiVersion: '2019-12-01'
+  location: eastus
+  name: file-share-demo
+  properties:
+  containers:
+  - name: hellofiles
+    properties:
+      environmentVariables: []
+      image: mcr.microsoft.com/azuredocs/aci-hellofiles
+      ports:
+      - port: 80
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - mountPath: /aci/logs/
+        name: filesharevolume
+    osType: Linux
+    restartPolicy: Always
+    ipAddress:
+      type: Public
+      ports:
+        - port: 80
+      dnsNameLabel: aci-demo
+    volumes:
+    - name: filesharevolume
+      azureFile:
+        sharename: acishare
+        storageAccountName: <Storage account name>
+        storageAccountKey: <Storage account key>
+    tags: {}
+    type: Microsoft.ContainerInstance/containerGroups
+  ```
+  - You must use a YAML file (reccomended) or ARM template to mount multiple volumes (not CLI)
+     - YAML Example (reccomended)
+    ```yaml
+    "volumeMounts": [{
+    "name": "myvolume1",
+    "mountPath": "/mnt/share1/"
+    },
+    {
+      "name": "myvolume2",
+      "mountPath": "/mnt/share2/"
+    }]
+    ```
+      - ARM Example
+    ```json
+    "volumes": [{
+    "name": "myvolume1",
+    "azureFile": {
+      "shareName": "share1",
+      "storageAccountName": "myStorageAccount",
+      "storageAccountKey": "<storage-account-key>"
+    }
+    },
+    {
+      "name": "myvolume2",
+      "azureFile": {
+        "shareName": "share2",
+        "storageAccountName": "myStorageAccount",
+        "storageAccountKey": "<storage-account-key>"
+      }
+    }]
+    ```
+    - 
