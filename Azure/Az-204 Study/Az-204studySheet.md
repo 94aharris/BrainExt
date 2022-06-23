@@ -5,6 +5,8 @@
 - [Thomas Maurer AZ-204 Study Guide](https://www.thomasmaurer.ch/2020/03/az-204-study-guide-developing-solutions-for-microsoft-azure/)
 - [Whizlabs AZ-204 Practice Exam](https://www.whizlabs.com/microsoft-azure-certification-az-204/)
 
+## 1 - Develop Azure Compute Solutions (25-30%)
+
 ## 1.1 Implement IaaS Solutions
 
 ### *Provision Virtual Machines (VMs)*
@@ -549,4 +551,71 @@
       }
     }]
     ```
-    - 
+    
+## 1.2 Create Azure App Service Web Apps
+### *Create an Azure App Service Web App*
+### *Enable Diagnostics Logging*
+### *Deploy Code to a Web App*
+### *Configure Web App Settings Including SSL, API Settings, and Connection Strings*
+### *Implement Autoscaling Rules Including Scheduled Autoscaling and Autoscaling by Operational or System Metrics*
+
+## 1.3 Implement Azure Functions
+### *Create and Deploy Azure Function Apps*
+### *Implement Input and Output Bindings for a Function*
+### *Implement Function Triggers by Using Data Operations, Timers, and Webhooks*
+### *Implement Azure Durable Functions*
+
+## 2 Develop for Azure Storage (15-20%)
+
+## 2.1 Develop Solutions that Use Cosmos DB Storage
+### *Select the Appropriate API and SDK for a Solution*
+### *Implement Partitioning Schemes and Partition Keys*
+### *Perform Operations on Data and Cosmos DB Containers*
+### *Set the Appropriate Consistency Level for Operations*
+### *Manage Change Feed Notifications*
+
+## 2.2 Develop Solutions thatUse Blob Storage
+### *Move Items in Blob Storage Between Storage Accounts or Containers*
+### *Set and Retrieve Properties and Metadata*
+### *Perform Operations on Data by Using the Appropriate SDK*
+### *Implement Storage Policies, Data Archiving, and Retention*
+
+## 3 Implement Azure Security (20-25%)
+
+## 3.1 Implement user authentication and authorization
+### *Authenticate and Authorize Users by using the Microsoft Identity Platform*
+### *Authenticate and Authorize Users and Apps by using Azure Active Directory*
+### *Create and Implement Shared Access Signatures*
+### *Implement Solutions with Microsoft Graph*
+
+## 3.2 Implement secure cloud solutions
+### *Secure App Configuration Data by Using App Configuration or Azure Key Vault*
+### *Develop Code that Uses Keys, Secrets, and Certificates Stored in Azure Key Vault*
+### *Implement Managed Identities for Azure Resources*
+
+## 4 Monitor, troubleshoot, and optimize Azure solutions (15-20%)
+
+## 4.1 Implement caching for solutions
+### *configure cache and expiration policies for Azure Cache for Redis*
+### *implement secure and optimized application cache patterns including data sizing, connections, encryption, and expiration*
+
+## 4.2 Troubleshoot solutions by using metrics and log data
+### *configure an app or service to use Application Insights*
+### *review and analyze metrics and log data*
+### *implement Application Insights web tests and alerts*
+
+## 5 Connect to and consume Azure services and third-party services (15-20%) 
+
+### 5.1 Implement API Management
+### *create an APIM instance*
+### *create and document APIs*
+### *configure authentication for APIs*
+### *define policies for APIs*
+
+### 5.2 Develop event-based solutions
+### *implement solutions that use Azure Event Grid*
+### *implement solutions that use Azure Event Hub*
+
+### 5.3 Develop message-based solutions
+### *implement solutions that use Azure Service Bus*
+### *implement solutions that use Azure Queue Storage queues*
