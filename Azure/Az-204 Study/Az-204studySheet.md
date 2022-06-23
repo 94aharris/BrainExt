@@ -118,8 +118,150 @@
 
 ### *Configure Container Images for Solutions*
 
-https://docs.microsoft.com/en-us/learn/modules/build-and-store-container-images/?WT.mc_id=thomasmaurer-blog-thmaure
-https://docs.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app?WT.mc_id=thomasmaurer-blog-thmaure 
+- **Azure CLI Commands**
+  - clone sample app repo
+  ```bash
+  git clone https://github.com/Azure-Samples/aci-helloworld.git
+  ```
+  - Specify container with dockerfile
+  ```dockerfile
+  FROM node:8.9.3-alpine
+  RUN mkdir -p /usr/src/app
+  COPY ./app/* /usr/src/app/
+  WORKDIR /usr/src/app
+  RUN npm install
+  CMD node /usr/src/app/index.js
+  ```
+  - Build container with docker
+  ```bash
+  docker build ./aci-helloworld -t aci-tutorial-app
+  ```
+  - See built images
+  ```bash
+  docker images
+  ```
+  - run container locally
+  ```bash
+  docker run -d 8080:80 aci-tutorial-app
+  ```
+  - Create resource group and container registry
+  ```bash
+  az group create --name myResourceGroup --location eastus
+  
+  az acr create --resource-group myResourceGroup --name <acrName> --sku Basic
+  ```
+  - Log into container registry
+  ```bash
+  az acr login --name <acrName>
+  ```
+  - Tag container image
+    - To push a container image to a private registry you must tag the image with the full name of the registry's login server
+    ```bash
+    az acr show --name <acrName> --query loginServer --output table
+    ```
+    - display list of local images
+    ```bash
+    docker images
+    ```
+    - tag image with the login server of container registry and add :v1 to indicate image version
+    ```bash
+    docker tag aci-tutorial-app <acrLoginServer>/aci-tutorial-app:v1
+    ```
+    - verify tagging
+    ```bash
+    docker images
+    ```
+    - Push image to Azure Container Registry
+    ```bash
+    docker push <acrLoginServer>/aci-tutorial-app:v1
+    ```
+    - List images in Azure Container Registry
+    ```bash
+    az acr repository list --name <acrName> --output table
+    ```
+    - view tags for specific image
+    ```bash
+    az acr repository show-tags --name <acrName> --repository aci-tutorial-app
+    ```
+  - Deploy the Container
+    - Get registry credentials, best practice is to create and configure Azure Active Directory service principal with pull permissions to the registry
+    - Get login server
+    ```bash
+    az acr show --name <acrName> --query loginServer
+    ```
+    - Deploy Container with credentials (dns-name-label must be unique within Azure region)
+    ```bash
+    az container create \
+      --resource-group myResourceGroup \
+      --name aci-tutorial-app \
+      --image <acrLoginServer>/aci-tutorial-app:v1 \
+      --cpu 1 --memory 1 \
+      --registry-login-server <acrLoginServer> \
+      --registry-username <service-principal-ID> \
+      --registry-password <service-principal-password> \
+      --ip-address Public --dns-name-label <aciDnsLabel> --ports 80 
+    ```
+    - Verify deployment progress
+    ```bash
+    az container show --resource-group myResourceGroup --name aci-tutorial-app --query instanceView.state
+    ```
+  - view application and container logs
+    - Display container FQDN
+    ```bash
+    az container show --resource-group myResourceGroup --name aci-tutorial-app --query ipAddress.fqdn
+    ```
+    - Display container IP address
+    ```bash
+    az container show --resource-group myResourceGroup --name aci-tutorial-app --query ipAddress.ip --output table
+    ```
+    - View log output
+    ```bash
+    az container logs --resource-group myResourceGroup --name aci-tutorial-app 
+    ```
+  - Replicate a container image to different azure regions
+    - Replicate to another region
+    ```bash
+    az acr replication create --registry <acr_name> --location japaneast
+    ```
+    - Retrieve all container image replicas
+    ```bash
+    az acr replication list --registry <acr_name> --output table
+    ```
+  - Clean-up
+  ```bash
+  az group delete --name myResourceGroup
+  ```
+  - Other Stuff
+    - Enable Registry Admin account (EXPLORATION ONLY)
+    ```bash
+    az acr update --name <acr_Name> --admin-enabled true
+    ```
+    - Retrieve username and password for admin account
+    ```bash
+    az acr credential show --name <acr_name>
+    ```
+- **Important Tips**
+  - ACR is a private registry. Images cannot be accessed without authentication
+  - Azure service principals are the recommended authentication method. They provide granular access to container images in ACR
+  - When geo-replicating, place container registry in each region where images are run
+- Overview
+  - Azure Container Registry (ACR) is a managed Docker registry service hosted in azure to build, store, and manage images for containers
+  - Container images can be pushed and pulled with Container Registry using Docker CLI or Azure CLI
+- Process
+  - Create a container image docker fileand use ACR to build the image
+  - Deploy the images from ACR
+- ACR Authentication
+  - ACR doesn't support unauthenticated access and requires auth for all operations
+  - supports two typed of Identities
+    - Azure Active Directory Identities (user and service principals)
+    - Admin Account (included with each registry and disabled by default)
+- GeoReplicated Images
+  - replicate container registry in each region where images run
+  - benefits
+    - Single registry/image/tag names used accross multiple regions
+    - Network-close registry access from regional deployments
+    - No additional egress fees, images are pulled from local replicated registry
+    - Siungle management of a registry across regions
 
 ### *Publish an Image to Azure Container Registry (ACR)*
 
