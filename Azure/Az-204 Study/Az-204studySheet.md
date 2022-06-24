@@ -249,21 +249,12 @@
 - Overview
   - Azure Container Registry (ACR) is a managed Docker registry service hosted in azure to build, store, and manage images for containers
   - Container images can be pushed and pulled with Container Registry using Docker CLI or Azure CLI
-- Process
-  - Create a container image docker fileand use ACR to build the image
-  - Deploy the images from ACR
-- ACR Authentication
-  - ACR doesn't support unauthenticated access and requires auth for all operations
-  - supports two typed of Identities
-    - Azure Active Directory Identities (user and service principals)
-    - Admin Account (included with each registry and disabled by default)
-- GeoReplicated Images
-  - replicate container registry in each region where images run
-  - benefits
-    - Single registry/image/tag names used accross multiple regions
-    - Network-close registry access from regional deployments
-    - No additional egress fees, images are pulled from local replicated registry
-    - Siungle management of a registry across regions
+- High Level Process for Creating Container Image
+  - Create a directory for the new image - contains docker file and dependencies
+  - Create Docker File - contains the definition for the image
+  - Command line - run Docker Image
+  - Create container image - use docker build to create the image and add a tag
+  - list the newly created image
 
 ### *Publish an Image to Azure Container Registry (ACR)*
 
@@ -321,6 +312,18 @@
     - Geo-Replication (Premium feature must be enabled)
     - Zone redundancy - minimum of three zones (Premium service tier) 
     - Scalable storage - many repositories, images, layers, or tags up to the registry storage limit
+- - ACR Authentication
+  - ACR doesn't support unauthenticated access and requires auth for all operations
+  - supports two typed of Identities
+    - Azure Active Directory Identities (user and service principals)
+    - Admin Account (included with each registry and disabled by default)
+- GeoReplicated Images
+  - replicate container registry in each region where images run
+  - benefits
+    - Single registry/image/tag names used accross multiple regions
+    - Network-close registry access from regional deployments
+    - No additional egress fees, images are pulled from local replicated registry
+    - Siungle management of a registry across regions
 - ACR Tasks
   - Overview: Cloud based container image building on triggers, updates, or timers
   - Quick task
@@ -553,7 +556,59 @@
     ```
     
 ## 1.2 Create Azure App Service Web Apps
+
 ### *Create an Azure App Service Web App*
+
+- **CLI Commands**
+  - Retrieve list of linux runtimes
+  ```bash
+  az webapp list-runtimes --os-type linux
+  ```
+  -  
+- Overview
+  - Azure App Service is a PaaS to assis with developing applications w/out worrying about infrastructure
+  - Based on HTTP
+  - App Service Plan manages the group of VMs that run the application
+  - You ~~cannot~~ can (as of Jan 21, 2021) mix Windows and Linux apps in the same resource group in the same region
+- Benefits
+  - Built-in auto scale support
+  - CI/CD support and integration (AzDo, GitHub, Bitbucket, FTP, or local Git repo)
+  - Deployment slots (dev vs prod)
+- App Service Plans
+  - Shared Compute - Free and Shared share the resource pools of your apps with other customers. No scale out
+  - **Dedicated compute** - Basic, Standard, Premium, PremiumV2, and PremiumV3 run apps on dedicated Azure VMs. Scale out is available
+  - **Isolated** - runs dedicated Azure VMs on dedicated Azure Virtual Networks. Network Isoluation and maximum scale-out capabilities.
+  - **Consumption** - only available to _function apps_ it scales the functions dynamically to workload
+- Running and Scaling
+  - App Service plan is the scale unit of the App Service apps
+  - Diagnostic logs, backups, and WebJobs also use CPU cycles and memory
+  - Apps of the same service plan share compute resources
+  - Isolate app if it is resource-intensive, you want to scale independently, or needs a different geo region
+- Setup Info
+  - Basic - Region, Number of Instances, Size of Instances, OS platform, Pricing Tier 
+  - Auth - Azure, Microsoft, Google, Facebook, etc.
+- Integration with on-premise infrastructure
+  - VNet Integration - allows web app to access resource in your vnet (or on prem via site to site vpn)
+  - Hybrid connections - Azure Service Bus Relay creates a network connection between App Service and Application Endpoint (specific IP / Port combo)
+- Deployment
+  - Automated deployment (CI) - Azure DevOps, GitHub, Bitbucket
+  - Manual Deployment - Git (url as remote repo), CLI (```az webapp up```), Zip deploy, FTP/S
+- Deployment slots
+  - Use deployment slots when deploying prod build
+  - deploy app to staging environment then swap staging and production slots
+  - warms up worker instances and eliminates downtime
+- Authentication
+  - When authentication and authorization are enabled with a provider, every incoming http request passes through it before being handled by application code
+  - Provids - Authentication, Validation / refresh of tokens, session management, injects identity into headers
+  - Auth Flow
+    - All: Sign User In -> Post-Authentication -> Establish Authed Session -> Serve Authed content
+    - Without Provider SDK: application delegates federated sign-in to App Service. Like a browser app, presents the providers login page. The **server code** manages the sign-in Process. aka **server-directed flow** or **server flow**
+    - With Provider SDK: application signs users in to the provider manually then submits auth token to App Service for validation. Browserless apps which can't provide sign-in page to user. The **application code** manages the sign-in process. aka **client-directed flow** or **client flow**. applies to REST APIs, Azure Functions, JavaScript browser clients, and native mobile apps
+  - AuthZ behavior options
+    - Allow unauthenticated requets - more flexibility, allows for presenting multiple sign-in providers
+    - Require Authentication - reject any unauthenticated traffic 
+- App Service Networking Features
+
 ### *Enable Diagnostics Logging*
 ### *Deploy Code to a Web App*
 ### *Configure Web App Settings Including SSL, API Settings, and Connection Strings*
