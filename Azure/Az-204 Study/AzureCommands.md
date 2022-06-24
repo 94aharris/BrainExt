@@ -7,4 +7,10 @@
 
 ## Azure PowerShell
 
+### Get Azure VM RDP File (Windows)
+
+```powershell
+Get-AzRemoteDesktopFile -ResourceGroupName "RgName" -Name "VmName" -LocalPath "C:\Path\to\folder"
+```
+
 ## .Net Classes
