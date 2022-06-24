@@ -22,7 +22,8 @@
 - Azure Durable Functions
   - ListInstancesAsync() - get the statuses of all orchestration instances
   - PurgeInstanceHistoryAsync() - delete any Azure Table rows and large message blobs associated with a completed instance
-- Ubuntu RDP
+- Remote Desktop to Linux VM 
+  - [Reference Document](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/use-remote-desktop)
   - Open RDP port 3389
   - Install xfce (lightweight desktop environment)
   - Install xrdp (remote desktop service)
