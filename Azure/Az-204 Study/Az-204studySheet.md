@@ -8,15 +8,17 @@
       - [**CLI Commands** - Provision VMs](#cli-commands---provision-vms)
       - [Helpful extensions](#helpful-extensions)
       - [Fault Tolerance](#fault-tolerance)
+      - [Resources - Azure VM](#resources---azure-vm)
     - [*Configure, Validate, and Deploy ARM Templates*](#configure-validate-and-deploy-arm-templates)
       - [**CLI & PowerShell Commands** - ARM Templates](#cli--powershell-commands---arm-templates)
       - [ARM Templates Overview](#arm-templates-overview)
       - [Ways to Deploy ARM](#ways-to-deploy-arm)
       - [ARM Terms to remember](#arm-terms-to-remember)
+      - [Resources ARM Templates](#resources-arm-templates)
     - [*Configure Container Images for Solutions*](#configure-container-images-for-solutions)
       - [**CLI Commands** - Configure Container Images](#cli-commands---configure-container-images)
       - [**Important Tips** - Container Images](#important-tips---container-images)
-    - [Overview - Container IMages](#overview---container-images)
+      - [Overview - Container Images](#overview---container-images)
       - [High Level Process for Creating Container Image](#high-level-process-for-creating-container-image)
     - [*Publish an Image to Azure Container Registry (ACR)*](#publish-an-image-to-azure-container-registry-acr)
       - [**CLI Commands** - Publish Image to ACR](#cli-commands---publish-image-to-acr)
@@ -36,12 +38,14 @@
   - [1.2 Create Azure App Service Web Apps](#12-create-azure-app-service-web-apps)
     - [*Create an Azure App Service Web App*](#create-an-azure-app-service-web-app)
       - [**CLI Commands** - Create App Service Web App](#cli-commands---create-app-service-web-app)
-    - [Overview - Create App Service Web App](#overview---create-app-service-web-app)
+      - [**Important Notes** - App Service Web App](#important-notes---app-service-web-app)
+      - [Overview - Create App Service Web App](#overview---create-app-service-web-app)
       - [App Service Plans](#app-service-plans)
       - [Running and Scaling App Service](#running-and-scaling-app-service)
       - [App Service Web App Deployment](#app-service-web-app-deployment)
       - [App Service Web App Authentication](#app-service-web-app-authentication)
       - [App Service Networking Features](#app-service-networking-features)
+      - [Resources - Create Azure App Service](#resources---create-azure-app-service)
     - [*Enable Diagnostics Logging*](#enable-diagnostics-logging)
       - [**CLI Commands**](#cli-commands)
       - [Overview - Web App Diagnostics](#overview---web-app-diagnostics)
@@ -51,9 +55,17 @@
       - [Enable Logging (Portal)](#enable-logging-portal)
       - [Resources](#resources)
     - [*Deploy Code to a Web App*](#deploy-code-to-a-web-app)
+      - [**CLI Commands** - Deploy Web App](#cli-commands---deploy-web-app)
+      - [Tips to Remember - Deploy Code to a Web App](#tips-to-remember---deploy-code-to-a-web-app)
+      - [Overview - Deploy Code to a Web App](#overview---deploy-code-to-a-web-app)
+      - [Azure DevOps Pipelines](#azure-devops-pipelines)
+      - [Using Deployment Slots](#using-deployment-slots)
+      - [Resources - Deploy Code to a Web App](#resources---deploy-code-to-a-web-app)
     - [*Configure Web App Settings Including SSL, API Settings, and Connection Strings*](#configure-web-app-settings-including-ssl-api-settings-and-connection-strings)
+      - [*CLI Commands* - Configuree Web App Settings](#cli-commands---configuree-web-app-settings)
       - [Resources - Configure Web App Settings](#resources---configure-web-app-settings)
     - [*Implement Autoscaling Rules Including Scheduled Autoscaling and Autoscaling by Operational or System Metrics*](#implement-autoscaling-rules-including-scheduled-autoscaling-and-autoscaling-by-operational-or-system-metrics)
+      - [Resources - Azure App Service Autoscaling](#resources---azure-app-service-autoscaling)
   - [1.3 Implement Azure Functions](#13-implement-azure-functions)
     - [*Create and Deploy Azure Function Apps*](#create-and-deploy-azure-function-apps)
     - [*Implement Input and Output Bindings for a Function*](#implement-input-and-output-bindings-for-a-function)
@@ -179,6 +191,13 @@
 - Fault Domain - Hardware / Power Boundary
 - Update Domain - Hardware that may be rebooted at the same time
 
+#### Resources - Azure VM
+
+- [Quickstart: Create a Windows virtual machine in the Azure portal](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-portal)
+- [Tutorial: Create and Manage Windows VMs with Azure PowerShell](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/tutorial-manage-vm)
+- [How to connect and sign on to an Azure virtual machine running Windows](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/connect-logon)
+- [Quick steps: Create and use an SSH public-private key pair for Linux VMs in Azure](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys)
+
 ### *Configure, Validate, and Deploy ARM Templates*
 
 #### **CLI & PowerShell Commands** - ARM Templates
@@ -254,6 +273,13 @@ az storage account show --resource-group <rg-name> --name <storage-acct-name>
   
 - *condition* - specify whether the resource is deployed only if condition is true
 - *depends on* - separate artifact must be deployed first, different than Parent/ Child
+
+#### Resources ARM Templates
+
+- [Extend ARM templates by using deployment scripts](https://docs.microsoft.com/en-us/learn/modules/extend-resource-manager-template-deployment-scripts/)
+- [Advanced Azure Resource Manager template functionality](https://docs.microsoft.com/azure/architecture/guide/azure-resource-manager/advanced-templates/)
+- [Azure Resource Manager templates overview](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview)
+- [Tutorial: Create and deploy your first Azure Resource Manager template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-first-template)
 
 ### *Configure Container Images for Solutions*
 
@@ -417,7 +443,6 @@ az acr login --name <acrName>
 az group delete --name myResourceGroup
 ```
 
-
 - Enable Registry Admin account (EXPLORATION ONLY)
 
 ```bash
@@ -436,7 +461,7 @@ az acr credential show --name <acr_name>
 - Azure service principals are the recommended authentication method. They provide granular access to container images in ACR
 - When geo-replicating, place container registry in each region where images are run
 
-### Overview - Container IMages
+#### Overview - Container Images
 
 - Azure Container Registry (ACR) is a managed Docker registry service hosted in azure to build, store, and manage images for containers
 - Container images can be pushed and pulled with Container Registry using Docker CLI or Azure CLI
@@ -602,7 +627,6 @@ az group delete --name az204-acr-rg --no-wait
   ```
 
 ### *Run Containers by Using Azure Container Instance*
-
 
 #### **CLI Commands** - Run Container Instance
 
@@ -825,7 +849,38 @@ containers:
 az webapp list-runtimes --os-type linux
 ```
 
-### Overview - Create App Service Web App
+- Find Outbound IPs
+
+```bash
+az webapp show \
+  --resource-group <rg_name> \
+  --name <app_name> \
+  --query outboundIpAddress \
+  --output tsv
+```
+
+- Get all possible outbound IP addresses for app
+
+```bash
+az webapp show \
+  --resource-group <group_name> \
+  --name <app_name> \
+  --query possibleOutboundIpAddresses \
+  --output tsv
+```
+
+- Deploy simple html web app (same command to redeploy)
+
+```bash
+az webapp up --resource-group <rg_name> --name <app_name> --html
+```
+
+#### **Important Notes** - App Service Web App
+
+- The Consumption App Service Plan **only** supports function apps
+- Know the Inbound / Outbound control features
+
+#### Overview - Create App Service Web App
 
 - Azure App Service is a PaaS to assis with developing applications w/out worrying about infrastructure
 - Based on HTTP
@@ -879,6 +934,33 @@ az webapp list-runtimes --os-type linux
   - Require Authentication - reject any unauthenticated traffic
 
 #### App Service Networking Features
+
+- By default, apps hosted in App Service are accessible directly via the internet
+- Two Deployment Types
+  - Multitenant public service - Free, Shared, Basic, Standard, Premium, PremiumV2, and PremiumV3
+  - Single-Tenant App Service Environment (ASE) - Host isolated SKU App Service plans directly in Azure Virtual Network
+- Multi-Tenant App Service Networking Features
+  - *front ends* - handle incoming HTTP or HTTPS requests
+  - *workers* - handle customer workloads
+  - You can't connect multi-tenant App Service network directly to your own network. Instead use features to handle comms
+  - Inbound Features
+    - App-Assigned Address
+    - Access Restrictions
+    - Service Endpoints
+    - Private Endpoints
+  - Outbound Features
+    - Hybrid Connections
+    - Gateway-required virtual network integration
+    - Virtual network integration
+  - Scaling Considerations
+    - worker VMs are broken down by App Service plans
+    - if you scale service plans (e.g. PremiumV2 to PremiumV3) your outbound addresses will change
+    - To see all addresses an app may use in a scale set unit check the ```possibleOutboundAddresses``` property
+
+#### Resources - Create Azure App Service
+
+- [Create an ASP.NET Core web app in Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-dotnet)
+- [Explore Azure App Service](https://docs.microsoft.com/en-us/learn/modules/introduction-to-azure-app-service/)
 
 ### *Enable Diagnostics Logging*
 
@@ -1012,17 +1094,158 @@ az webapp log download --log-file \<_filename_\>.zip --resource-group <rgname> -
 #### Resources
 
 - [Enable diagnostics logging for apps in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/troubleshoot-diagnostic-logs)
-- [Capture Web Application Logs with App Service Diagnostics Logging](https://docs.microsoft.com/en-us/learn/modules/capture-application-logs-app-service)
+- [Capture Web Application Logs with App Service Diagnostics Logging (Module)](https://docs.microsoft.com/en-us/learn/modules/capture-application-logs-app-service)
   
 ### *Deploy Code to a Web App*
 
+#### **CLI Commands** - Deploy Web App
+
+- Create Rg, App Service Plan, and Web App from service plan
+
+```bash
+# Create a resource group
+az group create --location eastus2 --name myapp-rg
+
+# Create an app service plan of type Windows
+az appservice plan create -g myapp-rg -n myapp-service-plan
+
+# Create an App Service from the plan 
+az webapp create -g myapppipeline-rg -p myapp-service-plan -n my-app-dotnet-win --runtime "DOTNETCORE|3.1"
+```
+
+- Create .NET webapp
+
+```.NET CLI
+dotnet new webapp -f net6.0
+```
+
+- Run the application locally
+
+```.NET CLI
+dotnet run
+```
+
+- Deploy a ZIP Package
+
+```bash
+# Push Deploy
+az webapp deploy --resource-group <rg-name> --name <app-name> --src-path <zip-package-path>
+
+# Pull Deploy (if AppService is locked down)
+az webapp deploy --resource-group <rg-name> --name <app-name> --src-url "<url-to-zip>"
+```
+
+- By default the ZIP is assumed ready to run as is, to enable build for the zip
+
+```bash
+az webapp config appsettings set --resource-group <rg-name> --name <app-name> --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+```
+
+#### Tips to Remember - Deploy Code to a Web App
+
+- To specify a virtual application to deploy to in YAMLl use ```VirtualApplication``` property of ```AzureRmWebAppDeployment``` task
+- Azure DevOps task is the ```AzureWebApp``` task
+
+#### Overview - Deploy Code to a Web App
+
+- Multiple Deployment Methods Including
+  - Azure Pipelines
+  - Azure CLI
+  - ZIP / WAR File
+
+#### Azure DevOps Pipelines
+
+- Process  
+  - Create the Resource Group, App Service Plan, and Webapp
+  - Create the .Net project
+  - Upload the doe to GitHub or Azure DevOps Repository
+  - Establish Service Connection for credentials
+  - Create an Azure Devops Pipeline with a **Azure Web App** task (example task YAML)
+
+  ```YAML
+  - task: AzureWebApp@1
+  inputs:
+    azureSubscription: '<Azure service connection>'
+    appName: '<Name of web app>'
+    package: $(System.DefaultWorkingDirectory)/**/*.zip 
+  ```
+
+- Example of full pipeline for .NET app
+
+```YAML
+variables:
+buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '<Azure service connection>'
+    appType: 'webAppLinux'
+    appName: '<Name of web app>'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+```
+
+#### Using Deployment Slots
+
+- Deployment slots are separate slots than the default production slot
+- Benefits
+  - You can validate app changes in staging before swapping to production
+  - Deploying to a slot first then swapping it to production makes sure the instace is warmed up (elminates downtime)
+  - You can configure auto swap when pre-swap validation isn't needed
+  - After a swap the previous production app is now staged and can be swapped back to get "last known good"
+- Available in **Standard**, **Premium**, or **Isolated** App Service plan tiers
+- High Availability features of swap (performed by Azure)
+  - apply settings from target slot to all instances of source slot (connection strings, CD settings, auth settings)
+  - Wait for every instance in source slot to complete restart
+  - Trigger local cache initialization
+  - Trigger application initiation if ```applicationInitiallization``` is specified (e.g. makes an HTTP request to the application)
+  - Once warm, swap the two slots by switching the routing rules for the two slots
+- Swap Types
+  - Manual swap - go to app deployment slots and swap
+  - Swap with Preview (multi-phase swap) - Before you swap, validate the app runs with swapped settings
+  - Configure Auto-Swap - Everytime you push code changes to specified slot, App Service automatically swaps the app into production after warm up (*Not available in Linux web apps*)
+- Custom Warm-up
+  - Use the ```applicationInitialization``` element in the web.config to specify initialization pages
+  - ```WEBSITE_SWAP_WARMUP_PING_PATH``` - Path to ping to warm up site (e.g. /statuscheck)
+  - ```WEBSITE_SWAP_WARMUP_PING_STATUSES``` - Valid HTTP response codes for warm-up operation, if valid status isn't returned the warmup and swap operations are stopped
+- Appears in log query as ```Swap Web App Slots```
+- Production traffic can be routed to multiple slots
+  - Look at header ```x-ms-routing-name``` cookie value to determine slot user is routed to
+  - Route automatically by Traffic % then pinned for the life of that session
+  - Route traffic manually (e.g. to let users opt in / out of a beta)
+
+#### Resources - Deploy Code to a Web App
+
+- [Explore Azure App Service Deployment Slots(Module)](https://docs.microsoft.com/en-us/learn/modules/understand-app-service-deployment-slots/)
+- [Deploy an Azure Web App](https://docs.microsoft.com/en-us/azure/devops/pipelines/targets/webapp)
+- [Deploy your app to Azure App Service with a ZIP or WAR file](https://docs.microsoft.com/en-us/azure/app-service/deploy-zip)
+- [Provision and deploy microservices predictably in Azure](https://docs.microsoft.com/en-us/azure/app-service/deploy-complex-application-predictably)
+
 ### *Configure Web App Settings Including SSL, API Settings, and Connection Strings*
+
+#### *CLI Commands* - Configuree Web App Settings
+
+- For a definitive list of the connection string types, run the following command in Azure PowerShell
+
+```PowerShell
+[Enum]::GetNames("Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntities.DatabaseType")
+```
 
 #### Resources - Configure Web App Settings
 
-- [Configure Web App Settings](https://docs.microsoft.com/en-us/learn/modules/configure-web-app-settings/)
+- [Configure Web App Settings (Module)](https://docs.microsoft.com/en-us/learn/modules/configure-web-app-settings/)
 
 ### *Implement Autoscaling Rules Including Scheduled Autoscaling and Autoscaling by Operational or System Metrics*
+
+#### Resources - Azure App Service Autoscaling
+
+- [Scale apps in Azure App Service (Module)](https://docs.microsoft.com/en-us/learn/modules/scale-apps-app-service/)
 
 ## 1.3 Implement Azure Functions
 
