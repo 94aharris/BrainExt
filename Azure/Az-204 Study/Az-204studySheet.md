@@ -62,10 +62,21 @@
       - [Using Deployment Slots](#using-deployment-slots)
       - [Resources - Deploy Code to a Web App](#resources---deploy-code-to-a-web-app)
     - [*Configure Web App Settings Including SSL, API Settings, and Connection Strings*](#configure-web-app-settings-including-ssl-api-settings-and-connection-strings)
-      - [*CLI Commands* - Configuree Web App Settings](#cli-commands---configuree-web-app-settings)
+      - [*CLI Commands* - Configure Web App Settings](#cli-commands---configure-web-app-settings)
+      - [Web App Settings Overview](#web-app-settings-overview)
+      - [General Web App Settings](#general-web-app-settings)
+      - [Web App Path Mappings](#web-app-path-mappings)
+      - [Configure Web App Security Certificates](#configure-web-app-security-certificates)
+      - [Configure App Features (Feature Flags)](#configure-app-features-feature-flags)
       - [Resources - Configure Web App Settings](#resources---configure-web-app-settings)
     - [*Implement Autoscaling Rules Including Scheduled Autoscaling and Autoscaling by Operational or System Metrics*](#implement-autoscaling-rules-including-scheduled-autoscaling-and-autoscaling-by-operational-or-system-metrics)
-      - [Resources - Azure App Service Autoscaling](#resources---azure-app-service-autoscaling)
+      - [**CLI Commands** Autoscaling](#cli-commands-autoscaling)
+      - [Autoscaling Tips to Remember](#autoscaling-tips-to-remember)
+      - [Overview - Implement Autoscaling](#overview---implement-autoscaling)
+      - [Conditions, Metrics, and Actions for autoscale rules](#conditions-metrics-and-actions-for-autoscale-rules)
+      - [Enable App Service Autoscaling](#enable-app-service-autoscaling)
+    - [Autoscale best practices](#autoscale-best-practices)
+      - [Resources - Azure Autoscaling](#resources---azure-autoscaling)
   - [1.3 Implement Azure Functions](#13-implement-azure-functions)
     - [*Create and Deploy Azure Function Apps*](#create-and-deploy-azure-function-apps)
     - [*Implement Input and Output Bindings for a Function*](#implement-input-and-output-bindings-for-a-function)
@@ -1055,6 +1066,12 @@ az webapp log download --log-file \<_filename_\>.zip --resource-group <rgname> -
 - Logging Windows vs Linux Hosts
   - Windows-based web apps is integrated with the underlying IIS service (saves to File System, Blob Storage)
   - Linux-based apps relies on the Docker image used and redirects to STDERR or STDOUT use the Docker Logs (saves to File System Only)
+  - Types of logging for Windows vs Linux
+    - Application Logging - Windows & Linux
+    - Deployment Logging - Windows & Linux
+    - Web Server Logging - Windows ONLY
+    - Detailed error logging - Windows ONLY
+    - Failed request tracing - Windows ONLY
 - Log File Locations
   - Windows
     - D:\Home\LogFiles
@@ -1229,7 +1246,7 @@ steps:
 
 ### *Configure Web App Settings Including SSL, API Settings, and Connection Strings*
 
-#### *CLI Commands* - Configuree Web App Settings
+#### *CLI Commands* - Configure Web App Settings
 
 - For a definitive list of the connection string types, run the following command in Azure PowerShell
 
@@ -1237,15 +1254,192 @@ steps:
 [Enum]::GetNames("Microsoft.WindowsAzure.Commands.Utilities.Websites.Services.WebEntities.DatabaseType")
 ```
 
+- Merge intermediate certs in cert chain prior to upload
+
+```bash
+openssl pkcs12 -export -out myserver.pfx -inkey <private-key-file> -in <merged-certificate-file>
+```
+
+#### Web App Settings Overview
+
+- App Service settings are passed as environmental variables to application code
+  - In Linux / Custom containers passed using the ```--env``` flag
+  - In ASP .NET and .NET Core settings are in ```<appSettings>``` in *Web.config* or *appsettings.json*
+  - Access settings from app management page **Configuration** -> **Application Settings**
+- Add single new setting from configuration page
+- Add bulk settings using json file
+- App Service settings **override** *Web.config* settings
+- To apply only to development slot enable as *slotSetting*
+
+#### General Web App Settings
+
+- **Stack Settings** - software stack to run the app, including laguage and SDK version. Specify optional start-up cmd or file
+- **Platform Settings** - Configure settings for hosting platform, including
+  - **Bitness** - 32 bit vs 64 bit
+  - **WebSocket Protocol** - e.g. for ASP .NET SignallR or socket.io
+  - **Always On** - Keep the app loaded even when there's no traffic. By default app is unloaded after 20 minutes of no requests. Required for WebJobs.
+  - **Managed pipeline version** - IIS pipeline mode. set to **Classic** if you have a legacy app requiring an older version of IIS.
+  - **HTTP version** - 1.0 or 2.0
+  - **ARR affinity** - In a multi-instance deployment, ensure that the client is routed to the same instance for the life of the session. Set to Off for *stateless applications*
+- **Debugging** - Enablle remote debugging for ASP.NET, ASP.NET Core, or Node.js apps. Automatically turns off after **48 hours**
+- **Incoming client certificates** - require client certificates in mutual authentication. TLS mutual authentication is used to restrict access to your app by enabling different types of authentication for it.
+
+#### Web App Path Mappings
+
+Path mappings configure handler mappings, and virtual application and directory mappings. Differnt options based on OS type
+
+- Windows apps (uncontainerized)
+  - **Extension** - file extension to handle such as *.php or handler.fcgi
+  - **Script Processor** - The absolute path of the script processor. Requests to files that match the extension are processed by the script processor
+  - **Arguments** - Optional command-line arguments for the script processor
+- Linux and containerized apps
+  - **Name** - display name
+  - **Configuration options** - Basic or Advanced
+  - **Storage accounts** - storage account with the container you want
+  - **Storage type** - Azure Blobs or Azure Files (Windows container apps onlly support Azure Files)
+  - **Storage container** - The container you want (basic config)
+  - **Share name** - File Share name (Adv config)
+  - **Access key** - Access Key (Adv config)
+  - **Mount path** - Absollute path in your container to mount the custom storage
+
+#### Configure Web App Security Certificates
+
+Azure App service has tools to create, upload, or import a private cert or public cert into App Service
+
+- A cert uploaded into an app is stored in a deployment unit bound to the app service plan resource group and region combo (i.e. *webspace*). This makes the cert accessible to other apps in the same *webspace*
+- Options for adding certs in App Service
+  - Create a free App Service managed cert
+  - Purchase an App Service certificate
+  - Import a certificate from Key Vault
+  - Upload a private certificate
+  - upload a public certificate
+- Private Cert Requirements
+  - Exported as password-protected PFX file encrypted with triple DES
+  - private key at least 2048 bits long
+  - Contains all intermediate certs in the chain
+  - Contains Extended Key Useage for Server Auth (custom domain TLS binding)
+  - Signed by trusted cert authority (custom domain TLS binding)
+- HTTP is allowed by default, setting available to enforce https only
+
+#### Configure App Features (Feature Flags)
+
+Feature flags decouples feature release from code deployment allowing quick changes (e.g. feature toggles, floags, switches, etc.)
+
+- Feature Flag = Name and One or More Filters
+- App Service Feature manager
+  - supports *appsettings.json* as a configuration source for feature flags
+  - Azure App Configuration overrides appsettings.json / web.config and is designed to be a central repository for feature flags
+- Use the App Configuration libraries to access the feature flags from the application
+
 #### Resources - Configure Web App Settings
 
 - [Configure Web App Settings (Module)](https://docs.microsoft.com/en-us/learn/modules/configure-web-app-settings/)
+- Custom configuration and application settings in Azure Web Sites
+- [Configure an App Service app in the Azure portal](https://azure.microsoft.com/en-us/resources/videos/configuration-and-app-settings-of-azure-web-sites)
+- [Buy a custom domain name for Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/configure-common)
+- [Add a TLS/SSL certificate in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-certificate)
 
 ### *Implement Autoscaling Rules Including Scheduled Autoscaling and Autoscaling by Operational or System Metrics*
 
-#### Resources - Azure App Service Autoscaling
+#### **CLI Commands** Autoscaling
+
+- Increase number of VM instances in scale set when average CPU load is greater than 70% over a 5-minute period
+
+```bash
+az monitor autoscale rule create \
+  --resource-group myResourceGroup \
+  --autoscale-name autoscale \
+  --condition "Percentage CPU > 70 avg 5m" \
+  --scale out 3
+```
+
+- Decrease number of VM instances in a scale set when the average CPU load drops below 30% over a 5-minute period
+
+```bash
+az monitor autoscale rule create \
+  --resource-group myResourceGroup \
+  --autoscale-name autoscale \
+  --condition "Percentage CPU < 30 avg 5m" \
+  --scale in 1
+```
+
+- manually scale app service to 2 workers
+
+```bash
+az appservice plan update --number-of-workers 2 --name $appServicePlan --resource-group $resourceGroup
+```
+
+#### Autoscaling Tips to Remember
+
+- Autoscaling is a scale out / in solution
+- Changes in application load that are predictable (i.e. more users on Friday) are good candidates for autoscaling
+- "Grind system to halt" e.g. Denial of Service attack will **not** be handled by autoscaling
+- Scale out operations trigger if **any** rule conditions are met
+- Scale in Operations only trigger if **all** rule conditions are met
+
+#### Overview - Implement Autoscaling
+
+- Def: Autoscaling is the process of dynamicallly alllocating resources to match performance requirements.
+  - Vertical Scaling - scale up / down (bigger / smaller vm)
+  - Horzontal scaling - scale out / in (more / less vms)
+
+#### Conditions, Metrics, and Actions for autoscale rules
+
+- Conditions
+  - Scale based on metric
+  - Scale based on schedule
+- Metrics
+  - **CPU Percentage**
+  - **Memory Percentage**
+  - **Disk Queue Length**
+  - **Http Queue Length**
+  - **Data in**
+  - **Data out**
+- How autoscale analyzes metrics
+  - aggregates the values for a metric for all instances over a *time grain*
+  - available aggregates: Average, Minimum, Maximum, Total, Last, and Count 
+  - calculates over a user-specified time value *Duration*
+  - *Time Grain* is the period of calculation for a metric 
+  - *Duration* is the aggregate 
+  - The aggregation calculation for *Duration* can be differant from *time grain*
+  
+  > if the *time aggregation* is *Average* and the statistic gathered is CPU percentage across a one-minute *time grain*, each minute the average CPU percentage util across all instances for that minute will be calculated. If the *time grain statistic* is set to *Maximum* and the *Duration* of the rule is set to 10 minutes, the maximum of the 10 average values for CPU percentage utilization will be used to determin if the threshold has been crossed.
+
+- Autoscale actions
+  - scale out or scale in by a specified increment
+  - cannot exceed the max instances for the App Service plan
+  - autoscale action has a cool down period - minimum 5 minutes
+  - if combining rules, scale out occurs if any threshold is passed
+  - if combining rules, scale in occurs only if under all thresholds
+
+#### Enable App Service Autoscaling
+
+- Enable autoscale
+  - select *Custom autoscale*
+  - add scale conditions
+  - create scale rules
+  - Monitor autoscale activity
+- autoscale scales horizontally
+- autoscale always reads the associated metric
+- all thresholds are calculated at instance level
+- autoscale sucess / failure are logged in activity log
+
+### Autoscale best practices
+
+- Ensure the Max and Min values are different and have adequatre margin between them
+- Choose appropriate metrics
+- Chose the thresholdls carefully (big enough margin to void flapping)
+- Consider how scaling performs when multiple rules are configured in a profile
+- Always select a safe default instance count (service default when metrics are unavailable)
+- Configure autoscale notifications
+
+#### Resources - Azure Autoscaling
 
 - [Scale apps in Azure App Service (Module)](https://docs.microsoft.com/en-us/learn/modules/scale-apps-app-service/)
+- [Azure Autoscaling Best Practices](https://docs.microsoft.com/en-us/learn/modules/scale-apps-app-service/)
+- [Scale up an App in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/manage-scale-up)
+- [Get started with Autoscale in Azure](https://docs.microsoft.com/en-us/azure/azure-monitor/autoscale/autoscale-get-started)
+- [App Service Environment AutoScale](https://docs.microsoft.com/en-us/azure/app-service/environment/app-service-environment-auto-scale)
 
 ## 1.3 Implement Azure Functions
 
