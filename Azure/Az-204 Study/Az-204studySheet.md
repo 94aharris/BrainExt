@@ -79,14 +79,31 @@
       - [Resources - Azure Autoscaling](#resources---azure-autoscaling)
   - [1.3 Implement Azure Functions](#13-implement-azure-functions)
     - [*Create and Deploy Azure Function Apps*](#create-and-deploy-azure-function-apps)
+      - [Overview - Azure Functions](#overview---azure-functions)
+      - [Azure Functions Plans](#azure-functions-plans)
+      - [Azure Functions Development](#azure-functions-development)
+      - [Scale Azure Functions](#scale-azure-functions)
+      - [Resources - Deploy Azure Function Apps](#resources---deploy-azure-function-apps)
     - [*Implement Input and Output Bindings for a Function*](#implement-input-and-output-bindings-for-a-function)
+      - [Overview Input and Output Bindings](#overview-input-and-output-bindings)
+      - [Create Triggers and Bindings](#create-triggers-and-bindings)
+      - [Connection Azure Functions to Azure Services](#connection-azure-functions-to-azure-services)
+      - [Resources - IO Bindings for a Function](#resources---io-bindings-for-a-function)
     - [*Implement Function Triggers by Using Data Operations, Timers, and Webhooks*](#implement-function-triggers-by-using-data-operations-timers-and-webhooks)
+      - [Overview - Azure Function Triggers](#overview---azure-function-triggers)
+      - [Trigger Azure Function on Timer](#trigger-azure-function-on-timer)
+      - [Trigger Azure Functions with HTTP Request](#trigger-azure-functions-with-http-request)
+      - [Trigger Azure Function with Data Operation](#trigger-azure-function-with-data-operation)
+      - [Trigger Azure Function with Webhook](#trigger-azure-function-with-webhook)
+      - [Resources - Azure Function Triggers](#resources---azure-function-triggers)
     - [*Implement Azure Durable Functions*](#implement-azure-durable-functions)
+      - [Resources - Azure Durable Functions](#resources---azure-durable-functions)
   - [2 Develop for Azure Storage (15-20%)](#2-develop-for-azure-storage-15-20)
   - [2.1 Develop Solutions that Use Cosmos DB Storage](#21-develop-solutions-that-use-cosmos-db-storage)
     - [*Select the Appropriate API and SDK for a Solution*](#select-the-appropriate-api-and-sdk-for-a-solution)
     - [*Implement Partitioning Schemes and Partition Keys*](#implement-partitioning-schemes-and-partition-keys)
     - [*Perform Operations on Data and Cosmos DB Containers*](#perform-operations-on-data-and-cosmos-db-containers)
+      - [Resources - Perform Operations on Cosmos DB](#resources---perform-operations-on-cosmos-db)
     - [*Set the Appropriate Consistency Level for Operations*](#set-the-appropriate-consistency-level-for-operations)
     - [*Manage Change Feed Notifications*](#manage-change-feed-notifications)
   - [2.2 Develop Solutions thatUse Blob Storage](#22-develop-solutions-thatuse-blob-storage)
@@ -130,6 +147,7 @@
 - [AZ-204 Exam Information](https://docs.microsoft.com/en-us/learn/certifications/exams/az-204)
 - [Thomas Maurer AZ-204 Study Guide](https://www.thomasmaurer.ch/2020/03/az-204-study-guide-developing-solutions-for-microsoft-azure/)
 - [Whizlabs AZ-204 Practice Exam](https://www.whizlabs.com/microsoft-azure-certification-az-204/)
+- [Create Serverless Applications (MS Learning Path)](https://docs.microsoft.com/en-us/learn/paths/create-serverless-applications/)
 
 ## 1 - Develop Azure Compute Solutions (25-30%)
 
@@ -1445,12 +1463,379 @@ az appservice plan update --number-of-workers 2 --name $appServicePlan --resourc
 
 ### *Create and Deploy Azure Function Apps*
 
+#### Overview - Azure Functions
+
+Azure Functions are serverless compute service that enable processing data, integrating system, working with IoT, and building simple APIs.
+
+- Azure Functions vs Logic Apps
+  - Azure Functions require writing code, Logic Apps uses a GUI (primarilly)
+  - Logic Apps uses a designer-first (declarative) development model
+- Azure Functions Vs WebJobs
+  - Azure Functions is built on the WebJobs SDK but allows for serverless app model and automatic scaling
+
+#### Azure Functions Plans
+  
+- Plan Options
+  - **Consumption Plan**
+    - Default Plan
+    - Scales automatically 
+    - Only pay for compute resources when functions are running
+  - **Premium Plan**
+    - Automatically scales based on demand using pre-warmed workers which run with no delay after being idle
+    - More powerful instances
+    - Connects to VNets
+  - **Dedicated Plan**
+    - Run functions within App Service plan
+    - Best for long-running scenarios not suitable for Durable Functions
+    - enable **Always on** so function app runs correctly
+- Hosting Options
+  - **App Service Environment (ASE)**
+    - fully isolated and dedicated environment
+    - running App Service apps at high scale
+    - Supports setting autoscaling rules based on predictive usage
+  - **Kubernetes**
+    - fully isolated and dedicated environment
+- *All plans require a general Azure Storage account*
+
+#### Azure Functions Development
+
+- Function contains two important pieces
+  - *Code* - written in varity of languages
+  - *Config* - the function.json file (generated automatically for compiled languages)
+
+  ```json
+  {
+      "disabled":false,
+      "bindings":[
+          // ... bindings here
+          {
+              "type": "bindingType",
+              "direction": "in",
+              "name": "myParamName",
+              // ... more depending on binding
+          }
+      ]
+  }
+  ```
+
+- Function app provides execution context
+  - One or more individual functions
+  - managed, deployed, and scaled together
+  - same pricing plan, deeployment method, and runtime version
+  - *In Functions 2.x* - all lfunctions must be authored in the same language
+- Folder structure
+  - code for all the functions in a function app is located in a root project folder
+  - *host.json* contains runtime-specific configs and is the root folder
+  - *bin* folder contains packages and other library files required by the function app
+
+#### Scale Azure Functions
+
+- In *Consumption* and *Premium* plans, Azure Functions scales by adding additional instances of the Functions host
+- Runtime Scaling - Azure functions uses the *scale controller* to monitor function rate and determine if scale out is needed
+- Cold Start - If function app is idle for a number of minutes, the platform may scale instances down to 0
+- Scaling behaviors
+  - **Maximum instances**
+    - Consumption Plan - Single function app scales to a max of 200 instances
+    - Premium Plan - Single function scales to a max of 100 instances (more powerful intance)
+    - Specify lower limit by setting ```functionAppScaleLimit```
+  - **New instance rate**
+    - HTTP triggers - new instances allocated at most *once per second*
+    - Non-HTTP triggers - new instances allocated at most *once per 30 seconds*
+
+#### Resources - Deploy Azure Function Apps
+
+- [Explore Azure Functions (Module)](https://docs.microsoft.com/en-us/learn/modules/explore-azure-functions/)
+- [Getting Started with Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-get-started?pivots=programming-language-csharp)
+- [Folder Layout for Compiled C# Functions Apps](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-class-library?tabs=v2%2Ccmd#functions-class-library-project)
+- [Develop and Test Azure Functions Locally](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-local)
+- [dotnet Isolated Process Guide](https://docs.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide)
+  
 ### *Implement Input and Output Bindings for a Function*
 
+#### Overview Input and Output Bindings
+
+- *Triggers* are what cause a function to run, a function must have exactly one trigger
+- *Bindings* to a function is a way of declaratively connecting another resource to the function
+  - can be *input binding*, *output binding*, or *both*
+  - Data from bindings is provided to the function as parameters
+- The ```bindings``` property of the function.json file is where you configure triggers and bindings
+  - ```type``` - string - Name of binding ex ```queueTrigger```
+  - ```direction``` - string - indicate direction of data ```in``` or ```out```
+  - ```name``` - string - the name that is used for the bound data in the function ex ```myQueue```
+  
+#### Create Triggers and Bindings
+
+- Trigger and binding code definitions
+  - C# class library - decorating methods and parameters with C# attributes
+  - Java - decorating methods and parameters with java annotations
+  - JavaScript/PowerShell/Python/TypeScript - updating *function.json* schema
+    - example
+
+    ```json
+    {
+      "dataType": "binary",
+      "type": "httpTrigger",
+      "name": "req",
+      "direction": "in"
+    }
+    ```
+
+- Trigger and Binding example
+  - Write a new row to Azure Table storage whenever a new message appears in Azure Queue storage
+  - function.json
+
+  ```json
+  {
+    "bindings": [
+      {
+        "type": "queueTrigger",
+        "direction": "in",
+        "name": "order",
+        "queueName": "myqueue-items",
+        "connection": "MY_STORAGE_ACCT_APP_SETTING"
+      },
+      {
+        "type": "table",
+        "direction": "out",
+        "name": "$return",
+        "tableName": "outTable",
+        "connection": "MY_TABLE_STORAGE_ACCT_APP_SETTING"
+      }
+    ]
+  }
+  ```
+
+- Trigger and Binding Example (C# Script)
+  - used in conjunction with above function.json file
+
+    ```C#
+    #r "Newtonsoft.Json"
+
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json.Linq;
+
+    // From an incoming queue message that is a JSON object, add fields and write to Table storage
+    // The method return value creates a new row in Table Storage
+    public static Person Run(JObject order, ILogger log)
+    {
+        return new Person() { 
+                PartitionKey = "Orders", 
+                RowKey = Guid.NewGuid().ToString(),  
+                Name = order["Name"].ToString(),
+                MobileNumber = order["MobileNumber"].ToString() };  
+    }
+
+    public class Person
+    {
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public string Name { get; set; }
+        public string MobileNumber { get; set; }
+    }
+    ```
+
+- Trigger and Binding Example (C# compiled class libarary)
+  - trigger and binding information proveded by attributes **not** function.json file
+  - example
+  
+  ```C#
+  public static class QueueTriggerTableOutput
+  {
+      [FunctionName("QueueTriggerTableOutput")]
+      [return: Table("outTable", Connection = "MY_TABLE_STORAGE_ACCT_APP_SETTING")]
+      public static Person Run(
+          [QueueTrigger("myqueue-items", Connection = "MY_STORAGE_ACCT_APP_SETTING")]JObject order,
+          ILogger log)
+      {
+          return new Person() {
+                  PartitionKey = "Orders",
+                  RowKey = Guid.NewGuid().ToString(),
+                  Name = order["Name"].ToString(),
+                  MobileNumber = order["MobileNumber"].ToString() };
+      }
+  }
+
+  public class Person
+  {
+      public string PartitionKey { get; set; }
+      public string RowKey { get; set; }
+      public string Name { get; set; }
+      public string MobileNumber { get; set; }
+  }
+  ```
+
+#### Connection Azure Functions to Azure Services
+
+- Multi-Environment safety
+  - Function project references connection information by name from configuration provider
+  - Don't set directly in function.json, instead you would set *connection* property to the name of an environmental variable
+  - connection string typicallly also includes a secret
+- Configure Identity-Based Connections
+  - *Not supported with Durable Functions*
+  - When hosted in Azure Functions service, identity-based connections use a *managed identity*
+  - System identity is used by defaullt, but a user-assigned identity can be specified ```credential``` and ```clientID```
+
+#### Resources - IO Bindings for a Function
+
+- [Develop Azure Functions (Module)](https://docs.microsoft.com/en-us/learn/modules/develop-azure-functions/)
+  
 ### *Implement Function Triggers by Using Data Operations, Timers, and Webhooks*
+
+#### Overview - Azure Function Triggers
+
+Triggers are what invokes an Azure Function. Every function must have exactly one trigger associated with it. If you want to execute an identical piece of logic with a different trigger, you need to create multiple identical functions with different triggers. The following are the most commonly Used
+
+- Common Triggers
+  - **Generic Webhook** - Fired in the case of HTTP requests that come from a service that supports webhooks
+  - **GitHub Webhook** - Fired in the case of any events like Branch creation, delete, comment, commit, etc.
+  - **Timer** - Execute function at set interval
+  - **HTTP** - Execute when an HTTP request is received
+  - **Blob** - Execute when a file is uploaded or updated in Blob Storage
+  - **Queue** - Execute a function when a message is added to an Azure Storage queue
+  - **Azure Cosmos DB** - Execute when a document changes in a colllection
+  - **Event Hub** - Execute a function when an event hub reeceives a new event
+
+#### Trigger Azure Function on Timer
+
+A timer trigger is a trigger that executes a function at a consistent interval
+
+- Timer trigger requirements
+  - *Timestamp parameter name* - identifier to access the trigger in code
+  - *Schedule* - CRON expression that sets interval for the timer
+- **Azure CRON expression**
+  - six fields
+  - ```{second} {minute} {hour} {day} {month} {day of the week}```
+  - ex every five minutes ```0 */5 * * * *```
+  - character meanings
+    - ```*``` wild card 
+    - ```,``` list separator
+    - ```-``` range specifier
+    - ```/``` specifies an increment 
+- Creating the timer-triggered function in Azure with the name and schedule will invoke the function to fire
+
+#### Trigger Azure Functions with HTTP Request
+
+An HTTP request is a common operation to invoke Azure functions.
+
+- HTTP trigger requirements
+  - Programming Language
+  - Trigger Name
+  - Authorization Level
+- Common HTTP Triggers customizations
+  - Provide authorized access by supplying **keys**
+  - Restrict supported HTTP verbs
+  - Return data back to caller
+  - Receive data through query string parameters or request body
+  - Support URL route templates to modify the function URL
+- HTTP Trigger Authorization level
+  - flag to indicate if an incoming HTTP request needs an API key for auth
+  - Three Levels
+    - Function - key based. Use *function* key (specific function) or *host* key (apply to all function in app)
+    - Anonymous - no auth
+    - Admin -key based. Must provide *host* key
+- *Request Parameter Name* - setting in trigger creation that represents the name of the parametyer that contins the information about an incoming HTTP request. Default is *req*
+- Example *function.json* file for http trigger binding
+
+```json
+{
+    "bindings": [
+        {
+            "authLevel": "function",
+            "type": "httpTrigger",
+            "direction": "in",
+            "name": "req",
+            "methods": [
+                "get",
+                "post"
+            ]
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "res"
+        }
+    ]
+}
+```
+
+#### Trigger Azure Function with Data Operation
+
+Trigger a function when a file is uploaded or updated in storage
+
+- Creating Blob trigger
+  - **Path** - tells the blob trigger where to monitor. 
+    - Default value is ```samples-workitems/{name}```
+    - ```samples-workitems``` is the blob container
+    - ```{name}``` every type of file will cause the trigger to invoke the function
+    - ```{name}.png``` - would filter to onlly .png files
+    - ```name``` is the parameter that the Azure function receives the file name string as
+
+#### Trigger Azure Function with Webhook
+
+Webhooks are a lightweight mechanism for apps to be notified (via HTTP) by another service when something of interest happens. Aka *user-defined HTTP callbacks*
+
+- When the webook runs, it sends a payload request to the URL of the Azure Function
+- Setup webhook for Github Repository
+  - Setup webhook on github repository (per Github docs)
+  - Provide payload url of the Azure function server
+  - Trigger and parse payload with Azure function then send response
+  - Validate response in Github
+- Copy Azure function URL by selecting **Get Function URL** from command bar
+- Secure Webhook payloads with a secret
+  - Webhook secrets used to sign payloads and are received in ```x-hub-signature``` of the POST request
+  - Hashed webhook payload validation needs to be handled by the Azure Function code (manually)
+  - Example validation in JavaScript
+
+  ```JavaScript
+  const Crypto = require('crypto');
+
+  module.exports = async function (context, req) {
+      context.log('JavaScript HTTP trigger function processed a request.');
+
+      const hmac = Crypto.createHmac("sha1", "<default key>");
+      const signature = hmac.update(JSON.stringify(req.body)).digest('hex');
+      const shaSignature =  `sha1=${signature}`;
+      const gitHubSignature = req.headers['x-hub-signature'];
+
+      if (!shaSignature.localeCompare(gitHubSignature)) {
+          if (req.body.pages[0].title) {
+              context.res = {
+                  body: "Page is " + req.body.pages[0].title + ", Action is " + req.body.pages[0].action + ", Event Type is " + req.headers['x-github-event']
+              };
+          }
+          else {
+              context.res = {
+                  status: 400,
+                  body: ("Invalid payload for Wiki event")
+              }
+          }
+      }
+      else {
+          context.res = {
+              status: 401,
+              body: "Signatures don't match"
+          };
+      }
+  };
+  ```
+
+#### Resources - Azure Function Triggers
+
+- [Monitor GitHub events by using a webhook with Azure Functions (Module)](https://docs.microsoft.com/en-us/learn/modules/monitor-github-events-with-a-function-triggered-by-a-webhook/)
+- [Execute an Azure Function with Triggers(Module)](https://docs.microsoft.com/en-us/learn/modules/monitor-github-events-with-a-function-triggered-by-a-webhook/)
+- [Azure Functions triggers and bindings concepts](https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings)
+- [Azure Functions trigger and binding example](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-example)
+- [Azure Functions HTTP triggers and bindings overview](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook)
 
 ### *Implement Azure Durable Functions*
 
+#### Resources - Azure Durable Functions
+
+- [Implement Durable Functions (Module)](https://docs.microsoft.com/en-us/learn/modules/implement-durable-functions/)
+- [Create a Long Running Serverless Workflow with Durable Functions(Module)](https://docs.microsoft.com/en-us/learn/modules/create-long-running-serverless-workflow-with-durable-functions/)
+- [What are Durable Functions?](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview)
+- [Create your first durable function in C#](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-create-first-csharp)
+  
 ## 2 Develop for Azure Storage (15-20%)
 
 ## 2.1 Develop Solutions that Use Cosmos DB Storage
@@ -1460,6 +1845,11 @@ az appservice plan update --number-of-workers 2 --name $appServicePlan --resourc
 ### *Implement Partitioning Schemes and Partition Keys*
 
 ### *Perform Operations on Data and Cosmos DB Containers*
+
+#### Resources - Perform Operations on Cosmos DB
+
+- [Quickstart: Azure Cosmos DB SQL API client library for .NET](https://docs.microsoft.com/en-us/azure/cosmos-db/sql/quickstart-dotnet?tabs=azure-cli%2Cwindows)
+- [Azure Cosmos DB Resouree Model](https://docs.microsoft.com/en-us/azure/cosmos-db/account-databases-containers-items)
 
 ### *Set the Appropriate Consistency Level for Operations*
 
