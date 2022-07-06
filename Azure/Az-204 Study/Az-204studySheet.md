@@ -97,6 +97,10 @@
       - [Trigger Azure Function with Webhook](#trigger-azure-function-with-webhook)
       - [Resources - Azure Function Triggers](#resources---azure-function-triggers)
     - [*Implement Azure Durable Functions*](#implement-azure-durable-functions)
+      - [Overview - Durable Functions](#overview---durable-functions)
+      - [Durable Function Application Patterns](#durable-function-application-patterns)
+      - [Four Function Types](#four-function-types)
+      - [Task Hubs](#task-hubs)
       - [Resources - Azure Durable Functions](#resources---azure-durable-functions)
   - [2 Develop for Azure Storage (15-20%)](#2-develop-for-azure-storage-15-20)
   - [2.1 Develop Solutions that Use Cosmos DB Storage](#21-develop-solutions-that-use-cosmos-db-storage)
@@ -1829,12 +1833,243 @@ Webhooks are a lightweight mechanism for apps to be notified (via HTTP) by anoth
 
 ### *Implement Azure Durable Functions*
 
+#### Overview - Durable Functions
+
+*durable functions* define stateful workflows by writing *orchestrator functions*  and stateful entities by wirting *entity functions*. The exention manages state, checkpoints, and restarts, allowing the developer to focus on the business logic
+
+- Primary Use case is simplifying complex, stateful, coordination in serverless applications
+- Supported Languages
+  - C#
+  - JavaScript (Azure Function runtime 2.x)
+  - Python
+  - F#
+  - PowerShell (Azure Function 3.X)
+
+#### Durable Function Application Patterns
+
+- **Function Chaining**
+  - sequence of functions executes in specific order
+  
+  ![Function Chaining](../../Images/function-chaining.png)
+
+  - Code example
+
+  ```c#
+  [FunctionName("Chaining")]
+  public static async Task<object> Run(
+      [OrchestrationTrigger] IDurableOrchestrationContext context)
+  {
+      try
+      {
+          var x = await context.CallActivityAsync<object>("F1", null);
+          var y = await context.CallActivityAsync<object>("F2", x);
+          var z = await context.CallActivityAsync<object>("F3", y);
+          return  await context.CallActivityAsync<object>("F4", z);
+      }
+      catch (Exception)
+      {
+          // Error handling or compensation goes here.
+      }
+  }
+  ```
+
+- **Fan out/fan in**
+  - execute multiple functions in parallel and then wait for all functions to finish
+  - aggregation work is done and results returned from the functions
+  - *Fan Out* - have the function send multiple messages to a queue
+  - *Fan In* - Write code to track when the queue-triggered functions end then store outputs
+
+  ![Fan Out / In](../../Images/fan-out-fan-in.png)
+
+  - Code Example
+
+  ```c#
+  [FunctionName("FanOutFanIn")]
+  public static async Task Run(
+      [OrchestrationTrigger] IDurableOrchestrationContext context)
+  {
+      var parallelTasks = new List<Task<int>>();
+
+      // Get a list of N work items to process in parallel.
+      object[] workBatch = await context.CallActivityAsync<object[]>("F1", null);
+      for (int i = 0; i < workBatch.Length; i++)
+      {
+          Task<int> task = context.CallActivityAsync<int>("F2", workBatch[i]);
+          parallelTasks.Add(task);
+      }
+
+      await Task.WhenAll(parallelTasks);
+
+      // Aggregate all N outputs and send the result to F3.
+      int sum = parallelTasks.Sum(t => t.Result);
+      await context.CallActivityAsync("F3", sum);
+  }
+  ```
+
+- **Async HTTP APIs**
+  - addresses problem of coordinating long running operations with external clients
+  - HTTP endpoint triggers long running transaction
+  - client redirected to a status endpoint that is polled for completion
+  - **built in support** in durable functions
+  - After instance starts, the extension exposes webhook HTTP APIs that query the orchestrator
+  - `HttpStart` triggered function to start instances of orchestrator
+  - `DurableClient` input binding *required* for function to interact with orchestrator
+
+  ![Async HTTP APIs](../../Images/async-http-api.png)
+
+  - Code Example (query orchestrator for status)
+
+  ```bash
+  > curl -X POST https://myfunc.azurewebsites.net/orchestrators/DoWork -H "Content-Length: 0" -i
+  HTTP/1.1 202 Accepted
+  Content-Type: application/json
+  Location: https://myfunc.azurewebsites.net/runtime/webhooks/durabletask/b79baf67f717453ca9e86c5da21e03ec
+
+  {"id":"b79baf67f717453ca9e86c5da21e03ec", ...}
+
+  > curl https://myfunc.azurewebsites.net/runtime/webhooks/durabletask/b79baf67f717453ca9e86c5da21e03ec -i
+  HTTP/1.1 202 Accepted
+  Content-Type: application/json
+  Location: https://myfunc.azurewebsites.net/runtime/webhooks/durabletask/b79baf67f717453ca9e86c5da21e03ec
+
+  {"runtimeStatus":"Running","lastUpdatedTime":"2019-03-16T21:20:47Z", ...}
+
+  > curl https://myfunc.azurewebsites.net/runtime/webhooks/durabletask/b79baf67f717453ca9e86c5da21e03ec -i
+  HTTP/1.1 200 OK
+  Content-Length: 175
+  Content-Type: application/json
+
+  {"runtimeStatus":"Completed","lastUpdatedTime":"2019-03-16T21:20:57Z", ...}
+  ```
+
+  - Code Example (Self Implement pattern)
+
+  ```C#
+  public static class HttpStart
+  {
+      [FunctionName("HttpStart")]
+      public static async Task<HttpResponseMessage> Run(
+          [HttpTrigger(AuthorizationLevel.Function, methods: "post", Route = "orchestrators/{functionName}")] HttpRequestMessage req,
+          [DurableClient] IDurableClient starter,
+          string functionName,
+          ILogger log)
+      {
+          // Function input comes from the request content.
+          object eventData = await req.Content.ReadAsAsync<object>();
+          string instanceId = await starter.StartNewAsync(functionName, eventData);
+
+          log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
+
+          return starter.CreateCheckStatusResponse(req, instanceId);
+      }
+  }
+  ```
+
+- **Monitor**
+  - Flexible recurring process in a workflow
+  - e.g. polling until specific conditions are met
+  - monitors can observe arbitrary endpoints on a timer
+  - change the monitor `wait` interval based on condition
+  - Code Example
+
+  ```C#
+  [FunctionName("MonitorJobStatus")]
+  public static async Task Run(
+      [OrchestrationTrigger] IDurableOrchestrationContext context)
+  {
+      int jobId = context.GetInput<int>();
+      int pollingInterval = GetPollingInterval();
+      DateTime expiryTime = GetExpiryTime();
+
+      while (context.CurrentUtcDateTime < expiryTime)
+      {
+          var jobStatus = await context.CallActivityAsync<string>("GetJobStatus", jobId);
+          if (jobStatus == "Completed")
+          {
+              // Perform an action when a condition is met.
+              await context.CallActivityAsync("SendAlert", machineId);
+              break;
+          }
+
+          // Orchestration sleeps until this time.
+          var nextCheck = context.CurrentUtcDateTime.AddSeconds(pollingInterval);
+          await context.CreateTimer(nextCheck, CancellationToken.None);
+      }
+
+      // Perform more work here, or let the orchestration end.
+  }
+  ```
+
+- **Human Interaction**
+  - Add a human (approver) in the loop if necessary
+  - Code Example (approval with timeout)
+
+  ```C#
+  [FunctionName("ApprovalWorkflow")]
+  public static async Task Run(
+      [OrchestrationTrigger] IDurableOrchestrationContext context)
+  {
+      await context.CallActivityAsync("RequestApproval", null);
+      using (var timeoutCts = new CancellationTokenSource())
+      {
+          DateTime dueTime = context.CurrentUtcDateTime.AddHours(72);
+          Task durableTimeout = context.CreateTimer(dueTime, timeoutCts.Token);
+
+          Task<bool> approvalEvent = context.WaitForExternalEvent<bool>("ApprovalEvent");
+          if (approvalEvent == await Task.WhenAny(approvalEvent, durableTimeout))
+          {
+              timeoutCts.Cancel();
+              await context.CallActivityAsync("ProcessApproval", approvalEvent.Result);
+          }
+          else
+          {
+              await context.CallActivityAsync("Escalate", null);
+          }
+      }
+  }
+  ```
+
+#### Four Function Types
+
+Currentlly four durable function types in Azure. Orchestrator, Activity, Entity, and Client.
+
+- **Orchestrator**
+  - Describe how actions are executed and the order of actions
+  - Orchestrator functions must be deterministic (must return some input)
+  - Orchestrator functions should not be asymc
+- **Activity Functions**
+  - Basic unit of work in durable function orch
+  - Separate tasks in an orchestration are activity functions
+  - Not restricted in type of work they can perform
+  - Activity functions can onlly have a single value passed (or tuple / array / complex type)
+  - `DurableActivityContext` is received as parameter (.Net)
+  - `context.bindings.<trigger_name>` used to access input (JavaScript)
+- **Entity Function**
+  - Define operations for reading / updating pieces of state (*durable entities*) by managing state explicitly
+  - *entity trigger* used to trigger
+  - No special code constraints
+  - *entity ID* used as unique identifier to access entity instance
+  - Operations require **Entity ID** and **Operation Name**
+- **Client Function**
+  - A function is a client function due to use of *durable client output binding*
+  - Can be used to trigger other function types that can't be triggered directly (orchestrator / entity)
+    - Setup a client function with a *manual trigger* from the azure portal
+    - Wire the Client function to trigger the appropraite orchestrator / entity function
+    - fire at will (useful for testing)
+  - Any *non-orchestrator function*
+
+#### Task Hubs
+
+> To be continued...   https://docs.microsoft.com/en-us/learn/modules/implement-durable-functions/4-durable-functions-task-hubs
+
 #### Resources - Azure Durable Functions
 
 - [Implement Durable Functions (Module)](https://docs.microsoft.com/en-us/learn/modules/implement-durable-functions/)
 - [Create a Long Running Serverless Workflow with Durable Functions(Module)](https://docs.microsoft.com/en-us/learn/modules/create-long-running-serverless-workflow-with-durable-functions/)
 - [What are Durable Functions?](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-overview)
 - [Create your first durable function in C#](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-create-first-csharp)
+- [Durable Functions V1 vs V2](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-versions)
+- [Orchestrator Functions Constraints](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-code-constraints?tabs=csharp)
   
 ## 2 Develop for Azure Storage (15-20%)
 
