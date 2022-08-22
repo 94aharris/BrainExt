@@ -32,3 +32,11 @@ Need to backup SQL IaaS instance to Azure Blob Storage. Large Sql Backup, so it 
 [6]: <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/deleting-backup-blob-files-with-active-leases?view=sql-server-ver16> "Deleting failed backup with active lease"
 
 [7]: <https://www.domstamand.com/backing-up-sql-server-databases-to-blob-storage-using-impersonation/> "Sql Backup to Blob Using Impersonation"
+
+[8]: <https://docs.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview> "Blob Access Tiers"
+
+[9]: <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/restoring-from-backups-stored-in-microsoft-azure?view=sql-server-ver16> "Restoring Sql from Backups in Azure"
+
+[10]: <https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/sql-server-backup-and-restore-with-microsoft-azure-blob-storage-service?view=sql-server-ver16> "Sql Back to Blob Overview"
+
+[11]: <https://docs.microsoft.com/en-us/azure/storage/blobs/storage-performance-checklist> "Blob Storage Scalability Checklist"
