@@ -15,6 +15,22 @@ Need to backup SQL IaaS instance to Azure Blob Storage. Large Sql Backup, so it 
     - Use `WITH COMPRESSION` to minimize storage costs and transaction costs
     - Set `MAXTRANSFER SIZE` AND `BLOCKSIZE` arguments to [reccomended][1]
 
+## Implementation
+
+- Run Ola Hallengren Scripts to create Stored Procedures
+- Create Storage Account and Container
+    - Generate SAS KEY
+    - Setup Lifecycle Management
+        - Move from hot to cool after 24 hours
+        - Delete after 30 days
+- Create Credential From SAS Key
+
+:exclamation: Do NOT keep the '?' at the front of the SAS key when creating the credential
+
+- Test the backup sproc to URL with appropriate Max Transfer size and Block Size (keeping in mind the 50,000 block limit)
+- Setup monitoring for failed backups
+- Setup monitoring for Very Large Databases (VLDB) approaching storage limits (64 files * 200GB)
+- Setup monitoring for SAS Key expiration and rotate accordingly
 
 
 ## Appendx
