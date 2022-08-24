@@ -1,13 +1,48 @@
-# Azure Security Challenge
+# Azure Security Challenge Notes
+
+## Table of Contents
+
+- [Azure Security Challenge Notes](#azure-security-challenge-notes)
+  - [Table of Contents](#table-of-contents)
+  - [Important Highlights](#important-highlights)
+  - [Competition Overview](#competition-overview)
+  - [Intro](#intro)
+  - [Cybersec *generally*](#cybersec-generally)
+    - [Avoid security *theater*](#avoid-security-theater)
+    - [Threat / Vuln Categories](#threat--vuln-categories)
+    - [Domains of Concerns (in order of perimiter to nuget-y center)](#domains-of-concerns-in-order-of-perimiter-to-nuget-y-center)
+    - [Security Services at a Glance](#security-services-at-a-glance)
+    - [Beware 'turtles all the way down'](#beware-turtles-all-the-way-down)
+    - [Consistency, Complexity, Humanity](#consistency-complexity-humanity)
+    - [Key Considerations](#key-considerations)
+  - [Preparing for Secure Application Deployments](#preparing-for-secure-application-deployments)
+    - [Preparing DevOps for Secure Application Deployments](#preparing-devops-for-secure-application-deployments)
+    - [Application Deployment Availability](#application-deployment-availability)
+    - [Azure Level Security](#azure-level-security)
+  - [Securing CI/CD Pipelines](#securing-cicd-pipelines)
+    - [Variables](#variables)
+    - [Secrets](#secrets)
+    - [Builds and Releases](#builds-and-releases)
+    - [Wrap-Up](#wrap-up)
+  - [Securing Application Infrastructure](#securing-application-infrastructure)
+    - [Scripts](#scripts)
+    - [ARM Template](#arm-template)
+    - [Azure Resource Configurations](#azure-resource-configurations)
+    - [Key Rotations](#key-rotations)
+    - [Infrastructure Wrap Up](#infrastructure-wrap-up)
+  - [Securing Application Code](#securing-application-code)
+    - [Secure Coding Practices](#secure-coding-practices)
+    - [Authentiation and Authorization Mechanisms](#authentiation-and-authorization-mechanisms)
+    - [Documents and Documentation](#documents-and-documentation)
+  - [Summary of Training](#summary-of-training)
 
 ## Important Highlights
 
 - Remove x-powered-by headers
-- Review security checklist
-- Script for basic lockdowns
-- Drive decisions with data. Data. DATA
+- Review security checklist (to be sent)
+- Script / ARM for basic lockdowns?
 - Don't focus on network boundary. Focus on IDENTITY management. Make sure identity is well controlled and protected.
-- Check **Permissions** on objects
+- Check **Permissions** on objects in Azure
 - Use Defender for Cloud Apps
 - For Global Admins, have PIM requests sent to external groups (Just in time admin access)
 - Focus on simple, effective, and top priority security concerns
@@ -23,37 +58,23 @@
   - Dynamic can be blown away and re-deployed
   - Static needs to be persisted (Key Vault, User Data, etc.)
 
-## Outline
-
-- Intro
-  - Preparing for Secure Application Deployments
-    - project and work item planning, and project configuration
-    - Centralized security services in Azure
-  - Security CI/CD Pipelines
-        variables, builds, and releases
-  - Securing Application Infrastructure
-    - scripts ARM templates, resource configs
-  - Securing Application Code
-    - secure coding practices
-
 ## Competition Overview
 
 - This will be a pre-done app and you need to secure it
+- Imagine you are a team taking over an app built by a previous team
 - Extra points for complaining about how the previous team left the app ;-)
 
 ## Intro
 
 Testing is the most imporant things you can integrate with your CI/CD pipelines
 
-Things are never so bad that they can't get worse | Your app is never so good that it can't get better
+> Things are never so bad that they can't get worse. Corralary: Your app is never so good that it can't get better
 
 Zero Trust == don't trust something just because it's on your network
 
 DevOps is more work intensive up front, but don't let it cause analysis paralysis (Bias for Action)
 
-## Preparing for Secure Application Deployments
-
-### Cybersec *generally*
+## Cybersec *generally*
 
 - Assume breach
 - zero truse
@@ -105,7 +126,7 @@ DevOps is more work intensive up front, but don't let it cause analysis paralysi
   - Alerts
   - Network Watcher
 - Security
-  - **App Gateway w/ Waf** - important
+  - **App Gateway w/ WAF** - important
   - **Managed Identities** - important
   - Front Door
   - MCAS -> acts as an SSL Termination Proxy
@@ -151,7 +172,7 @@ Design your apps and security for humans. Be consistent.
   - Headers, Error Pages, etc.
 - Avoid security theaters, unnecessary complexity, and turtles
 
-## Designing and Preparing for your App (IMPORTANT FOR COMPETITION)
+## Preparing for Secure Application Deployments
 
 ### Preparing DevOps for Secure Application Deployments
 
@@ -352,7 +373,7 @@ Design your apps and security for humans. Be consistent.
 
 - Security, like testing, is *integral* to both dev and ops
 - Secure app design is holistic. It must start at project inception and be baked into th backlog and project / pipeline design from the start
-- **Availability*8 is part of the CIA triad and just as important. Not all threats are bad actors. Design HA/DR from the start
+- **Availability** is part of the CIA triad and just as important. Not all threats are bad actors. Design HA/DR from the start
 - Pipelines should be the backup for the app. Only production data should be backed up via other means.
 - Opposite of **security** is **complexity**
 - Defense in depth but avoid turtles

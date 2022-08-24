@@ -1,11 +1,24 @@
-# Security Issues to Look For
+# Azure Security Challenge PunchList
+
+## Table of Contents
+
+- [Azure Security Challenge PunchList](#azure-security-challenge-punchlist)
+  - [Table of Contents](#table-of-contents)
+  - [Scoring Tips](#scoring-tips)
+  - [Azure DevOps / Repository](#azure-devops--repository)
+  - [CI/CD Pipelines](#cicd-pipelines)
+  - [Application Infrastructure](#application-infrastructure)
+  - [Application Encryption](#application-encryption)
+  - [Application Availability](#application-availability)
+  - [Application Reconnaissance Security](#application-reconnaissance-security)
+  - [Application Code Security](#application-code-security)
 
 ## Scoring Tips
 
 - In the portal we only have **READ** access, all changes **Must** come through Azure DevOps
 - Target More Critical Vulnerabilities First
-- Document Other Vulnerabilities For Later
-- Scoring = (# of fixed vulns) * (severity of vuln) ... go for low hanging fruit
+- Document Other Vulnerabilities or Observations For Later (e.g. Code not adhering to SOLID, lack of unit tests)
+- Scoring = (# of fixed vulns) * (severity of vuln) ... **go for low hanging fruit**
 
 ## Azure DevOps / Repository
 
