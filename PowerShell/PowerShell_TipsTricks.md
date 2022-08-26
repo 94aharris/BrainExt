@@ -15,7 +15,7 @@
 
 ## See all available keybindings ##
 
-`ctrl+shift+alt+? `
+`ctrl+shift+alt+?`
 
 ## Tab Completion ##
 
@@ -44,7 +44,7 @@ Trace-Command * -Expression  {<thing to run i.e. script or cmdlet>} -PSHost
 
 ## Pivot to Drive With Alternate Creds ##
 
-``` powershelll    
+``` powershelll
 net use \\server\share /user:<domain\username> <password>
 copy \\server\share\file.txt c:\temp\file.txt
 ```
@@ -52,7 +52,7 @@ copy \\server\share\file.txt c:\temp\file.txt
 ## Remote COAF Fix ##
 
 ``` powershell
-Get-Item -Path HKLM:\system\CurrentControlSet\Control\Lsa\	
+Get-Item -Path HKLM:\system\CurrentControlSet\Control\Lsa\ 
 Set-ItemProperty -Path HKLM:\system\CurrentControlSet\Control\Lsa\ -Name 'crashonauditfail' -Value 1
 ```
 
@@ -146,16 +146,16 @@ icm $session {command}
 
 ## Param Stuff ##
 
-* *Inherit all the -debug, -verbose, param goodness*
-  * `[CmdletBinding()]`
-* *Make a param Mandatory*
-  * `[Parameter(Mandatory=$true)]`
-* *Param must match a defined set of values*
-  * `[ValidateSet('value','value2')]`
-* *Make sure param not null*
-  * `[ValidateNotNullOrEmpty()]`
-* *Create Parameter Sets*
-  * Use a 'DefaultParameterSetName' that doesn't exist to allow an empty set
+- *Inherit all the -debug, -verbose, param goodness*
+  - `[CmdletBinding()]`
+- *Make a param Mandatory*
+  - `[Parameter(Mandatory=$true)]`
+- *Param must match a defined set of values*
+  - `[ValidateSet('value','value2')]`
+- *Make sure param not null*
+  - `[ValidateNotNullOrEmpty()]`
+- *Create Parameter Sets*
+  - Use a 'DefaultParameterSetName' that doesn't exist to allow an empty set
 
 ```powershell
 [CmdletBinding(DefaultParameterSetName="ScriptBlock")]
@@ -178,9 +178,9 @@ swtich ($PsCmdlet.ParameterSetName) {
 }
 ```
 
-* *Allow Param to be passed in the pipeline*
-  * `[Parameter(ValueFromPipeline=$true)]`
-* *Add Alias for additional support*
+- *Allow Param to be passed in the pipeline*
+  - `[Parameter(ValueFromPipeline=$true)]`
+- *Add Alias for additional support*
 
 ```powershell
 [Parameter(Mandatory=$true,ParameterSetName='ComputerSpecified',ValueFromPipeline=$True)]
@@ -188,7 +188,7 @@ swtich ($PsCmdlet.ParameterSetName) {
 [String[]]$ComputerName
 ```
 
-* Use Splatting for passing param sets
+- Use Splatting for passing param sets
 
 ```powershell
 $cimParams = @{
@@ -199,7 +199,7 @@ $cimParams = @{
 Get-CimInstance @cimParams
 ```
 
-## Lets make an object ## 
+## Lets make an object ##
 
 **Note Do NOT USE New-Object, considered depreciated**
 
@@ -218,7 +218,6 @@ $myobj = [pscustomobject]@{
 
 *You can also set a custom object type, helpful when validating in custom modules by passing around*
 
-
 ```powershell
 $obj.color
 > blue
@@ -233,10 +232,11 @@ $myobj = [pscustomobject]@{
 
 *If you need to add additional properties you can*
 
-
 ## See all Object Properties ##
-* See all properties on an object
-* `\<theobject\>.psobject.Properties`
+
+- See all properties on an object
+
+- `\<theobject\>.psobject.Properties`
   
 ## Save an Object for later then get it back
 
@@ -264,6 +264,7 @@ $newObj.favorites.food
 ```
 
 ## Object Properties and Converting to Hashtable ##
+
 *Look at detailed object properties*
 
 `$myObject.psobject.psobject.properties`
@@ -281,11 +282,14 @@ $theObject.psobject.properties | Foreach { $ht2[$_.Name] = $_.Value }
 ```
 
 ## Get Drives ##
-* use `Get-PSDrive` to get all drives and virtual drives
-* use `Get-PSDrive -PSProvider 'FileSystem' to only get file drives` 
+
+- use `Get-PSDrive` to get all drives and virtual drives
+
+- use `Get-PSDrive -PSProvider 'FileSystem' to only get file drives`
 
 ## Measure command time ##
-* When you know multiple implementations of something, check the performance using `Measure-Command`
+
+- When you know multiple implementations of something, check the performance using `Measure-Command`
 
 ```powershell
 Measure-Command { Get-PSDrive -PSProvider 'FileSystem'}
@@ -296,7 +300,7 @@ Measure-Command { Get-Drive }
 
 ## Get CIM Values ##
 
-* You have to get into the CIM Properties and specifically extract the name and value
+- You have to get into the CIM Properties and specifically extract the name and value
 
 ```powershell  
 $vols = Get-CimInstance -ClassName Win32_Volume
@@ -310,8 +314,8 @@ $cred = get-credential
 $cimSessions = New-CimSession -Credential $cred -ComputerName $comps
 $volumes = Get-CimInstance -CimSession $cimSessions -ClassName Win32_Volume
 
-* Get specifics on all CIM Properties at [PowerShell one](https://powershell.one/wmi/root/cimv2)
-* You can also add filter queries on using WSQL, helps to reduce data returned for post-processing
+- Get specifics on all CIM Properties at [PowerShell one](https://powershell.one/wmi/root/cimv2)
+- You can also add filter queries on using WSQL, helps to reduce data returned for post-processing
 
 ```powershell
 # Query by process name without specifying class outside query
@@ -323,12 +327,11 @@ Get-CimInstance -ClassName Win32_Volume -Filter "DriveType != 5"
 
 ## Debugging ##
 
-* From VSCode Launch the Debugger targeting the terminal
-
+- From VSCode Launch the Debugger targeting the terminal
 
 ## Switch Statments ##
 
-* Use for control flow of multiple conditions
+- Use for control flow of multiple conditions
 
 ```powershell
 switch ($value) {
@@ -338,7 +341,7 @@ switch ($value) {
 }
 ```
 
-* Can compare for multiple values
+- Can compare for multiple values
 
 ```powershell
 switch ($value) {
@@ -349,18 +352,19 @@ switch ($value) {
 ```
 
 ## HTML Oddness ##
-* Chrome Requires that HTML and CSS matches the file encodings exactly
-* When outputting HTML default to UTF8 using the following 
-* Otherwise you will bang your head on the wall with CSS not applying correctly
+
+- Chrome Requires that HTML and CSS matches the file encodings exactly
+
+- When outputting HTML default to UTF8 using the following
+- Otherwise you will bang your head on the wall with CSS not applying correctly
 
 ```powershell
 $HtmltoOutput | Out-File "page.html" -encoding utf8
 ```
 
-
 ## Pop location ##
 
-* Quickly set and go back to a location
+- Quickly set and go back to a location
 
 ```powershell
 PS c:\temp> push-location
@@ -402,9 +406,9 @@ Mock Get-NetAdapter { return $myobj }
 
 ## Register Scheduled Task ##
 
-* Create a scheduled task then export the XML
-* Copy over the xml to another computer (d:\temp\task.xml)
-* import the task on the other computer
+- Create a scheduled task then export the XML
+- Copy over the xml to another computer (d:\temp\task.xml)
+- import the task on the other computer
 
 ```powershell
 enter-pssession computer2
@@ -415,24 +419,24 @@ enter-pssession computer2
 
 ### Basics ###
 
-* $ is the PowerShell indicator for 'what follows is variable"
-* $temp is the variable named temp
+- $ is the PowerShell indicator for 'what follows is variable"
+- $temp is the variable named temp
 
 ### Multi-Setting ###
 
-* `$tempOne = $tempTwo = "Hello"`
-* both $tempOne and $tempTwo directly equal "Hello", $tempOne is not a reference to the other variable
+- `$tempOne = $tempTwo = "Hello"`
+- both $tempOne and $tempTwo directly equal "Hello", $tempOne is not a reference to the other variable
 
 ### Hash Variables ###
 
-* `$hashOne = @{}`
-* `$hashTwo = $hashOne`
-* the variable $hashTwo is NOT a copy of $hashOne, both reference the same object
-* use $hashOne.Copy() to copy the hash
+- `$hashOne = @{}`
+- `$hashTwo = $hashOne`
+- the variable $hashTwo is NOT a copy of $hashOne, both reference the same object
+- use $hashOne.Copy() to copy the hash
 
 ### Getters / Setters ###
 
-* You can get and set variables with cmdlets rather than using the $ ref, this can be handy
+- You can get and set variables with cmdlets rather than using the $ ref, this can be handy
 
 ```powershell
 $temp = "Hello"
@@ -455,36 +459,34 @@ $ref
     temp  goodbye
 ```
 
-
-
 ## Funkiness ##
 
 ### .where vs Where-Object ###
-* Where-Object can be up to 10x slower than .where since it evaluates cmdlet binding
 
+- Where-Object can be up to 10x slower than .where since it evaluates cmdlet binding
 
 ## Get Functions ##
 
 ### Function Virtual Drive ###
-* Functions are stored in a virtual drive
-  * `Get-ChildItem -Path function:\ # See alll `
-  * `Get-ChildItem -Path function:\Format-Hex | select -property * # see specific`
-  * `(Get-ChildItem -Path function:\Format-Hex).Definition # See code`
+
+- Functions are stored in a virtual drive
+  - `Get-ChildItem -Path function:\ # See alll`
+  - `Get-ChildItem -Path function:\Format-Hex | select -property * # see specific`
+  - `(Get-ChildItem -Path function:\Format-Hex).Definition # See code`
 
 ### Get-Command ###
-* Get-Command returns information about available commands
-  * `Get-Command Format-Hex -syntax` will return valid param sets
-  * `Get-Command Format-Hex -ShowCommandInfo` will return all information about the command (definition, name, module, etc.)
 
-* Get-Member retuns information about a variable
-  * `Get-Member -InputObject $var` returns information
+- Get-Command returns information about available commands
+  - `Get-Command Format-Hex -syntax` will return valid param sets
+  - `Get-Command Format-Hex -ShowCommandInfo` will return all information about the command (definition, name, module, etc.)
 
-
+- Get-Member retuns information about a variable
+  - `Get-Member -InputObject $var` returns information
 
 ## Path Object From Get-ChildItem ##
 
 ```powershell
-[CmdletBinding()]	
+[CmdletBinding()]
 Param (
     [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
     [Alias('FullName')]
@@ -497,13 +499,11 @@ Param (
 
 ` > Start-Process Powershell -verb runas `
 
-
 ## If you Invoke Powershell with CMD you may have trouble with Validating Parameter Sets ##
 
 [Why Won't PowerShell Recognize Quoted Parameters](https://stackoverflow.com/questions/55201798/why-does-powershell-not-recognize-quoted-parameters)
 
 TLDR: Instead of "powershell "%cmdir%..\script.ps1" use "powershell -file %cmdir%..\script.ps1"
-
 
 ## Get all logged in Users and Status ##
 
@@ -513,4 +513,12 @@ returns all sessions and states
 > qwinsta
 SESSION NAME  USERNAME  ID  STATE TYPE  DEVICE
 .....
+```
+
+## Redirect PowerShell Output to the Clipboard ##
+
+Add output to the clipboard with `clip`, useful to avoid having to copy from the shell
+
+```PowerShell
+ps> Get-Service | clip
 ```
