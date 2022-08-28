@@ -76,3 +76,12 @@
     - consistency issues / race conditions
     - No TTLs on warmup routes causing stale data
     - **Specify a TTL when warming up if your app relies on it**
+
+## WhitePapers ##
+
+- [Cassandra](https://www.cs.cornell.edu/projects/ladis2009/papers/lakshman-ladis2009.pdf)
+- [HDFS](https://storageconference.us/2010/Papers/MSST/Shvachko.pdf)
+- [Kafka](http://notes.stephenholiday.com/Kafka.pdf)
+- [Paxos](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)
+- [Zookeeper](https://www.usenix.org/legacy/event/atc10/tech/full_papers/Hunt.pdf)
+- [DynamoDB](https://www.cs.cornell.edu/courses/cs5414/2017fa/papers/dynamo.pdf)
