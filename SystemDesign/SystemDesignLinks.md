@@ -7,6 +7,11 @@
 - [Design System Checklist](https://www.designsystemchecklist.com/)
 - [Numbers and Calculations Everyone Should Know](http://www.cs.cornell.edu/projects/ladis2009/talks/dean-keynote-ladis2009.pdf) 
 
+## Metrics ##
+
+-[Latency vs. Throughput](https://blog.danslimmon.com/2019/03/25/latency-and-throughput-optimized-clusters-under-load/)
+-[Utilization, Saturation, and Error Rate (USE)](https://brendangregg.com/usemethod.html)
+
 ## DevOps ##
 
 - [Atlassian DevOps Framework](https://www.atlassian.com/devops/frameworks)
