@@ -9,9 +9,24 @@
     [<servername01>]: exit
 ```
 
-## See All Commands from Session ##
+## Command Session History ##
+
+### See all history for current session ###
 
 `get-history`
+
+### Search for term in History ###
+
+start typing then press `F8` to search for typed text
+
+### Search backwards through History ###
+
+`ctrl+r` then start typing
+
+### Invoke specific command from history ###
+
+find desired command with `get-history`
+`Invoke-History <# of command>`
 
 ## See all available keybindings ##
 
@@ -522,3 +537,4 @@ Add output to the clipboard with `clip`, useful to avoid having to copy from the
 ```PowerShell
 ps> Get-Service | clip
 ```
+
