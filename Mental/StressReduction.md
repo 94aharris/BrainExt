@@ -1,5 +1,13 @@
 # Stress Reduction #
 
+## BioFeedback ##
+
+* Phisiolically, anxiety and excitement are the same. It's the mindset. Change your mindset if possible.
+* Move. Movement releases dopamine which helps reduce the anxiety.
+* Lateral Eye Movement. Scan your eyes left to right (NOT up and down) for 30 seconds to help suppress anxiety.
+* Breath exercise - Breath in big once. Then again. Then out slowly
+* Practice Stress - Cold shower / hyperventalate then focus on the feeling
+
 ## Tips (Results May Vary) ##
 
 * Narccacistic Personality

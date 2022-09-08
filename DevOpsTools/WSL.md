@@ -41,7 +41,6 @@ Stop All Instances and WSL
 
 `wsl --shutdown`
 
-
 ## Links
 
 [Getting Started with Docker Remote Containers on WSL 2](https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers)
