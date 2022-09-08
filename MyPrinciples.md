@@ -28,7 +28,7 @@ Listen Attentively, speak candidly, and treat others respectfully. Be self-criti
 
 ## 6. Have a Bias for Action and Follow Through
 
-Speed matters in decisions and many decisions are reversible. Take calculated risk, and take action quickly. The things you want to put off because they are 'uncomfortable' are usually the most important. When you take action, own it and follow through until the action is completely done.
+Speed matters in decisions and many decisions are reversible. Take calculated risk, and take action quickly. Just Build It! The things you want to put off because they are 'uncomfortable' are usually the most important. When you take action, own it and follow through until the action is completely done.
 
 ## 7. Uplift Others
 
@@ -49,4 +49,8 @@ Do not talk just to talk. Say what you are trying to communicate and be done. Be
 ## 11. Be a Master of Your Domain
 
 Know what you are talking about and have the data to back it up. Do not hand wave specifics, write them down! The devil is in the details.
+
+## 12. Take Notes Constantly
+
+My brain is a sieve. Take notes constantly, especially for tasks that matter.
 
