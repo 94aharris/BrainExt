@@ -22,6 +22,10 @@
 * run `ng test --coverage`
 * Check the coverage output
 
+## RXJS ##
+
+
+
 ## Links ##
 
 * [Typescript Design Patterns](https://refactoring.guru/design-patterns/typescript)
